@@ -1,0 +1,15 @@
+
+### 登录
+POST http://localhost:8080/system/login
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+
+{
+  "username": "admin",
+  "password": "123456"
+}
+
+> {% client.global.set("accessToken", response.body.data.token); %}
+
+###
+

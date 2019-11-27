@@ -1,0 +1,25 @@
+server:
+  port: 8080
+#  servlet:
+#    context-path: /ekin
+
+spring:
+  application:
+    name: ekin
+  profiles:
+    include: web, mysql
+    active: dev
+
+
+cartisan:
+  jwt:
+    key: cartisan-jwt
+    ttl: 1800000
+  info:
+    title: 权限认证服务
+    serviceUrl: http://www.cartisan.com
+    version: 1.0
+    contact:
+      name: colin
+      url: zhang_colin.github.com
+      email: zhang_colin@163.com

@@ -1,0 +1,62 @@
+### 获取所有模块列表
+GET http://localhost:8080/modules
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+
+#### 获取模块
+#GET http://localhost:8080/modules/1
+#Accept: application/json
+#Content-Type: application/json;charset=UTF-8
+#
+#### 搜索模块（不带参数）
+#GET http://localhost:8080/modules/search/1/10
+#Accept: application/json
+#Content-Type: application/json;charset=UTF-8
+#
+#### 搜索模块
+#GET http://localhost:8080/modules/search/1/10?name=car
+#Accept: application/json
+#Content-Type: application/json;charset=UTF-8
+
+### 添加模块
+POST http://localhost:8080/modules
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+
+{
+  "name": "研发中心",
+  "parentId": 0,
+  "remark": "研发中心研发核心产品",
+  "sort": 100
+}
+
+### 添加子模块
+POST http://localhost:8080/modules
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+
+{
+  "name": "前端开发组",
+  "parentId": 1,
+  "remark": "提高用户体验",
+  "sort": 100
+}
+
+### 更新模块
+PUT http://localhost:8080/modules/2
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+
+{
+  "name": "前端开发组",
+  "parentId": 1,
+  "remark": "要提高用户体验",
+  "sort": 100
+}
+
+### 删除模块
+DELETE http://localhost:8080/modules/12
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+
+###

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>cartisan-parent</artifactId>
+        <groupId>com.cartisan</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.ekin</groupId>
+    <artifactId>ekin-migration</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <profiles.active>dev</profiles.active>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+
+                <configuration>
+                    <locations>
+                        <location>filesystem:src/main/resources/migrations</location>
+                    </locations>
+                    <outOfOrder>false</outOfOrder>
+                    <validateOnMigrate>true</validateOnMigrate>
+                    <cleanOnValidationError>false</cleanOnValidationError>
+                    <baselineOnMigrate>false</baselineOnMigrate>
+                    <baselineVersion>0000</baselineVersion>
+                    <baselineDescription>init baseline</baselineDescription>
+                    <skip>false</skip>
+                    <configFiles>
+                        <configFile>src/main/resources/${profiles.active}/ekin_migration_config.properties</configFile>
+                    </configFiles>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
