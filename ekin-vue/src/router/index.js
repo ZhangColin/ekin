@@ -7,7 +7,6 @@ Vue.use(Router)
 import Layout from '@/layout'
 
 /* Router Modules */
-import goods from './modules/goods'
 import system from './modules/system'
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -99,7 +98,6 @@ export const asyncRoutes = [
       }
     ]
   },
-  goods,
   system
 ]
 

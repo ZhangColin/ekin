@@ -7,6 +7,7 @@
         <artifactId>cartisan-parent</artifactId>
         <groupId>com.cartisan</groupId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath />
     </parent>
 
     <groupId>com.ekin</groupId>
@@ -18,14 +19,14 @@
         <!-- cartisan 基础库 -->
         <dependency>
             <groupId>com.cartisan</groupId>
-            <artifactId>cartisan-common-web</artifactId>
+            <artifactId>cartisan-web</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.cartisan</groupId>
-            <artifactId>cartisan-common-mysql</artifactId>
+            <artifactId>cartisan-persistence</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

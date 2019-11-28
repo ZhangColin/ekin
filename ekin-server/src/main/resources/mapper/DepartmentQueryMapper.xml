@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ekin.systemcontext.queries.DepartmentQueryMapper">
-    <select id="getDepartmentTreeNodes" resultType="com.ekin.systemcontext.dtos.TreeNode">
+<mapper namespace="com.ekin.system.queries.DepartmentQueryMapper">
+    <select id="getDepartmentTreeNodes" resultType="com.ekin.system.dtos.TreeNode">
         select id, name, parent_id as parentId from sys_departments order by sort asc
     </select>
 
