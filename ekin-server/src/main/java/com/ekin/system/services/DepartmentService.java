@@ -33,7 +33,7 @@ public class DepartmentService {
     }
 
     public List<DepartmentDto> getDepartmentList() {
-        final List<Department> departments = repository.findAll(new Sort(Sort.Direction.ASC, "sort"));
+        final List<Department> departments = repository.findAll(Sort.by(Sort.Direction.ASC, "sort"));
 
         return DepartmentDto.buildDepartmentTreeList(departments);
     }

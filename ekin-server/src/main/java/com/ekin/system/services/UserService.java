@@ -9,21 +9,16 @@ import com.ekin.system.dtos.UserDto;
 import com.ekin.system.params.UserParam;
 import com.ekin.system.params.UserSearchParam;
 import com.ekin.system.repositories.UserRepository;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
+
+import static com.cartisan.repositories.QuerySpecifications.querySpecification;
+
 
 /**
  * @author colin
@@ -51,7 +46,7 @@ public class UserService {
     public PageResult<UserDto> searchUsers(UserSearchParam searchParam, Integer currentPage, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(currentPage - 1, pageSize);
 
-        final Page<User> searchResult = repository.findAll(new UserSearchSpecification(searchParam), pageRequest);
+        final Page<User> searchResult = repository.findAll(querySpecification(searchParam), pageRequest);
 
         return new PageResult<>(searchResult.getTotalElements(), searchResult.getTotalPages(),
                 searchResult.map(UserDto::convertFrom).getContent());
@@ -157,46 +152,4 @@ public class UserService {
         user.setPhone(userParam.getPhone());
     }
 
-    private class UserSearchSpecification implements Specification<User> {
-
-        private final UserSearchParam searchParam;
-
-        UserSearchSpecification(UserSearchParam searchParam) {
-            this.searchParam = searchParam;
-        }
-
-        @Override
-        public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-            List<Predicate> predicateList = new ArrayList<>();
-
-            if (StringUtils.isNotBlank(searchParam.getUsername())) {
-                predicateList.add(criteriaBuilder.like(root.get("username"),
-                        "%" + searchParam.getUsername() + "%"));
-            }
-
-            if (StringUtils.isNotBlank(searchParam.getEmail())) {
-                predicateList.add(criteriaBuilder.like(root.get("email"),
-                        "%" + searchParam.getEmail() + "%"));
-            }
-
-            if (StringUtils.isNotBlank(searchParam.getPhone())) {
-                predicateList.add(criteriaBuilder.like(root.get("phone"),
-                        "%" + searchParam.getPhone() + "%"));
-            }
-
-            if (searchParam.getSex() != null) {
-                predicateList.add(criteriaBuilder.equal(root.get("sex"), searchParam.getSex()));
-            }
-
-            if (searchParam.getStatus() != null) {
-                predicateList.add(criteriaBuilder.equal(root.get("status"), searchParam.getStatus()));
-            }
-
-            if (predicateList.size() > 0) {
-                return criteriaBuilder.and(predicateList.toArray(new Predicate[0]));
-            } else {
-                return null;
-            }
-        }
-    }
 }

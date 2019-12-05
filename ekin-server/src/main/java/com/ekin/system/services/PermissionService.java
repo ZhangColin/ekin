@@ -31,7 +31,7 @@ public class PermissionService {
     }
 
     public List<PermissionDto> getPermissionList() {
-        final List<Permission> permissions = repository.findAll(new Sort(Sort.Direction.ASC, "sort"));
+        final List<Permission> permissions = repository.findAll(Sort.by(Sort.Direction.ASC, "sort"));
 
         return PermissionDto.buildPermissionTreeList(permissions);
     }
