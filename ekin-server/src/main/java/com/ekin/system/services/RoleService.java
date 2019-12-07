@@ -5,6 +5,7 @@ import com.cartisan.exceptions.CartisanException;
 import com.cartisan.utils.SnowflakeIdWorker;
 import com.ekin.system.constants.SystemCodeMessage;
 import com.ekin.system.domains.Role;
+import com.ekin.system.dtos.RoleConverter;
 import com.ekin.system.dtos.RoleDto;
 import com.ekin.system.dtos.RoleInfo;
 import com.ekin.system.params.RoleParam;
@@ -27,11 +28,13 @@ import static java.util.stream.Collectors.toList;
 public class RoleService {
     private final RoleRepository repository;
     private final SnowflakeIdWorker idWorker;
+    private final RoleConverter converter;
 
     @Autowired
-    public RoleService(RoleRepository repository, SnowflakeIdWorker idWorker) {
+    public RoleService(RoleRepository repository, SnowflakeIdWorker idWorker, RoleConverter converter) {
         this.repository = repository;
         this.idWorker = idWorker;
+        this.converter = converter;
     }
 
     public PageResult<RoleDto> searchRoles(String name, Integer currentPage, Integer pageSize) {
@@ -42,7 +45,7 @@ public class RoleService {
                 repository.findByNameLike(name, pageRequest);
 
         return new PageResult<>(searchResult.getTotalElements(), searchResult.getTotalPages(),
-                searchResult.map(RoleDto::convertFrom).getContent());
+                converter.convert(searchResult.getContent()));
     }
 
     public List<RoleInfo> getAllRoles() {
@@ -50,7 +53,8 @@ public class RoleService {
     }
 
     public RoleDto getRole(Long id) {
-        return RoleDto.convertFrom(repository.findById(id).get());
+        return repository.findById(id).map(converter::convert)
+                .orElseThrow(()->new CartisanException(SystemCodeMessage.ROLE_NOT_EXIST));
     }
 
     @Transactional(rollbackOn = Exception.class)

@@ -10,7 +10,7 @@ spring:
   rabbitmq:
     host: localhost
     port: 5672
-    virtual-host: /cartisan
+    virtual-host: /ekin
     username: rabbitmqadmin
     password: 123456
 
