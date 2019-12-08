@@ -37,24 +37,25 @@ public class ShiroConfig {
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 		// 配置不会被拦截的链接 顺序判断
 		filterChainDefinitionMap.put("/system/login", "anon"); //登录接口排除
+		filterChainDefinitionMap.put("/limit", "anon");
 //		filterChainDefinitionMap.put("/import", "anon"); //上传接口暂时排除
 //		filterChainDefinitionMap.put("/auth/2step-code", "anon");//登录验证码
 //		filterChainDefinitionMap.put("/**/exportXls", "anon"); //导出接口
 //		filterChainDefinitionMap.put("/**/importExcel", "anon"); //导入接口
 //		filterChainDefinitionMap.put("/sys/common/view/**", "anon");//图片预览不限制token
-//		filterChainDefinitionMap.put("/", "anon");
-//		filterChainDefinitionMap.put("/**/*.js", "anon");
-//		filterChainDefinitionMap.put("/**/*.css", "anon");
-//		filterChainDefinitionMap.put("/**/*.html", "anon");
-//		filterChainDefinitionMap.put("/**/*.svg", "anon");
-//		filterChainDefinitionMap.put("/**/*.jpg", "anon");
-//		filterChainDefinitionMap.put("/**/*.png", "anon");
-//		filterChainDefinitionMap.put("/**/*.ico", "anon");
+		filterChainDefinitionMap.put("/", "anon");
+		filterChainDefinitionMap.put("/**/*.js", "anon");
+		filterChainDefinitionMap.put("/**/*.css", "anon");
+		filterChainDefinitionMap.put("/**/*.html", "anon");
+		filterChainDefinitionMap.put("/**/*.svg", "anon");
+		filterChainDefinitionMap.put("/**/*.jpg", "anon");
+		filterChainDefinitionMap.put("/**/*.png", "anon");
+		filterChainDefinitionMap.put("/**/*.ico", "anon");
 		filterChainDefinitionMap.put("/druid/**", "anon");
 		filterChainDefinitionMap.put("/swagger-ui.html", "anon");
 		filterChainDefinitionMap.put("/swagger**/**", "anon");
-//		filterChainDefinitionMap.put("/webjars/**", "anon");
-//		filterChainDefinitionMap.put("/v2/**", "anon");
+		filterChainDefinitionMap.put("/webjars/**", "anon");
+		filterChainDefinitionMap.put("/v2/**", "anon");
 
 		//性能监控
 		filterChainDefinitionMap.put("/actuator/metrics/**", "anon");
