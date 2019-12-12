@@ -1,7 +1,6 @@
 package com.ekin.system.controllers;
 
 import com.cartisan.dtos.PageResult;
-import com.cartisan.responses.GenericResponse;
 import com.ekin.system.dtos.UserDto;
 import com.ekin.system.params.UserParam;
 import com.ekin.system.params.UserSearchParam;
@@ -10,10 +9,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import static com.cartisan.responses.GenericResponse.success;
+import static com.cartisan.responses.ResponseUtil.success;
 
 /**
  * @author colin
@@ -31,14 +31,14 @@ public class UserController {
 
     @ApiOperation(value = "获取用户")
     @GetMapping("/{id}")
-    public GenericResponse<UserDto> getUser(
+    public ResponseEntity<UserDto> getUser(
             @ApiParam(value = "用户Id", required = true) @PathVariable Long id) {
         return success(service.getUser(id));
     }
 
     @ApiOperation(value = "搜索用户")
     @PostMapping("/search/{currentPage}/{pageSize}")
-    public GenericResponse<PageResult<UserDto>> searchUsers(
+    public ResponseEntity<PageResult<UserDto>> searchUsers(
             @ApiParam(value = "查询参数") @RequestBody(required = false) UserSearchParam userSearchParam,
             @ApiParam(value = "页码", required = true) @PathVariable Integer currentPage,
             @ApiParam(value = "每页记录数", required = true) @PathVariable Integer pageSize) {
@@ -47,7 +47,7 @@ public class UserController {
 
     @ApiOperation(value = "添加用户")
     @PostMapping
-    public GenericResponse addUser(
+    public ResponseEntity addUser(
             @ApiParam(value = "用户信息", required = true) @Validated @RequestBody UserParam userParam) {
         service.addUser(userParam);
 
@@ -56,7 +56,7 @@ public class UserController {
 
     @ApiOperation(value = "更新用户")
     @PutMapping("/{id}")
-    public GenericResponse editUser(
+    public ResponseEntity editUser(
             @ApiParam(value = "用户Id", required = true) @PathVariable Long id,
             @ApiParam(value = "用户信息", required = true) @Validated @RequestBody UserParam userParam) {
         service.editUser(id, userParam);
@@ -66,7 +66,7 @@ public class UserController {
 
     @ApiOperation(value = "删除用户")
     @DeleteMapping("/{id}")
-    public GenericResponse removeUser(
+    public ResponseEntity removeUser(
             @ApiParam(value = "用户Id", required = true) @PathVariable long id) {
         service.removeUser(id);
 
@@ -75,7 +75,7 @@ public class UserController {
 
     @ApiOperation(value = "冻结用户")
     @PutMapping("/{id}/frozen")
-    public GenericResponse frozenUser(
+    public ResponseEntity frozenUser(
             @ApiParam(value = "用户Id", required = true) @PathVariable Long id) {
         service.frozen(id);
 
@@ -84,7 +84,7 @@ public class UserController {
 
     @ApiOperation(value = "解冻用户")
     @PutMapping("/{id}/unFrozen")
-    public GenericResponse unFrozenUser(
+    public ResponseEntity unFrozenUser(
             @ApiParam(value = "用户Id", required = true) @PathVariable Long id) {
         service.unFrozen(id);
 
@@ -93,7 +93,7 @@ public class UserController {
 
     @ApiOperation(value = "修改密码")
     @PutMapping("/{id}/password")
-    public GenericResponse changePassword(
+    public ResponseEntity changePassword(
             @ApiParam(value = "用户Id", required = true) @PathVariable Long id,
             @ApiParam(value = "密码", required = true) @Validated @RequestParam String password) {
         service.changePassword(id, password);

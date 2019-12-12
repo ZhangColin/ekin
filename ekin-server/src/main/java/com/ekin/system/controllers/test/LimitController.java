@@ -1,4 +1,4 @@
-package com.ekin.system.controllers;
+package com.ekin.system.controllers.test;
 
 import com.cartisan.security.limit.Limit;
 import io.swagger.annotations.Api;

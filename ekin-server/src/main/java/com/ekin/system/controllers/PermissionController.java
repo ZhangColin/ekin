@@ -1,6 +1,5 @@
 package com.ekin.system.controllers;
 
-import com.cartisan.responses.GenericResponse;
 import com.ekin.system.dtos.PermissionDto;
 import com.ekin.system.dtos.TreeNode;
 import com.ekin.system.params.PermissionParam;
@@ -10,12 +9,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.cartisan.responses.GenericResponse.success;
+import static com.cartisan.responses.ResponseUtil.success;
 
 /**
  * @author colin
@@ -36,19 +36,19 @@ public class PermissionController {
 
     @ApiOperation(value = "获取菜单/权限列表")
     @GetMapping
-    public GenericResponse<List<PermissionDto>> getAllPermissions() {
+    public ResponseEntity<List<PermissionDto>> getAllPermissions() {
         return success(service.getPermissionList());
     }
 
     @ApiOperation(value = "获取菜单/权限树")
     @GetMapping("/tree")
-    public GenericResponse<List<TreeNode>> getPermissionTree() {
+    public ResponseEntity<List<TreeNode>> getPermissionTree() {
         return success(TreeNode.buildTree(permissionQueryMapper.getPermissionTree()));
     }
 
     @ApiOperation(value = "添加菜单/权限")
     @PostMapping
-    public GenericResponse addPermission(
+    public ResponseEntity addPermission(
             @ApiParam(value = "菜单/权限信息", required = true) @Validated @RequestBody PermissionParam permissionParam) {
         service.addPermission(permissionParam);
 
@@ -57,7 +57,7 @@ public class PermissionController {
 
     @ApiOperation(value = "更新菜单/权限")
     @PutMapping("/{id}")
-    public GenericResponse editPermission(
+    public ResponseEntity editPermission(
             @ApiParam(value = "菜单/权限Id", required = true) @PathVariable Long id,
             @ApiParam(value = "菜单/权限信息", required = true) @Validated @RequestBody PermissionParam permissionParam) {
         service.editPermission(id, permissionParam);
@@ -67,7 +67,7 @@ public class PermissionController {
 
     @ApiOperation(value = "删除菜单/权限")
     @DeleteMapping("/{id}")
-    public GenericResponse removePermission(
+    public ResponseEntity removePermission(
             @ApiParam(value = "菜单/权限Id", required = true) @PathVariable long id) {
         service.removePermission(id);
 

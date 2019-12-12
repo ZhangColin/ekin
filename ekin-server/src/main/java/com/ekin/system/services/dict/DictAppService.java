@@ -1,18 +1,18 @@
 package com.ekin.system.services.dict;
 
-import com.cartisan.constants.CommonCodeMessage;
+import com.cartisan.constants.CodeMessage;
 import com.cartisan.dtos.PageResult;
 import com.cartisan.exceptions.CartisanException;
 import com.ekin.system.domains.dict.Dict;
 import com.ekin.system.domains.dict.DictItem;
 import com.ekin.system.repositories.DictRepository;
-import com.ekin.system.services.dict.param.DictItemParam;
-import com.ekin.system.services.dict.param.DictParam;
 import com.ekin.system.services.dict.condition.DictCondition;
 import com.ekin.system.services.dict.dto.DictConverter;
 import com.ekin.system.services.dict.dto.DictDTO;
 import com.ekin.system.services.dict.dto.DictItemConverter;
 import com.ekin.system.services.dict.dto.DictItemDTO;
+import com.ekin.system.services.dict.param.DictItemParam;
+import com.ekin.system.services.dict.param.DictParam;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,9 +22,9 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 import static com.cartisan.repositories.ConditionSpecifications.querySpecification;
+import static com.cartisan.utils.AssertionUtil.requirePresent;
 
 /**
  * @author colin
@@ -60,7 +60,7 @@ public class DictAppService {
     @Transactional(rollbackOn = Exception.class)
     public void addDict(@NonNull DictParam param) {
         if(repository.existsByCode(param.getCode())){
-            throw new CartisanException(CommonCodeMessage.SERVER_ERROR);
+            throw new CartisanException(CodeMessage.ENTITY_EXIST);
         }
 
         final Dict dict = new Dict(param.getName(), param.getCode());
@@ -72,7 +72,7 @@ public class DictAppService {
     @Transactional(rollbackOn = Exception.class)
     public void updateDict(@NonNull Long id, @NonNull DictParam param) {
         if (repository.existsByCodeAndIdNot(param.getCode(), id)) {
-            throw new CartisanException(CommonCodeMessage.SERVER_ERROR);
+            throw new CartisanException(CodeMessage.ENTITY_EXIST);
         }
 
         final Dict dict = requirePresent(repository.findById(id));
@@ -104,10 +104,5 @@ public class DictAppService {
         dict.removeItem(param.getValue());
 
         repository.save(dict);
-    }
-
-    private <T> T requirePresent(Optional<T> dictOptional) {
-        return dictOptional
-                .orElseThrow(() -> new CartisanException(CommonCodeMessage.SERVER_ERROR));
     }
 }

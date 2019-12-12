@@ -1,7 +1,7 @@
 package com.ekin.system.controllers;
 
-import com.cartisan.responses.GenericResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,7 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-import static com.cartisan.responses.GenericResponse.success;
+import static com.cartisan.responses.ResponseUtil.success;
+
 
 /**
  * @author colin
@@ -24,7 +25,7 @@ public class CommonController {
     private SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/");
 
     @PostMapping("/import")
-    public GenericResponse<String> importData(MultipartFile file, HttpServletRequest request) throws IOException {
+    public ResponseEntity<String> importData(MultipartFile file, HttpServletRequest request) throws IOException {
         String format = sdf.format(new Date());
         String realPath = request.getServletContext().getRealPath("/upload") + format;
 

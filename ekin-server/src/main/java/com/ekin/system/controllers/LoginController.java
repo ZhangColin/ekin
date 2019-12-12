@@ -1,12 +1,12 @@
 package com.ekin.system.controllers;
 
-import com.cartisan.responses.GenericResponse;
 import com.ekin.system.dtos.UserDto;
 import com.ekin.system.params.LoginParam;
 import com.ekin.system.queries.PermissionQueryMapper;
 import com.ekin.system.services.LoginService;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.cartisan.responses.GenericResponse.success;
+import static com.cartisan.responses.ResponseUtil.success;
 
 /**
  * @author colin
@@ -34,7 +34,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public GenericResponse login(
+    public ResponseEntity login(
             @ApiParam(value = "登录信息", required = true) @Validated @RequestBody LoginParam loginParam,
             HttpServletRequest request) {
         final String token = loginService.login(loginParam);
@@ -49,13 +49,13 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
-    public GenericResponse logout(@RequestHeader(name = "X-Token") String token) {
+    public ResponseEntity logout(@RequestHeader(name = "X-Token") String token) {
         loginService.logout(token);
         return success();
     }
 
     @GetMapping("/user/info")
-    public GenericResponse info(@RequestHeader(name = "X-Token") String token) {
+    public ResponseEntity info(@RequestHeader(name = "X-Token") String token) {
         final UserDto user = loginService.getUserByToken(token);
         final List<String> roles = user.getRoleCodes();
         final List<String> permissions = permissionQueryMapper.getPermissionCodesByRoleCodes(roles);
