@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
-import static com.cartisan.repositories.QuerySpecifications.querySpecification;
+import static com.cartisan.repositories.ConditionSpecifications.querySpecification;
 
 
 /**

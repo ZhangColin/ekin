@@ -1,5 +1,4 @@
 -- 组织机构表
-DROP TABLE IF EXISTS `sys_departments`;
 CREATE TABLE `sys_departments` (
   `id` bigint NOT NULL COMMENT '部门Id',
   `parent_id` bigint NOT NULL DEFAULT 0 COMMENT '父机构ID',
@@ -18,7 +17,6 @@ CREATE TABLE `sys_departments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='组织机构表';
 
 -- 岗位表
-DROP TABLE IF EXISTS `sys_positions`;
 CREATE TABLE `sys_positions` (
   `id` bigint NOT NULL COMMENT '岗位Id',
   `department_id` bigint NULL COMMENT '组织Id',
@@ -29,11 +27,10 @@ CREATE TABLE `sys_positions` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE key `index_role_code` (`code`)
+  UNIQUE key `index_role_department_id` (`department_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='岗位表';
 
 -- 用户表
-DROP TABLE IF EXISTS `sys_users`;
 CREATE TABLE `sys_users` (
   `id` bigint NOT NULL COMMENT '用户Id',
   `username` varchar(32) NOT NULL COMMENT '登录账号',
@@ -57,7 +54,6 @@ CREATE TABLE `sys_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
 
 -- 用户组织机构关联表
-DROP TABLE IF EXISTS `sys_user_departments`;
 CREATE TABLE `sys_user_departments` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键Id',
   `user_id` bigint NULL COMMENT '用户Id',
@@ -71,7 +67,6 @@ CREATE TABLE `sys_user_departments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户组织机构关联表';
 
 -- 权限表
-DROP TABLE IF EXISTS `sys_permissions`;
 CREATE TABLE `sys_permissions` (
   `id` bigint NOT NULL COMMENT '权限Id',
   `parent_id` bigint NOT NULL DEFAULT 0 COMMENT '上级权限',
@@ -96,7 +91,6 @@ CREATE TABLE `sys_permissions` (
 
 
 -- 角色表
-DROP TABLE IF EXISTS `sys_roles`;
 CREATE TABLE `sys_roles` (
   `id` bigint NOT NULL COMMENT '角色Id',
   `name` varchar(32) NOT NULL COMMENT '角色名称',
@@ -110,7 +104,6 @@ CREATE TABLE `sys_roles` (
 
 
 -- 用户角色关联表
-DROP TABLE IF EXISTS `sys_user_roles`;
 CREATE TABLE `sys_user_roles` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
   `user_id` bigint NULL COMMENT '用户Id',
@@ -125,7 +118,6 @@ CREATE TABLE `sys_user_roles` (
 
 
 -- 角色权限关联表
-DROP TABLE IF EXISTS `sys_role_permissions`;
 CREATE TABLE `sys_role_permissions` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
   `role_id` bigint NULL COMMENT '角色Id',
@@ -139,7 +131,6 @@ CREATE TABLE `sys_role_permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色权限关联表';
 
 -- 用户操作日志表
-DROP TABLE IF EXISTS `sys_operation_logs`;
 CREATE TABLE `sys_operation_logs` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
   `log_type` tinyint NOT NULL DEFAULT 4 COMMENT '日志类型(1：登录  2：退出  3：注册  4：业务操作 ）',

@@ -37,6 +37,7 @@ public class ShiroConfig {
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 		// 配置不会被拦截的链接 顺序判断
 		filterChainDefinitionMap.put("/system/login", "anon"); //登录接口排除
+		filterChainDefinitionMap.put("/system/dicts/**", "anon"); //登录接口排除
 		filterChainDefinitionMap.put("/limit", "anon");
 //		filterChainDefinitionMap.put("/import", "anon"); //上传接口暂时排除
 //		filterChainDefinitionMap.put("/auth/2step-code", "anon");//登录验证码
