@@ -1,8 +1,8 @@
 package com.ekin.system.log;
 
 import com.cartisan.CartisanContext;
-import com.ekin.system.domains.OperationLogType;
-import com.ekin.system.services.OperationLogService;
+import com.ekin.system.domain.OperationLogType;
+import com.ekin.system.appservice.OperationLogService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.TimerTask;

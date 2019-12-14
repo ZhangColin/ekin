@@ -1,0 +1,98 @@
+package com.ekin.system.controller;
+
+import com.cartisan.dtos.PageResult;
+import com.ekin.system.appservice.dict.DictAppService;
+import com.ekin.system.appservice.dict.request.SearchDict;
+import com.ekin.system.appservice.dict.response.DictDto;
+import com.ekin.system.appservice.dict.response.DictItemDto;
+import com.ekin.system.appservice.dict.request.DictItemParam;
+import com.ekin.system.appservice.dict.request.DictParam;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static com.cartisan.responses.ResponseUtil.success;
+
+/**
+ * @author colin
+ */
+@Api(tags = "DictController")
+@RestController
+@RequestMapping("/system/dicts")
+public class DictController {
+    private final DictAppService service;
+
+    @Autowired
+    public DictController(DictAppService service) {
+        this.service = service;
+    }
+
+    @ApiOperation(value = "搜索字典")
+    @GetMapping
+    public ResponseEntity<PageResult<DictDto>> searchDicts(
+            SearchDict condition,
+            @PageableDefault Pageable pageable) {
+        return success(service.searchDicts(condition, pageable));
+    }
+
+    @ApiOperation(value = "获取指定Code的字典项")
+    @GetMapping("/{dictCode}/items")
+    public ResponseEntity<List<DictItemDto>> getItems(@ApiParam(value = "字典Code", required = true) @PathVariable String dictCode){
+        return success(service.getDictItems(dictCode));
+    }
+
+    @ApiOperation(value = "添加字典")
+    @PostMapping
+    public ResponseEntity<?> addDict(
+            @ApiParam(value = "字典信息", required = true) @Validated @RequestBody DictParam dictParam) {
+        service.addDict(dictParam);
+
+        return success();
+    }
+
+    @ApiOperation(value = "更新字典")
+    @PutMapping("/{id}")
+    public ResponseEntity<?> editDict(
+            @ApiParam(value = "字典Id", required = true) @PathVariable Long id,
+            @ApiParam(value = "字典信息", required = true) @Validated @RequestBody DictParam dictParam) {
+        service.updateDict(id, dictParam);
+
+        return success();
+    }
+
+    @ApiOperation(value = "删除字典")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> removeDict(
+            @ApiParam(value = "字典Id", required = true) @PathVariable long id) {
+        service.removeDict(id);
+
+        return success();
+    }
+
+    @ApiOperation(value = "提交字典项")
+    @PutMapping("/{dictCode}/items")
+    public ResponseEntity<?> submitDictItem(
+            @ApiParam(value = "字典Code", required = true) @PathVariable String dictCode,
+            @ApiParam(value = "字典项信息", required = true) @Validated @RequestBody DictItemParam dictItemParam){
+        service.submitDictItem(dictCode, dictItemParam);
+        return success();
+    }
+
+    @ApiOperation(value = "移除字典项")
+    @DeleteMapping("/{dictCode}/items")
+    public ResponseEntity<?> removeDictItem(
+            @ApiParam(value = "字典Code", required = true) @PathVariable String dictCode,
+            @ApiParam(value = "字典项信息", required = true) @Validated @RequestBody DictItemParam dictItemParam) {
+        service.removeDictItem(dictCode, dictItemParam);
+
+        return success();
+    }
+}
