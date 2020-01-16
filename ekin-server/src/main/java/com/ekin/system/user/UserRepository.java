@@ -9,12 +9,14 @@ import java.util.Optional;
  * @author colin
  */
 public interface UserRepository extends BaseRepository<User, Long> {
+    boolean existsByUsername(String username);
+    boolean existsByUsernameAndIdNot(String username, Long id);
 
-    boolean existsByEmailAndIdNot(String email, Long id);
+    boolean existsByPhone(String phone);
+    boolean existsByPhoneAndIdNot(String phone, Long id);
+
     boolean existsByEmail(String email);
-
-    boolean existsByPhoneAndIdNot(String telephone, Long id);
-    boolean existsByPhone(String telephone);
+    boolean existsByEmailAndIdNot(String email, Long id);
 
     Optional<User> findByUsername(String username);
 }

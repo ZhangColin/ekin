@@ -5,9 +5,11 @@ import com.cartisan.exceptions.CartisanException;
 import com.cartisan.utils.SnowflakeIdWorker;
 import com.ekin.constant.SystemCodeMessage;
 import com.ekin.system.user.UserRepository;
+import com.ekin.system.user.domain.AssignService;
+import com.ekin.system.user.domain.RegisterService;
 import com.ekin.system.user.domain.User;
 import com.ekin.system.user.response.UserDto;
-import com.ekin.system.user.request.UserParam;
+import com.ekin.system.user.request.CreateAccountCommand;
 import com.ekin.system.user.request.SearchUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,22 +27,21 @@ import static com.cartisan.repositories.ConditionSpecifications.querySpecificati
  */
 @Service
 public class UserAppService {
+    private final RegisterService registerService;
+    private final AssignService assignService;
     private final UserRepository repository;
 
-    private final SnowflakeIdWorker idWorker;
-
     @Autowired
-    public UserAppService(UserRepository repository, SnowflakeIdWorker idWorker) {
+    public UserAppService(RegisterService registerService,
+                          AssignService assignService,
+                          UserRepository repository) {
+        this.registerService = registerService;
+        this.assignService = assignService;
         this.repository = repository;
-        this.idWorker = idWorker;
     }
 
     public UserDto getUser(Long id) {
         return UserDto.convertFrom(repository.findById(id).get());
-    }
-
-    public Optional<User> findByUserName(String username) {
-        return repository.findByUsername(username);
     }
 
     public PageResult<UserDto> searchUsers(SearchUser searchParam, Integer currentPage, Integer pageSize) {
@@ -53,44 +54,34 @@ public class UserAppService {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public void addUser(UserParam userParam) {
-        if (repository.existsByEmail(userParam.getEmail())) {
-            throw new CartisanException(SystemCodeMessage.EMAIL_EXIST);
-        }
+    public void createAccount(CreateAccountCommand command) {
+        final User user = registerService.register(
+                command.getUsername(), command.getPhone(), command.getEmail(), command.getRealName());
 
-        if (repository.existsByPhone(userParam.getPhone())) {
-            throw new CartisanException(SystemCodeMessage.PHONE_EXIST);
-        }
-
-        final User user = new User(idWorker.nextId(), userParam.getUsername(), userParam.getPassword());
-        fillUserInfo(userParam, user);
-
-        user.assignRoles(userParam.getRoleCodes());
-        user.assignDepartments(userParam.getDepartmentIds());
-
-        repository.save(user);
+        assignService.assignRoles(user.getId(), command.getRoleCodes());
+        assignService.assignDepartments(user.getId(), command.getDepartmentIds());
     }
-
-    @Transactional(rollbackOn = Exception.class)
-    public void editUser(Long id, UserParam userParam) {
-        if (repository.existsByEmailAndIdNot(userParam.getEmail(), id)) {
-            throw new CartisanException(SystemCodeMessage.EMAIL_EXIST);
-        }
-
-        if (repository.existsByPhoneAndIdNot(userParam.getPhone(), id)) {
-            throw new CartisanException(SystemCodeMessage.PHONE_EXIST);
-        }
-
-        final User user = repository.findById(id)
-                .orElseThrow(()-> new CartisanException(SystemCodeMessage.USER_NOT_EXIST));
-
-        fillUserInfo(userParam, user);
-
-        user.assignRoles(userParam.getRoleCodes());
-        user.assignDepartments(userParam.getDepartmentIds());
-
-        repository.save(user);
-    }
+//
+//    @Transactional(rollbackOn = Exception.class)
+//    public void editUser(Long id, CreateAccountCommand createAccountCommand) {
+//        if (repository.existsByEmailAndIdNot(createAccountCommand.getEmail(), id)) {
+//            throw new CartisanException(SystemCodeMessage.EMAIL_EXIST);
+//        }
+//
+//        if (repository.existsByPhoneAndIdNot(createAccountCommand.getPhone(), id)) {
+//            throw new CartisanException(SystemCodeMessage.PHONE_EXIST);
+//        }
+//
+//        final User user = repository.findById(id)
+//                .orElseThrow(()-> new CartisanException(SystemCodeMessage.USER_NOT_EXIST));
+//
+//        fillUserInfo(createAccountCommand, user);
+//
+//        user.assignRoles(createAccountCommand.getRoleCodes());
+//        user.assignDepartments(createAccountCommand.getDepartmentIds());
+//
+//        repository.save(user);
+//    }
 
     @Transactional(rollbackOn = Exception.class)
     public void removeUser(long id) {
@@ -143,13 +134,8 @@ public class UserAppService {
     }
 
 
-    private void fillUserInfo(UserParam userParam, User user) {
-        user.setRealName(userParam.getRealName());
-        user.setAvatar(userParam.getAvatar());
-        user.setBirthday(userParam.getBirthday());
-        user.setSex(userParam.getSex());
-        user.setEmail(userParam.getEmail());
-        user.setPhone(userParam.getPhone());
+    private void fillUserInfo(CreateAccountCommand createAccountCommand, User user) {
+
     }
 
 }

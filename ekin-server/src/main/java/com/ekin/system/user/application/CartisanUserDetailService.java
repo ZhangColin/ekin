@@ -1,8 +1,9 @@
-package com.ekin.system.user;
+package com.ekin.system.user.application;
 
 import com.cartisan.exceptions.CartisanException;
 import com.cartisan.security.CartisanUser;
 import com.ekin.constant.SystemCodeMessage;
+import com.ekin.system.user.UserRepository;
 import com.ekin.system.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

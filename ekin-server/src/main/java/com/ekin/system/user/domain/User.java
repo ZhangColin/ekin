@@ -4,7 +4,6 @@ import com.cartisan.domains.AggregateRoot;
 import com.cartisan.domains.SoftDeleteEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Where;
@@ -13,6 +12,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -31,26 +31,22 @@ public class User extends SoftDeleteEntity implements AggregateRoot {
 
     @Column(name = "username")
     private String username;
+    @Column(name = "phone")
+    private String phone;
+    @Column(name = "email")
+    private String email;
     @Column(name = "real_name")
-    @Setter
     private String realName;
     @Column(name = "password")
     private String password;
+
     @Column(name = "avatar")
-    @Setter
     private String avatar;
     @Column(name = "birthday")
-    @Setter
     private Date birthday;
     @Column(name = "sex")
-    @Setter
     private Integer sex;
-    @Column(name = "email")
-    @Setter
-    private String email;
-    @Column(name = "phone")
-    @Setter
-    private String phone;
+
     @Column(name = "status")
     private Integer status;
 
@@ -68,16 +64,18 @@ public class User extends SoftDeleteEntity implements AggregateRoot {
 
     }
 
-    public User(Long userId, String username, String password) {
-        this.id = userId;
+    public User(Long id, String username, String phone, String email, String password, String realName) {
+        this.id = id;
+
         this.username = username;
+        this.phone = Optional.ofNullable(phone).orElse("");
+        this.email = Optional.ofNullable(email).orElse("");
         this.password = password;
-        this.realName = "";
+        this.realName = realName;
+
         this.avatar = "";
         this.birthday = new Date();
         this.sex = 1;
-        this.email = "";
-        this.phone = "";
         this.status = 1;
     }
 

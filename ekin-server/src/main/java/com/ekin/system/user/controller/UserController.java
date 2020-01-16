@@ -2,7 +2,7 @@ package com.ekin.system.user.controller;
 
 import com.cartisan.dtos.PageResult;
 import com.ekin.system.user.response.UserDto;
-import com.ekin.system.user.request.UserParam;
+import com.ekin.system.user.request.CreateAccountCommand;
 import com.ekin.system.user.request.SearchUser;
 import com.ekin.system.user.application.UserAppService;
 import io.swagger.annotations.Api;
@@ -45,24 +45,24 @@ public class UserController {
         return success(service.searchUsers(searchUser, currentPage, pageSize));
     }
 
-    @ApiOperation(value = "添加用户")
+    @ApiOperation(value = "创建用户账号")
     @PostMapping
-    public ResponseEntity addUser(
-            @ApiParam(value = "用户信息", required = true) @Validated @RequestBody UserParam userParam) {
-        service.addUser(userParam);
+    public ResponseEntity<?> createAccount(
+            @ApiParam(value = "账号信息", required = true) @Validated @RequestBody CreateAccountCommand createAccountCommand) {
+        service.createAccount(createAccountCommand);
 
         return success();
     }
 
-    @ApiOperation(value = "更新用户")
-    @PutMapping("/{id}")
-    public ResponseEntity editUser(
-            @ApiParam(value = "用户Id", required = true) @PathVariable Long id,
-            @ApiParam(value = "用户信息", required = true) @Validated @RequestBody UserParam userParam) {
-        service.editUser(id, userParam);
-
-        return success();
-    }
+//    @ApiOperation(value = "更新用户")
+//    @PutMapping("/{id}")
+//    public ResponseEntity editUser(
+//            @ApiParam(value = "用户Id", required = true) @PathVariable Long id,
+//            @ApiParam(value = "用户信息", required = true) @Validated @RequestBody CreateAccountCommand createAccountCommand) {
+//        service.editUser(id, createAccountCommand);
+//
+//        return success();
+//    }
 
     @ApiOperation(value = "删除用户")
     @DeleteMapping("/{id}")
