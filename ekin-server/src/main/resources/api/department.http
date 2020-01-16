@@ -1,8 +1,8 @@
 ### 获取所有部门列表
-GET http://localhost:8080/departments
+GET http://localhost:8080/system/departments
 Accept: application/json
 Content-Type: application/json;charset=UTF-8
-X-Token: {{accessToken}}
+Authorization: {{Authorization}}
 
 #### 获取部门
 #GET http://localhost:8080/departments/1
@@ -20,9 +20,10 @@ X-Token: {{accessToken}}
 #Content-Type: application/json;charset=UTF-8
 
 ### 添加部门
-POST http://localhost:8080/departments
+POST http://localhost:8080/system/departments
 Accept: application/json
 Content-Type: application/json;charset=UTF-8
+Authorization: {{Authorization}}
 
 {
   "name": "研发中心",

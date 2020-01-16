@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ekin.system.permission.mapper.PermissionQueryMapper">
+    <select id="getPermissionTree" resultType="com.cartisan.dtos.TreeNode">
+        select id, name, parent_id as parentId from sys_permissions order by sort asc
+    </select>
+
+    <select id="getPermissionCodesByRoleCodes" parameterType="java.util.List" resultType="java.lang.String">
+        select p.`code` from sys_roles as r
+        inner JOIN sys_role_permissions as rp on r.id=rp.role_id
+        inner join sys_permissions as p on p.id=rp.permission_id
+        <where>
+            <choose>
+                <when test="roleCodes.size>0">
+                    r.`code` in
+                    <foreach item="roleCode" index="index" collection="roleCodes" separator="," open="(" close=")">
+                        '${roleCode}'
+                    </foreach>
+                </when>
+                <otherwise>
+                    1!=1
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+</mapper>

@@ -36,7 +36,6 @@ CREATE TABLE `sys_users` (
   `username` varchar(32) NOT NULL COMMENT '登录账号',
   `real_name` varchar(32) NOT NULL COMMENT '真实姓名',
   `password` varchar(64) NOT NULL COMMENT '密码',
-  `slat` varchar(64) NOT NULL COMMENT 'md5密码盐',
   `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '头像',
   `birthday` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '生日',
   `sex` tinyint NOT NULL DEFAULT 1 COMMENT '性别（1：男 2：女）',

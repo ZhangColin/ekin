@@ -23,3 +23,21 @@ cartisan:
       name: colin
       url: zhang_colin.github.com
       email: zhang_colin@163.com
+  security:
+    ignored:
+      urls: # 安全路由白名单
+        - /swagger-ui.html
+        - /swagger-resources/**
+        - /swagger/**
+        - /**/v2/api-docs
+        - /**/*.js
+        - /**/*.css
+        - /**/*.png
+        - /**/*.ico
+        - /webjars/springfox-swagger-ui/**
+        - /actuator/**
+        - /druid/**
+        - /system/login
+#        - /admin/register
+
+

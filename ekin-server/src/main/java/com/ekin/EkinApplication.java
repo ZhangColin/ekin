@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
  * @author colin
  */
 @SpringBootApplication(scanBasePackages = {"com.cartisan", "com.ekin"})
-@MapperScan("com.ekin.system.queries")
+@MapperScan("com.ekin.**.mapper")
 public class EkinApplication {
     public static void main(String[] args) {
         SpringApplication.run(EkinApplication.class);

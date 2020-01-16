@@ -26,6 +26,13 @@
 
         <dependency>
             <groupId>com.cartisan</groupId>
+            <artifactId>cartisan-security</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.cartisan</groupId>
             <artifactId>cartisan-persistence</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>

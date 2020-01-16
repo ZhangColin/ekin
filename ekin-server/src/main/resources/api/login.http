@@ -9,7 +9,7 @@ Content-Type: application/json;charset=UTF-8
   "password": "123456"
 }
 
-> {% client.global.set("accessToken", response.body.data.token); %}
+> {% client.global.set("Authorization", "Bearer " + response.body.token); %}
 
 ###
 
