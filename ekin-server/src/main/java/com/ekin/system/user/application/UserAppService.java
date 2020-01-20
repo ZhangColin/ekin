@@ -2,7 +2,6 @@ package com.ekin.system.user.application;
 
 import com.cartisan.dtos.PageResult;
 import com.cartisan.exceptions.CartisanException;
-import com.cartisan.utils.SnowflakeIdWorker;
 import com.ekin.constant.SystemCodeMessage;
 import com.ekin.system.user.UserRepository;
 import com.ekin.system.user.domain.AssignService;
@@ -19,10 +18,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
 import static com.cartisan.repositories.ConditionSpecifications.querySpecification;
+import static com.cartisan.utils.AssertionUtil.requirePresent;
 
 
 /**
@@ -75,61 +74,20 @@ public class UserAppService {
         assignService.assignDepartments(userId, command.getDepartmentIds());
     }
 
-
-//
-//    @Transactional(rollbackOn = Exception.class)
-//    public void editUser(Long id, CreateAccountCommand createAccountCommand) {
-//        if (repository.existsByEmailAndIdNot(createAccountCommand.getEmail(), id)) {
-//            throw new CartisanException(SystemCodeMessage.EMAIL_EXIST);
-//        }
-//
-//        if (repository.existsByPhoneAndIdNot(createAccountCommand.getPhone(), id)) {
-//            throw new CartisanException(SystemCodeMessage.PHONE_EXIST);
-//        }
-//
-//        final User user = repository.findById(id)
-//                .orElseThrow(()-> new CartisanException(SystemCodeMessage.USER_NOT_EXIST));
-//
-//        fillUserInfo(createAccountCommand, user);
-//
-//        user.assignRoles(createAccountCommand.getRoleCodes());
-//        user.assignDepartments(createAccountCommand.getDepartmentIds());
-//
-//        repository.save(user);
-//    }
-
     @Transactional(rollbackOn = Exception.class)
-    public void removeUser(long id) {
+    public void disable(Long userId) {
+        final User user = requirePresent(repository.findById(userId));
 
-        repository.deleteById(id);
-    }
-
-    @Transactional(rollbackOn = Exception.class)
-    public void frozen(Long id) {
-        final Optional<User> userOptional = repository.findById(id);
-
-        if (!userOptional.isPresent()) {
-            throw new CartisanException(SystemCodeMessage.USER_NOT_EXIST);
-        }
-
-        final User user = userOptional.get();
-
-        user.frozen();
+        user.disable();
 
         repository.save(user);
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public void unFrozen(Long id) {
-        final Optional<User> userOptional = repository.findById(id);
+    public void enable(Long userId) {
+        final User user = requirePresent(repository.findById(userId));
 
-        if (!userOptional.isPresent()) {
-            throw new CartisanException(SystemCodeMessage.USER_NOT_EXIST);
-        }
-
-        final User user = userOptional.get();
-
-        user.unFrozen();
+        user.enable();
 
         repository.save(user);
     }
@@ -148,10 +106,4 @@ public class UserAppService {
 
         repository.save(user);
     }
-
-
-    private void fillUserInfo(CreateAccountCommand createAccountCommand, User user) {
-
-    }
-
 }

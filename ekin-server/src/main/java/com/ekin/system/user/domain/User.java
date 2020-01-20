@@ -97,11 +97,11 @@ public class User extends SoftDeleteEntity implements AggregateRoot {
         departmentIds.forEach(departmentId -> this.departments.add(new UserDepartment(departmentId)));
     }
 
-    public void frozen() {
+    public void disable() {
         this.status = 2;
     }
 
-    public void unFrozen() {
+    public void enable() {
         this.status = 1;
     }
 

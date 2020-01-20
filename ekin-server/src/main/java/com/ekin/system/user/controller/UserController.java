@@ -15,8 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import static com.cartisan.responses.ResponseUtil.success;
 
 /**
@@ -76,39 +74,21 @@ public class UserController {
         return success();
     }
 
-//    @ApiOperation(value = "更新用户")
-//    @PutMapping("/{id}")
-//    public ResponseEntity editUser(
-//            @ApiParam(value = "用户Id", required = true) @PathVariable Long id,
-//            @ApiParam(value = "用户信息", required = true) @Validated @RequestBody CreateAccountCommand createAccountCommand) {
-//        service.editUser(id, createAccountCommand);
-//
-//        return success();
-//    }
 
-    @ApiOperation(value = "删除用户")
-    @DeleteMapping("/{id}")
-    public ResponseEntity removeUser(
-            @ApiParam(value = "用户Id", required = true) @PathVariable long id) {
-        service.removeUser(id);
+    @ApiOperation(value = "禁用用户")
+    @PutMapping("/{userId}/disable")
+    public ResponseEntity<?> disableUser(
+            @ApiParam(value = "用户Id", required = true) @PathVariable Long userId) {
+        service.disable(userId);
 
         return success();
     }
 
-    @ApiOperation(value = "冻结用户")
-    @PutMapping("/{id}/frozen")
-    public ResponseEntity frozenUser(
-            @ApiParam(value = "用户Id", required = true) @PathVariable Long id) {
-        service.frozen(id);
-
-        return success();
-    }
-
-    @ApiOperation(value = "解冻用户")
-    @PutMapping("/{id}/unFrozen")
-    public ResponseEntity unFrozenUser(
-            @ApiParam(value = "用户Id", required = true) @PathVariable Long id) {
-        service.unFrozen(id);
+    @ApiOperation(value = "启用用户")
+    @PutMapping("/{userId}/enable")
+    public ResponseEntity<?> enableUser(
+            @ApiParam(value = "用户Id", required = true) @PathVariable Long userId) {
+        service.enable(userId);
 
         return success();
     }
