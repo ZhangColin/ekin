@@ -50,12 +50,12 @@ public class User extends SoftDeleteEntity implements AggregateRoot {
     @Column(name = "status")
     private Integer status;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     @Fetch(FetchMode.SUBSELECT)
     private List<UserDepartment> departments = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     @Fetch(FetchMode.SUBSELECT)
     private List<UserRole> roles = new ArrayList<>();
@@ -81,20 +81,20 @@ public class User extends SoftDeleteEntity implements AggregateRoot {
 
     public void assignRoles(List<String> roleCodes) {
         this.roles.removeAll(this.roles.stream()
-                .filter(role->!roleCodes.contains(role.getRoleCode()))
+                .filter(role -> !roleCodes.contains(role.getRoleCode()))
                 .collect(toList()));
 
         roleCodes.removeAll(this.roles.stream().map(UserRole::getRoleCode).collect(toList()));
-        roleCodes.forEach(roleCode->this.roles.add(new UserRole(roleCode)));
+        roleCodes.forEach(roleCode -> this.roles.add(new UserRole(roleCode)));
     }
 
-    public void assignDepartments(List<Long> departmentIds){
+    public void assignDepartments(List<Long> departmentIds) {
         this.departments.removeAll(this.departments.stream()
-                .filter(department->!departmentIds.contains(department.getDepartmentId()))
+                .filter(department -> !departmentIds.contains(department.getDepartmentId()))
                 .collect(toList()));
 
         departmentIds.removeAll(this.departments.stream().map(UserDepartment::getDepartmentId).collect(toList()));
-        departmentIds.forEach(departmentId->this.departments.add(new UserDepartment(departmentId)));
+        departmentIds.forEach(departmentId -> this.departments.add(new UserDepartment(departmentId)));
     }
 
     public void frozen() {

@@ -8,6 +8,7 @@ import com.ekin.system.user.UserRepository;
 import com.ekin.system.user.domain.AssignService;
 import com.ekin.system.user.domain.RegisterService;
 import com.ekin.system.user.domain.User;
+import com.ekin.system.user.request.AssignRolesCommand;
 import com.ekin.system.user.response.UserDto;
 import com.ekin.system.user.request.CreateAccountCommand;
 import com.ekin.system.user.request.SearchUser;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 import static com.cartisan.repositories.ConditionSpecifications.querySpecification;
@@ -61,6 +63,13 @@ public class UserAppService {
         assignService.assignRoles(user.getId(), command.getRoleCodes());
         assignService.assignDepartments(user.getId(), command.getDepartmentIds());
     }
+
+    @Transactional(rollbackOn = Exception.class)
+    public void assignRoles(Long userId, AssignRolesCommand command) {
+        assignService.assignRoles(userId, command.getRoleCodes());
+    }
+
+
 //
 //    @Transactional(rollbackOn = Exception.class)
 //    public void editUser(Long id, CreateAccountCommand createAccountCommand) {
@@ -85,6 +94,7 @@ public class UserAppService {
 
     @Transactional(rollbackOn = Exception.class)
     public void removeUser(long id) {
+
         repository.deleteById(id);
     }
 

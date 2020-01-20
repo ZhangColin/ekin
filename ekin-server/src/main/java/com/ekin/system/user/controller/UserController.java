@@ -1,6 +1,7 @@
 package com.ekin.system.user.controller;
 
 import com.cartisan.dtos.PageResult;
+import com.ekin.system.user.request.AssignRolesCommand;
 import com.ekin.system.user.response.UserDto;
 import com.ekin.system.user.request.CreateAccountCommand;
 import com.ekin.system.user.request.SearchUser;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.cartisan.responses.ResponseUtil.success;
 
@@ -51,6 +54,15 @@ public class UserController {
             @ApiParam(value = "账号信息", required = true) @Validated @RequestBody CreateAccountCommand createAccountCommand) {
         service.createAccount(createAccountCommand);
 
+        return success();
+    }
+
+    @ApiOperation(value = "分派角色")
+    @PutMapping("/{userId}/assignRoles")
+    public ResponseEntity<?> assignRoles(
+            @ApiParam(value = "用户Id", required = true) @PathVariable Long userId,
+            @ApiParam(value = "分配的角色编码", required = true) @RequestBody AssignRolesCommand command) {
+        service.assignRoles(userId, command);
         return success();
     }
 
