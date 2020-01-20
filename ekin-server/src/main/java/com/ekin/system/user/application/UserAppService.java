@@ -8,6 +8,7 @@ import com.ekin.system.user.UserRepository;
 import com.ekin.system.user.domain.AssignService;
 import com.ekin.system.user.domain.RegisterService;
 import com.ekin.system.user.domain.User;
+import com.ekin.system.user.request.AssignDepartmentsCommand;
 import com.ekin.system.user.request.AssignRolesCommand;
 import com.ekin.system.user.response.UserDto;
 import com.ekin.system.user.request.CreateAccountCommand;
@@ -67,6 +68,11 @@ public class UserAppService {
     @Transactional(rollbackOn = Exception.class)
     public void assignRoles(Long userId, AssignRolesCommand command) {
         assignService.assignRoles(userId, command.getRoleCodes());
+    }
+
+    @Transactional(rollbackOn = Exception.class)
+    public void assignDepartments(Long userId, AssignDepartmentsCommand command) {
+        assignService.assignDepartments(userId, command.getDepartmentIds());
     }
 
 

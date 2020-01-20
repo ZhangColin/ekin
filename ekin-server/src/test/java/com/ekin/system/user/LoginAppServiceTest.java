@@ -37,7 +37,7 @@ public class LoginAppServiceTest {
         loginParam.setUsername("colin");
         loginParam.setPassword("123456");
 
-        user = new User(1L, "colin", "123456", "", "", "");
+        user = new User(1L, "colin", "", "", "123456", "");
     }
 
     @Test

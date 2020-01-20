@@ -1,6 +1,7 @@
 package com.ekin.system.user.controller;
 
 import com.cartisan.dtos.PageResult;
+import com.ekin.system.user.request.AssignDepartmentsCommand;
 import com.ekin.system.user.request.AssignRolesCommand;
 import com.ekin.system.user.response.UserDto;
 import com.ekin.system.user.request.CreateAccountCommand;
@@ -57,12 +58,21 @@ public class UserController {
         return success();
     }
 
-    @ApiOperation(value = "分派角色")
+    @ApiOperation(value = "分配角色")
     @PutMapping("/{userId}/assignRoles")
     public ResponseEntity<?> assignRoles(
             @ApiParam(value = "用户Id", required = true) @PathVariable Long userId,
             @ApiParam(value = "分配的角色编码", required = true) @RequestBody AssignRolesCommand command) {
         service.assignRoles(userId, command);
+        return success();
+    }
+
+    @ApiOperation(value = "分配组织")
+    @PutMapping("/{userId}/assignDepartments")
+    public ResponseEntity<?> assignDepartments(
+            @ApiParam(value = "用户Id", required = true) @PathVariable Long userId,
+            @ApiParam(value = "分配的组织", required = true) @RequestBody AssignDepartmentsCommand command) {
+        service.assignDepartments(userId, command);
         return success();
     }
 
