@@ -7,7 +7,7 @@ import lombok.Data;
  * @author colin
  */
 @Data
-public class SearchDict {
+public class DictQuery {
     @Condition(blurry = "name,code")
     private String blurry;
 }

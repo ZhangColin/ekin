@@ -6,7 +6,7 @@ import com.cartisan.exceptions.CartisanException;
 import com.ekin.system.dict.response.DictDto;
 import com.ekin.system.dict.domain.Dict;
 import com.ekin.system.dict.domain.DictItem;
-import com.ekin.system.dict.request.SearchDict;
+import com.ekin.system.dict.request.DictQuery;
 import com.ekin.system.dict.response.DictConverter;
 import com.ekin.system.dict.response.DictItemConverter;
 import com.ekin.system.dict.response.DictItemDto;
@@ -41,8 +41,8 @@ public class DictAppService {
         this.dictItemConverter = dictItemConverter;
     }
 
-    public PageResult<DictDto> searchDicts(@NonNull SearchDict searchDict, @NonNull Pageable pageable) {
-        final Page<Dict> searchResult = repository.findAll(querySpecification(searchDict), pageable);
+    public PageResult<DictDto> searchDicts(@NonNull DictQuery dictQuery, @NonNull Pageable pageable) {
+        final Page<Dict> searchResult = repository.findAll(querySpecification(dictQuery), pageable);
 
         return new PageResult<>(searchResult.getTotalElements(), searchResult.getTotalPages(),
                 dictConverter.convert(searchResult.getContent()));

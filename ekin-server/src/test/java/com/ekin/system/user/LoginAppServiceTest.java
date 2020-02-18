@@ -3,7 +3,7 @@ package com.ekin.system.user;
 import com.cartisan.exceptions.CartisanException;
 import com.cartisan.security.JwtTokenProvider;
 import com.ekin.system.user.application.LoginAppService;
-import com.ekin.system.user.request.LoginParam;
+import com.ekin.system.user.request.LoginCommand;
 import com.ekin.system.user.domain.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +21,7 @@ public class LoginAppServiceTest {
     private JwtTokenProvider tokenProvider;
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
-    private LoginParam loginParam;
+    private LoginCommand loginCommand;
     private User user;
     private LoginAppService loginAppService;
 
@@ -33,9 +33,9 @@ public class LoginAppServiceTest {
 
         loginAppService = new LoginAppService(userRepository, tokenProvider, passwordEncoder);
 
-        loginParam = new LoginParam();
-        loginParam.setUsername("colin");
-        loginParam.setPassword("123456");
+        loginCommand = new LoginCommand();
+        loginCommand.setUsername("colin");
+        loginCommand.setPassword("123456");
 
         user = new User(1L, "colin", "", "", "123456", "");
     }
@@ -48,7 +48,7 @@ public class LoginAppServiceTest {
         when(userRepository.findByUsername("colin")).thenReturn(Optional.of(user));
 
         // when
-        final String token = loginAppService.login(loginParam);
+        final String token = loginAppService.login(loginCommand);
 
         // then
         assertThat(token).isEqualTo("colinToken");
@@ -60,7 +60,7 @@ public class LoginAppServiceTest {
         when(userRepository.findByUsername("colin")).thenReturn(Optional.empty());
 
         // then
-        assertThatThrownBy(()-> loginAppService.login(loginParam))
+        assertThatThrownBy(()-> loginAppService.login(loginCommand))
             .isInstanceOf(CartisanException.class)
             .hasMessage("用户名或密码不正确");
     }
@@ -72,7 +72,7 @@ public class LoginAppServiceTest {
         when(userRepository.findByUsername("colin")).thenReturn(Optional.of(user));
 
         // then
-        assertThatThrownBy(()-> loginAppService.login(loginParam))
+        assertThatThrownBy(()-> loginAppService.login(loginCommand))
             .isInstanceOf(CartisanException.class)
             .hasMessage("用户名或密码不正确");
     }

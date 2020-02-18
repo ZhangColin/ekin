@@ -6,7 +6,7 @@ import com.cartisan.security.JwtTokenProvider;
 import com.ekin.constant.SystemCodeMessage;
 import com.ekin.system.user.UserRepository;
 import com.ekin.system.user.domain.User;
-import com.ekin.system.user.request.LoginParam;
+import com.ekin.system.user.request.LoginCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,10 +32,10 @@ public class LoginAppService{
         this.passwordEncoder = passwordEncoder;
     }
 
-    public String login(LoginParam loginParam) {
-        final User user = requireUserPresent(repository.findByUsername(loginParam.getUsername()));
+    public String login(LoginCommand loginCommand) {
+        final User user = requireUserPresent(repository.findByUsername(loginCommand.getUsername()));
 
-        if (!passwordEncoder.matches(loginParam.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(loginCommand.getPassword(), user.getPassword())) {
             throw new CartisanException(SystemCodeMessage.ERROR_USERNAME_OR_PASSWORD);
         }
 

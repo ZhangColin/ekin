@@ -9,12 +9,15 @@ import com.ekin.system.user.domain.RegisterService;
 import com.ekin.system.user.domain.User;
 import com.ekin.system.user.request.AssignDepartmentsCommand;
 import com.ekin.system.user.request.AssignRolesCommand;
-import com.ekin.system.user.response.UserDto;
+import com.ekin.system.user.response.UserConverter;
+import com.ekin.system.user.response.UserDetailDto;
 import com.ekin.system.user.request.CreateAccountCommand;
-import com.ekin.system.user.request.SearchUser;
+import com.ekin.system.user.request.UserQuery;
+import com.ekin.system.user.response.UserDto;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -32,27 +35,27 @@ public class UserAppService {
     private final RegisterService registerService;
     private final AssignService assignService;
     private final UserRepository repository;
+    private final UserConverter userConverter;
 
-    @Autowired
     public UserAppService(RegisterService registerService,
                           AssignService assignService,
-                          UserRepository repository) {
+                          UserRepository repository,
+                          UserConverter userConverter) {
         this.registerService = registerService;
         this.assignService = assignService;
         this.repository = repository;
+        this.userConverter = userConverter;
     }
 
-    public UserDto getUser(Long id) {
-        return UserDto.convertFrom(repository.findById(id).get());
+    public UserDetailDto getUser(Long id) {
+        return UserDetailDto.convertFrom(repository.findById(id).get());
     }
 
-    public PageResult<UserDto> searchUsers(SearchUser searchParam, Integer currentPage, Integer pageSize) {
-        PageRequest pageRequest = PageRequest.of(currentPage - 1, pageSize);
-
-        final Page<User> searchResult = repository.findAll(querySpecification(searchParam), pageRequest);
+    public PageResult<UserDto> searchUsers(@NonNull UserQuery userQuery, @NonNull Pageable pageable) {
+        final Page<User> searchResult = repository.findAll(querySpecification(userQuery), pageable);
 
         return new PageResult<>(searchResult.getTotalElements(), searchResult.getTotalPages(),
-                searchResult.map(UserDto::convertFrom).getContent());
+                userConverter.convert(searchResult.getContent()));
     }
 
     @Transactional(rollbackOn = Exception.class)

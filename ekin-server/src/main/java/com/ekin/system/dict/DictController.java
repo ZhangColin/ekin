@@ -1,8 +1,7 @@
 package com.ekin.system.dict;
 
 import com.cartisan.dtos.PageResult;
-import com.ekin.system.dict.DictAppService;
-import com.ekin.system.dict.request.SearchDict;
+import com.ekin.system.dict.request.DictQuery;
 import com.ekin.system.dict.response.DictDto;
 import com.ekin.system.dict.response.DictItemDto;
 import com.ekin.system.dict.request.DictItemParam;
@@ -36,11 +35,11 @@ public class DictController {
     }
 
     @ApiOperation(value = "搜索字典")
-    @GetMapping
+    @GetMapping("/search")
     public ResponseEntity<PageResult<DictDto>> searchDicts(
-            SearchDict condition,
+            DictQuery dictQuery,
             @PageableDefault Pageable pageable) {
-        return success(service.searchDicts(condition, pageable));
+        return success(service.searchDicts(dictQuery, pageable));
     }
 
     @ApiOperation(value = "获取指定Code的字典项")

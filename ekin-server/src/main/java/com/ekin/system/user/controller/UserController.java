@@ -3,14 +3,17 @@ package com.ekin.system.user.controller;
 import com.cartisan.dtos.PageResult;
 import com.ekin.system.user.request.AssignDepartmentsCommand;
 import com.ekin.system.user.request.AssignRolesCommand;
-import com.ekin.system.user.response.UserDto;
+import com.ekin.system.user.response.UserDetailDto;
 import com.ekin.system.user.request.CreateAccountCommand;
-import com.ekin.system.user.request.SearchUser;
+import com.ekin.system.user.request.UserQuery;
 import com.ekin.system.user.application.UserAppService;
+import com.ekin.system.user.response.UserDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,18 +36,17 @@ public class UserController {
 
     @ApiOperation(value = "获取用户")
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getUser(
+    public ResponseEntity<UserDetailDto> getUser(
             @ApiParam(value = "用户Id", required = true) @PathVariable Long id) {
         return success(service.getUser(id));
     }
 
     @ApiOperation(value = "搜索用户")
-    @PostMapping("/search/{currentPage}/{pageSize}")
+    @GetMapping("/search")
     public ResponseEntity<PageResult<UserDto>> searchUsers(
-            @ApiParam(value = "查询参数") @RequestBody(required = false) SearchUser searchUser,
-            @ApiParam(value = "页码", required = true) @PathVariable Integer currentPage,
-            @ApiParam(value = "每页记录数", required = true) @PathVariable Integer pageSize) {
-        return success(service.searchUsers(searchUser, currentPage, pageSize));
+            @ApiParam(value = "查询参数") UserQuery userQuery,
+            @PageableDefault Pageable pageable) {
+        return success(service.searchUsers(userQuery, pageable));
     }
 
     @ApiOperation(value = "创建用户账号")

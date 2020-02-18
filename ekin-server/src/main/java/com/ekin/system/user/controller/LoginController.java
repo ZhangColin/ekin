@@ -2,7 +2,7 @@ package com.ekin.system.user.controller;
 
 import com.ekin.system.permission.mapper.PermissionQueryMapper;
 import com.ekin.system.user.application.LoginAppService;
-import com.ekin.system.user.request.LoginParam;
+import com.ekin.system.user.request.LoginCommand;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,9 +34,9 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(
-            @ApiParam(value = "登录信息", required = true) @Validated @RequestBody LoginParam loginParam,
+            @ApiParam(value = "登录信息", required = true) @Validated @RequestBody LoginCommand loginCommand,
             HttpServletRequest request) {
-        final String token = loginAppService.login(loginParam);
+        final String token = loginAppService.login(loginCommand);
         HashMap<String, Object> data = new HashMap<>();
         data.put("token", token);
 

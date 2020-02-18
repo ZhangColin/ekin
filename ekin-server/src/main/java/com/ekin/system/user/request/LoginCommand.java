@@ -10,10 +10,10 @@ import javax.validation.constraints.NotBlank;
  * @author colin
  */
 @Data
-public class LoginParam {
+public class LoginCommand {
     @ApiModelProperty(value = "用户名", required = true)
     @NotBlank(message = "用户名不能为空")
-    @Length(min = 2, max = 32, message = "部门名称必须在 2 至 32 之间")
+    @Length(min = 2, max = 32, message = "用户名称必须在 2 至 32 之间")
     private String username;
 
     @ApiModelProperty(value = "密码")
