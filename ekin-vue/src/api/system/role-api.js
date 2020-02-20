@@ -1,12 +1,12 @@
 import request from '@/utils/request'
 
 export function searchRoles(currentPage, pageSize, params) {
-  // return request({
-  //   url: `/system/roles/search/${currentPage}/${pageSize}`,
-  //   method: 'get',
-  //   params: params
-  // })
-  return request.get(`/system/roles/search/${currentPage}/${pageSize}`, { params })
+  return request({
+    url: `/system/roles/search?size=${pageSize}&page=${currentPage}&name=${params}`,
+    method: 'get'
+    // params: params
+  })
+  // return request.get(`/system/roles/search/${currentPage}/${pageSize}`, { params })
 }
 
 export function getAllRoles() {

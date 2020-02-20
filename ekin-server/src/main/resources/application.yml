@@ -8,7 +8,7 @@ spring:
     name: ekin
   profiles:
     include: web, mysql
-    active: dev
+    active: test
 
 
 cartisan:

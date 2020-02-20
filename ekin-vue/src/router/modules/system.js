@@ -19,6 +19,25 @@ const system = {
     component: () => import('@/views/system/department/departments'),
     meta: { title: '部门管理', icon: 'nested', permissions: ['system:department'] }
   }, {
+    path: 'dictionaries',
+    name: 'dictionaries',
+    component: nested,
+    redirect: '/system/dictionaries/dictionaryList',
+    meta: { title: '字典管理', icon: 'nested', permission: ['system:dictionary'] },
+    children: [{
+      path: 'dictionaryList',
+      name: 'dictionaryList',
+      component: () => import('@/views/system/dictionary/dictionaries'),
+      meta: { title: '字典查看', breadcrumb: false },
+      hidden: false
+    }, {
+      path: 'dictionaryItems',
+      name: 'dictionaryItems',
+      component: () => import('@/views/system/dictionary/dictionaryItems'),
+      meta: { title: '字典项查看' },
+      hidden: true
+    }]
+  }, {
     path: 'users',
     name: 'users',
     component: nested,

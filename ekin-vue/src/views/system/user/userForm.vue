@@ -14,14 +14,7 @@
         <el-input v-model="user.realName" />
       </el-form-item>
       <el-form-item label="分配角色">
-        <el-select v-model="user.roleCodes" multiple placeholder="请选择" style="width: 100%">
-          <el-option
-            v-for="option in roleOptions"
-            :key="option.code"
-            :label="option.name"
-            :value="option.code"
-          />
-        </el-select>
+        <roleselect v-model="user.roleCodes" :codes="codes" :multiple="true" :filterable="true" :reserve-keyword="false" @showbox="toshow" />
       </el-form-item>
       <el-form-item label="分配部门">
         <el-input v-model="selectDepartmentNames" placeholder="请选择部门" readonly>
@@ -66,15 +59,13 @@
       :visible.sync="dialogVisible"
       :close-on-click-modal="false"
     >
-      <el-tree
+      <QiuxiTree
         ref="selectDepartments"
-        :data="departmentOptions"
-        show-checkbox
         node-key="id"
+        :default-checked-keys="user.departmentIds"
+        class-name="department"
         default-expand-all
         check-strictly
-        :default-checked-keys="user.departmentIds"
-        :props="{label: 'name', children: 'children'}"
       />
       <span slot="footer">
         <el-button @click="dialogVisible=false">取消</el-button>
@@ -86,8 +77,9 @@
 
 <script>
 import { getUser, addUser, editUser } from '@/api/system/user-api'
-import { getAllRoles } from '@/api/system/role-api'
-import { getDepartmentTree } from '@/api/system/department-api'
+import { getTreeByClassName } from '@/api/system/tree-node-api'
+import QiuxiTree from '@/components/QiuxiTree/Qiuxi-Tree'
+import roleselect from '../../../components/RoleSelect/index'
 
 const defaultUser = {
   username: '',
@@ -105,12 +97,14 @@ const defaultUser = {
 
 export default {
   name: 'UserFrom',
+  components: { QiuxiTree, roleselect },
   props: {
     isEdit: {
       type: Boolean,
       default: false
     }
   },
+
   data() {
     const validatePassword = (rule, value, callback) => {
       if (!value) {
@@ -133,9 +127,26 @@ export default {
       }
     }
 
+    const validatephone = (rule, value, callback) => {
+      if (value.length > 11 || value.length < 7) {
+        callback('请输入正确的手机号')
+      } else {
+        callback()
+      }
+    }
+
+    const validateemail = (rule, value, callbacks) => {
+      var email = value
+      var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
+      if (!reg.test(email)) {
+        callbacks('邮箱格式不正确')
+      } else {
+        callbacks()
+      }
+    }
     return {
+      codes: [],
       roleOptions: [],
-      departmentOptions: [],
       departmentList: {},
       dialogVisible: false,
       user: Object.assign({}, defaultUser),
@@ -155,10 +166,12 @@ export default {
           { required: true, message: '请输入真实姓名', trigger: 'blur' }
         ],
         phone: [
-          { required: true, message: '请输入手机', trigger: 'blur' }
+          { required: true, message: '请输入手机' },
+          { validator: validatephone, trigger: 'blur' }
         ],
         email: [
-          { required: true, message: '请输入邮箱', trigger: 'blur' }
+          { required: true, message: '请输入邮箱' },
+          { validator: validateemail, trigger: 'blur' }
         ]
       }
     }
@@ -179,17 +192,14 @@ export default {
   },
   methods: {
     init() {
-      getAllRoles().then(response => {
-        this.roleOptions = response.data
-      })
-      getDepartmentTree().then(response => {
-        this.departmentOptions = response.data
-        this.fetchDepartmentList(this.departmentOptions)
+      getTreeByClassName('department').then(response => {
+        this.fetchDepartmentList(response.data)
 
         // TODO: 因为异步，可能 user 返回时，departmentList 还没构建好，这会导致看不到部门，暂时使用同步化的手段来处理，以后再寻求解决方案
         if (this.isEdit) {
           getUser(this.$route.query.id).then(response => {
             this.user = response.data
+            this.codes = this.user.roleCodes
           })
         } else {
           this.user = Object.assign({}, defaultUser)
@@ -282,12 +292,17 @@ export default {
     },
     handleSelectDepartments() {
       this.user.departmentIds = []
-      this.$refs.selectDepartments.getCheckedNodes().forEach(
+      this.$refs.selectDepartments.getRef().getCheckedNodes().forEach(
         node => {
           this.user.departmentIds.push(node.id)
         }
       )
       this.dialogVisible = false
+    },
+    toshow(data) {
+      this.codes = data
+      this.user.roleCodes = data
+      console.log(this.user.roleCodes)
     }
   }
 }

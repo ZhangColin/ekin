@@ -19,7 +19,7 @@ public class EkinApplication {
 //        application.addListeners(new ApplicationPidFileWriter("/Users/huangqingshi/app.pid"));
 //        application.run();
 
-        SpringApplication.run(EkinApplication.class);
+        SpringApplication.run(EkinApplication.class, args);
     }
 
     @Bean

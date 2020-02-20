@@ -116,7 +116,7 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      searchRoles(this.page.currentPage, this.page.pageSize, this.searchParams).then(response => {
+      searchRoles(this.page.currentPage - 1, this.page.pageSize, encodeURI(encodeURI(this.searchParams))).then(response => {
         this.list = response.data.rows
         this.page.total = response.data.total
         this.listLoading = false
