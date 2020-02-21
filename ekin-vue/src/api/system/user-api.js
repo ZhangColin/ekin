@@ -3,9 +3,9 @@ import qs from 'qs'
 
 export function searchUsers(currentPage, pageSize, params) {
   return request({
-    url: `/system/users/search/${currentPage}/${pageSize}`,
-    method: 'post',
-    data: params
+    url: `/system/users/search?page=${currentPage}&size=${pageSize}`,
+    method: 'get',
+    params: params
   })
 }
 

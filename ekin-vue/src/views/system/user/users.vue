@@ -50,23 +50,13 @@
       <el-table-column align="center" label="用户ID" prop="id" />
       <el-table-column align="center" label="用户账号" prop="username" />
       <el-table-column align="center" label="真实姓名" prop="realName" />
-      <el-table-column align="center" label="头像" prop="avatar">
-        <template slot-scope="scope">
-          <img :src="scope.row.avatar">
-        </template>
-      </el-table-column>
+      <el-table-column align="center" label="手机" prop="phone" />
+      <el-table-column align="center" label="邮箱" prop="email" />
       <el-table-column align="center" label="性别" prop="sex">
         <template slot-scope="scope">
           <span>{{ scope.row.sex===1?'男':'女' }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="生日" prop="birthday">
-        <template slot-scope="scope">
-          <span>{{ scope.row.birthday | parseTime('{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="手机" prop="phone" />
-      <el-table-column align="center" label="邮箱" prop="email" />
       <el-table-column align="center" label="状态" prop="status">
         <template slot-scope="scope">
           <span>{{ scope.row.status===1?'正常':'冻结' }}</span>
@@ -180,7 +170,7 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      searchUsers(this.page.currentPage, this.page.pageSize, this.searchParams).then(response => {
+      searchUsers(this.page.currentPage - 1, this.page.pageSize, this.searchParams).then(response => {
         this.list = response.data.rows
         this.page.total = response.data.total
         this.listLoading = false
