@@ -13,6 +13,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -43,9 +44,9 @@ public class LoginAppServiceTest {
     @Test
     public void should_be_login_success() {
         // given
-        when(tokenProvider.generateToken("colin")).thenReturn("colinToken");
-        when(passwordEncoder.matches("123456", "123456")).thenReturn(true);
-        when(userRepository.findByUsername("colin")).thenReturn(Optional.of(user));
+        when(tokenProvider.generateToken(anyString())).thenReturn("colinToken");
+        when(passwordEncoder.matches(anyString(), anyString())).thenReturn(true);
+        when(userRepository.findByUsername(anyString())).thenReturn(Optional.of(user));
 
         // when
         final String token = loginAppService.login(loginCommand);
@@ -57,7 +58,7 @@ public class LoginAppServiceTest {
     @Test
     public void when_user_not_found_then_throw_exception() {
         // given
-        when(userRepository.findByUsername("colin")).thenReturn(Optional.empty());
+        when(userRepository.findByUsername(anyString())).thenReturn(Optional.empty());
 
         // then
         assertThatThrownBy(()-> loginAppService.login(loginCommand))
@@ -68,8 +69,8 @@ public class LoginAppServiceTest {
     @Test
     public void when_password_not_valid_then_throw_exception() {
         // given
-        when(passwordEncoder.matches("123456", "123456")).thenReturn(false);
-        when(userRepository.findByUsername("colin")).thenReturn(Optional.of(user));
+        when(passwordEncoder.matches(anyString(), anyString())).thenReturn(false);
+        when(userRepository.findByUsername(anyString())).thenReturn(Optional.of(user));
 
         // then
         assertThatThrownBy(()-> loginAppService.login(loginCommand))

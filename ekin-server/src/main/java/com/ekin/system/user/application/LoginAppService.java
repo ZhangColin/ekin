@@ -1,5 +1,6 @@
 package com.ekin.system.user.application;
 
+import com.cartisan.constants.CodeMessage;
 import com.cartisan.exceptions.CartisanException;
 import com.cartisan.security.CartisanUser;
 import com.cartisan.security.JwtTokenProvider;
@@ -23,9 +24,8 @@ public class LoginAppService{
     private final UserRepository repository;
     private final JwtTokenProvider tokenProvider;
     private final PasswordEncoder passwordEncoder;
+    public static final CodeMessage LOGIN_ERROR = CodeMessage.FAIL.fillArgs("用户名或密码不正确");
 
-
-    @Autowired
     public LoginAppService(UserRepository repository, JwtTokenProvider tokenProvider, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.tokenProvider = tokenProvider;
@@ -36,7 +36,7 @@ public class LoginAppService{
         final User user = requireUserPresent(repository.findByUsername(loginCommand.getUsername()));
 
         if (!passwordEncoder.matches(loginCommand.getPassword(), user.getPassword())) {
-            throw new CartisanException(SystemCodeMessage.ERROR_USERNAME_OR_PASSWORD);
+            throw new CartisanException(LOGIN_ERROR);
         }
 
         securityLogin(user);
@@ -65,7 +65,7 @@ public class LoginAppService{
 
     private User requireUserPresent(Optional<User> userOptional) {
         return userOptional
-                .orElseThrow(() -> new CartisanException(SystemCodeMessage.ERROR_USERNAME_OR_PASSWORD));
+                .orElseThrow(() -> new CartisanException(LOGIN_ERROR));
     }
 
 
