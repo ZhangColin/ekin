@@ -16,7 +16,10 @@ import { getAllRoles } from '@/api/system/role-api'
 export default {
   name: 'Roleselect',
   props: {
-    codes: Array, // 这里指定了字符串类型，如果类型不一致会警告的哦
+    codes: {
+      type: Array,
+      default: () => []
+    }, // 这里指定了字符串类型，如果类型不一致会警告的哦
     multiple: {
       type: Boolean,
       required: false,
