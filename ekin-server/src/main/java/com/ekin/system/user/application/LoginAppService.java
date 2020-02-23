@@ -1,72 +1,27 @@
 package com.ekin.system.user.application;
 
-import com.cartisan.constants.CodeMessage;
-import com.cartisan.exceptions.CartisanException;
-import com.cartisan.security.CartisanUser;
-import com.cartisan.security.JwtTokenProvider;
-import com.ekin.constant.SystemCodeMessage;
-import com.ekin.system.user.UserRepository;
-import com.ekin.system.user.domain.User;
+import com.cartisan.security.LoginService;
+import com.cartisan.utils.AesUtil;
 import com.ekin.system.user.request.LoginCommand;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 /**
  * @author colin
  */
 @Service
 public class LoginAppService{
-    private final UserRepository repository;
-    private final JwtTokenProvider tokenProvider;
-    private final PasswordEncoder passwordEncoder;
-    public static final CodeMessage LOGIN_ERROR = CodeMessage.FAIL.fillArgs("用户名或密码不正确");
+    private final LoginService loginService;
 
-    public LoginAppService(UserRepository repository, JwtTokenProvider tokenProvider, PasswordEncoder passwordEncoder) {
-        this.repository = repository;
-        this.tokenProvider = tokenProvider;
-        this.passwordEncoder = passwordEncoder;
+    public LoginAppService(LoginService loginService) {
+        this.loginService = loginService;
     }
 
     public String login(LoginCommand loginCommand) {
-        final User user = requireUserPresent(repository.findByUsername(loginCommand.getUsername()));
-
-        if (!passwordEncoder.matches(loginCommand.getPassword(), user.getPassword())) {
-            throw new CartisanException(LOGIN_ERROR);
-        }
-
-        securityLogin(user);
-
-        return tokenProvider.generateToken(user.getUsername());
-
+        return loginService.login(loginCommand.getUsername(), AesUtil.aesDecode(loginCommand.getPassword()));
     }
 
     public void logout(String token) {
-        // 清除 token 缓存
-
-        // 清除角色缓存
+        loginService.logout(token);
     }
-
-    private void securityLogin(User user) {
-        final CartisanUser cartisanUser = buildCartisanUser(user);
-
-        final UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(cartisanUser, null, cartisanUser.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-    }
-
-    private CartisanUser buildCartisanUser(User user) {
-        return new CartisanUser(user.getUsername(), user.getPassword());
-    }
-
-    private User requireUserPresent(Optional<User> userOptional) {
-        return userOptional
-                .orElseThrow(() -> new CartisanException(LOGIN_ERROR));
-    }
-
 
 }

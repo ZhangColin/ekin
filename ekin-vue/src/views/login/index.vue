@@ -54,6 +54,7 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
+import { encrypt } from '@/utils/crypto'
 
 export default {
   name: 'Login',
@@ -133,7 +134,13 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm)
+
+          const loginData = {
+            username: this.loginForm.username,
+            password: encrypt(this.loginForm.password)
+          }
+
+          this.$store.dispatch('user/login', loginData)
             .then(() => {
               this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
               this.loading = false

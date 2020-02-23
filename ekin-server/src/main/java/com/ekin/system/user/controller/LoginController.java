@@ -48,8 +48,8 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity logout() {
-//        loginAppService.logout(token);
+    public ResponseEntity logout(@RequestHeader String authorization) {
+        loginAppService.logout(authorization.substring(7));
         return success();
     }
 

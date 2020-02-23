@@ -1,5 +1,6 @@
 package com.ekin.system.user.application;
 
+import com.cartisan.constants.CodeMessage;
 import com.cartisan.exceptions.CartisanException;
 import com.cartisan.security.CartisanUser;
 import com.ekin.constant.SystemCodeMessage;
@@ -39,7 +40,7 @@ public class CartisanUserDetailService implements UserDetailsService {
 
     private User requireUserPresent(Optional<User> userOptional) {
         return userOptional
-                .orElseThrow(() -> new CartisanException(SystemCodeMessage.ERROR_USERNAME_OR_PASSWORD));
+                .orElseThrow(() -> new CartisanException(CodeMessage.FAIL.fillArgs("用户名或密码不正确")));
     }
 
 
