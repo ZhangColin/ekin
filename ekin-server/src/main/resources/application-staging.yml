@@ -1,20 +1,21 @@
 #spring:
 #  datasource:
-#    url: jdbc:mysql://49.234.49.112:3306/cartisan?characterEncoding=utf-8&useSSL=false
+#    url: jdbc:p6spy:mysql://localhost:3306/ekin?characterEncoding=utf-8&useSSL=false
 #    username: root
-#    password: truth
-#  jpa:
-#    show-sql: true
+#    password: GAKqD8q8s/fbxM9YUiiMpaj0hYp1LuPCda0DkR/B3v/fXpra1vKP+9cBtrXTwYJrDweDnAsFuscHiP5C3XZ6DA==
+#    decrypt: true
+#    public-key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIdafBFEbA+F7zB0RcwPOFzGUSo5tB2ggQh2Ay0MlKjlt9oKFfIHDKzt9jim+mZHONZsgOUktccAb0nFYX4TlikCAwEAAQ==
+#    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
 #
 #  rabbitmq:
-#    host: 49.234.49.112
+#    host: localhost
 #    port: 5672
-#    virtual-host: /cartisan
+#    virtual-host: /ekin
 #    username: rabbitmqadmin
 #    password: 123456
 #
 #  redis:
-#    host: 49.234.49.112 # Redis服务器地址
+#    host: localhost # Redis服务器地址
 #    database: 0 # Redis数据库索引（默认为0）
 #    port: 6379 # Redis服务器连接端口
 #    password: # Redis服务器连接密码（默认为空）
@@ -32,5 +33,6 @@
 #    secret: cartisan
 #
 #logging:
-#  path: /var/log/cartisan/system/
-#  file: cartisan-system
+#  file:
+#    path: /var/log/cartisan/system/
+#    name: cartisan-system

@@ -27,3 +27,5 @@
 target/
 
 logs
+
+application-local.yml
