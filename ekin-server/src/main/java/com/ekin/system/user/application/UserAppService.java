@@ -3,7 +3,7 @@ package com.ekin.system.user.application;
 import com.cartisan.dtos.PageResult;
 import com.cartisan.exceptions.CartisanException;
 import com.ekin.constant.SystemCodeMessage;
-import com.ekin.security.SecurityContext;
+import com.ekin.security.CurrentUser;
 import com.ekin.system.user.UserRepository;
 import com.ekin.system.user.domain.AssignService;
 import com.ekin.system.user.domain.RegisterService;
@@ -55,8 +55,6 @@ public class UserAppService {
     }
 
     public PageResult<UserDto> searchUsers(@NonNull UserQuery userQuery, @NonNull Pageable pageable) {
-        log.info("current user: {}", SecurityContext.getCurrentUser().getUserId());
-
         final Page<User> searchResult = repository.findAll(querySpecification(userQuery), pageable);
 
         return new PageResult<>(searchResult.getTotalElements(), searchResult.getTotalPages(),
