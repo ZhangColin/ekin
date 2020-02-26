@@ -8,7 +8,7 @@ spring:
     name: ekin
   profiles:
     include: web, mysql
-    active: prod
+    active: local
 
 
 cartisan:
@@ -26,14 +26,17 @@ cartisan:
   security:
     ignored:
       urls: # 安全路由白名单
+        - /
+        - /*.html
+        - /**/*.html
+        - /**/*.css
+        - /**/*.js
+        - /**/v2/api-docs/**
+        - /**/*.png
+        - /**/*.ico
         - /swagger-ui.html
         - /swagger-resources/**
         - /swagger/**
-        - /**/v2/api-docs
-        - /**/*.js
-        - /**/*.css
-        - /**/*.png
-        - /**/*.ico
         - /webjars/springfox-swagger-ui/**
         - /actuator/**
         - /druid/**

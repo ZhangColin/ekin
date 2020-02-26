@@ -3,6 +3,7 @@ package com.ekin.system.user.application;
 import com.cartisan.dtos.PageResult;
 import com.cartisan.exceptions.CartisanException;
 import com.ekin.constant.SystemCodeMessage;
+import com.ekin.security.SecurityContext;
 import com.ekin.system.user.UserRepository;
 import com.ekin.system.user.domain.AssignService;
 import com.ekin.system.user.domain.RegisterService;
@@ -15,6 +16,7 @@ import com.ekin.system.user.request.CreateAccountCommand;
 import com.ekin.system.user.request.UserQuery;
 import com.ekin.system.user.response.UserDto;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +33,7 @@ import static com.cartisan.utils.AssertionUtil.requirePresent;
  * @author colin
  */
 @Service
+@Slf4j
 public class UserAppService {
     private final RegisterService registerService;
     private final AssignService assignService;
@@ -52,6 +55,8 @@ public class UserAppService {
     }
 
     public PageResult<UserDto> searchUsers(@NonNull UserQuery userQuery, @NonNull Pageable pageable) {
+        log.info("current user: {}", SecurityContext.getCurrentUser().getUserId());
+
         final Page<User> searchResult = repository.findAll(querySpecification(userQuery), pageable);
 
         return new PageResult<>(searchResult.getTotalElements(), searchResult.getTotalPages(),
