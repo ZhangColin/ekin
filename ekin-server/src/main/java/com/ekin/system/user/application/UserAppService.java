@@ -62,12 +62,14 @@ public class UserAppService {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public void createAccount(CreateAccountCommand command) {
+    public UserDetailDto createAccount(CreateAccountCommand command) {
         final User user = registerService.register(
                 command.getUsername(), command.getPhone(), command.getEmail(), command.getRealName());
 
         assignService.assignRoles(user.getId(), command.getRoleCodes());
         assignService.assignDepartments(user.getId(), command.getDepartmentIds());
+
+        return UserDetailDto.convertFrom(user);
     }
 
     @Transactional(rollbackOn = Exception.class)

@@ -53,9 +53,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<?> createAccount(
             @ApiParam(value = "账号信息", required = true) @Validated @RequestBody CreateAccountCommand createAccountCommand) {
-        service.createAccount(createAccountCommand);
-
-        return success();
+        return success(service.createAccount(createAccountCommand));
     }
 
     @ApiOperation(value = "分配角色")
