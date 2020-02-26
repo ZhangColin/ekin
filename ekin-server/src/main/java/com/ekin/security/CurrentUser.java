@@ -1,20 +1,21 @@
 package com.ekin.security;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
+@Component
+@Slf4j
 public class CurrentUser {
-    private CurrentUser() {
-    }
-
-    private static CurrentUserInfo getCurrentUser() {
+    private CurrentUserInfo getCurrentUser() {
         return (CurrentUserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    public static Long getUserId() {
+    public Long getUserId() {
         return getCurrentUser().getUserId();
     }
 
-    public static String getUsername() {
+    public String getUsername() {
         return getCurrentUser().getUsername();
     }
 }
