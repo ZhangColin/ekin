@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,6 +44,7 @@ public class UserController {
 
     @ApiOperation(value = "搜索用户")
     @GetMapping("/search")
+//    @PreAuthorize("hasAuthority('test')")
     public ResponseEntity<PageResult<UserDto>> searchUsers(
             @ApiParam(value = "查询参数") UserQuery userQuery,
             @PageableDefault Pageable pageable) {
