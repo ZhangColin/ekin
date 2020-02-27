@@ -6,7 +6,7 @@ CREATE TABLE `sys_dicts` (
   `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-   PRIMARY KEY (`id`) USING BTREE,
+  PRIMARY KEY (`id`) USING BTREE,
   UNIQUE key `index_dict_code` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='数据字典表';
 
@@ -21,7 +21,7 @@ CREATE TABLE `sys_dict_items` (
   `sort` int NOT NULL DEFAULT 0 COMMENT '排序',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-   PRIMARY KEY (`id`) USING BTREE,
+  PRIMARY KEY (`id`) USING BTREE,
   INDEX `index_dict_dict_id`(`dict_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户角色关联表';
 

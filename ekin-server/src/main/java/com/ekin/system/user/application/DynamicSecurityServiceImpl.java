@@ -14,7 +14,7 @@ public class DynamicSecurityServiceImpl implements DynamicSecurityService {
     public Map<String, ConfigAttribute> loadDataSource() {
         final ConcurrentHashMap<String, ConfigAttribute> map = new ConcurrentHashMap<>();
 
-        map.put("/system/users/**", new SecurityConfig("123:test"));
+//        map.put("/system/users/**", new SecurityConfig("123:test"));
 
         return map;
     }
