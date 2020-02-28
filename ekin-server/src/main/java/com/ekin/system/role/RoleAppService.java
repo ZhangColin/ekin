@@ -2,13 +2,12 @@ package com.ekin.system.role;
 
 import com.cartisan.dtos.PageResult;
 import com.cartisan.exceptions.CartisanException;
-import com.cartisan.utils.SnowflakeIdWorker;
-import com.ekin.system.role.response.RoleDto;
 import com.ekin.constant.SystemCodeMessage;
 import com.ekin.system.role.domain.Role;
-import com.ekin.system.role.response.RoleConverter;
-import com.ekin.system.role.response.RoleInfo;
 import com.ekin.system.role.request.RoleParam;
+import com.ekin.system.role.response.RoleConverter;
+import com.ekin.system.role.response.RoleDto;
+import com.ekin.system.role.response.RoleInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,13 +25,11 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class RoleAppService {
     private final RoleRepository repository;
-    private final SnowflakeIdWorker idWorker;
     private final RoleConverter converter;
 
     @Autowired
-    public RoleAppService(RoleRepository repository, SnowflakeIdWorker idWorker, RoleConverter converter) {
+    public RoleAppService(RoleRepository repository, RoleConverter converter) {
         this.repository = repository;
-        this.idWorker = idWorker;
         this.converter = converter;
     }
 
@@ -61,8 +58,7 @@ public class RoleAppService {
         if (repository.existsByName(roleParam.getName())) {
             throw new CartisanException(SystemCodeMessage.SAME_ROlE_NAME);
         }
-        final Role role = new Role(idWorker.nextId(), roleParam.getName(), roleParam.getCode());
-        role.setDescription(roleParam.getDescription());
+        final Role role = new Role(roleParam.getName(), roleParam.getDescription(), roleParam.getSort());
 
         repository.save(role);
     }
@@ -74,10 +70,7 @@ public class RoleAppService {
         }
         final Role role = repository.findById(id).get();
 
-        role.setName(roleParam.getName());
-        role.setCode(roleParam.getCode());
-
-        role.setDescription(roleParam.getDescription());
+        role.change(roleParam.getName(), roleParam.getDescription(), roleParam.getSort());
 
         repository.save(role);
     }
@@ -88,15 +81,22 @@ public class RoleAppService {
     }
 
 
-    public List<String> getRolePermissions(Long id) {
-        return repository.findById(id).get().getPermissions().stream()
-                .map(rolePermission->rolePermission.getPermissionId().toString()).collect(toList());
+//    public List<String> getRolePermissions(Long id) {
+//        return repository.findById(id).get().getPermissions().stream()
+//                .map(rolePermission->rolePermission.getPermissionId().toString()).collect(toList());
+//    }
+
+    @Transactional(rollbackOn = Exception.class)
+    public void assignMenus(Long id, List<Long> menuIds) {
+        final Role role = repository.findById(id).get();
+        role.assignMenus(menuIds);
+        repository.save(role);
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public void assignPermissions(Long id, List<Long> permissionIds) {
+    public void assignResources(Long id, List<Long> resourceIds) {
         final Role role = repository.findById(id).get();
-        role.assignPermissions(permissionIds);
+        role.assignResources(resourceIds);
         repository.save(role);
     }
 }

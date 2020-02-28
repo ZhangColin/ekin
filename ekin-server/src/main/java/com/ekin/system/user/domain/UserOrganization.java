@@ -10,22 +10,22 @@ import javax.persistence.*;
  * @author colin
  */
 @Entity
-@Table(name = "sys_user_departments")
+@Table(name = "sys_user_organizations")
 @Getter
-@EqualsAndHashCode(callSuper = true)
-public class UserDepartment extends AbstractEntity {
+@EqualsAndHashCode
+public class UserOrganization {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "department_id")
-    private Long departmentId;
+    @Column(name = "organization_id")
+    private Long organizationId;
 
-    private UserDepartment() {
+    private UserOrganization() {
     }
 
-    public UserDepartment(Long departmentId) {
-        this.departmentId = departmentId;
+    public UserOrganization(Long organizationId) {
+        this.organizationId = organizationId;
     }
 }

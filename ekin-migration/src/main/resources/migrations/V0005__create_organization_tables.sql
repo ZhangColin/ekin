@@ -35,10 +35,6 @@ CREATE TABLE `sys_user_organizations` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键Id',
   `user_id` bigint NULL COMMENT '用户Id',
   `organization_id` bigint NULL COMMENT '组织Id',
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `index_user_organization_user_id`(`user_id`),
-  INDEX `index_user_organization_organization_id`(`organization_id`),
   INDEX `index_user_organization_user_id_organization_id`(`user_id`, `organization_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户组织机构关联表';

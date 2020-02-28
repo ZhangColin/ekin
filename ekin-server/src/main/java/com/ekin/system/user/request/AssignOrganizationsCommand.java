@@ -9,7 +9,7 @@ import java.util.List;
  * @author colin
  */
 @Data
-public class AssignDepartmentsCommand {
+public class AssignOrganizationsCommand {
     @ApiModelProperty(value = "分配的组织")
-    private List<Long> departmentIds;
+    private List<Long> organizationIds;
 }

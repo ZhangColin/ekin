@@ -1,12 +1,12 @@
 package com.ekin.system.user.controller;
 
 import com.cartisan.dtos.PageResult;
-import com.ekin.system.user.request.AssignDepartmentsCommand;
+import com.ekin.system.user.application.UserAppService;
+import com.ekin.system.user.request.AssignOrganizationsCommand;
 import com.ekin.system.user.request.AssignRolesCommand;
-import com.ekin.system.user.response.UserDetailDto;
 import com.ekin.system.user.request.CreateAccountCommand;
 import com.ekin.system.user.request.UserQuery;
-import com.ekin.system.user.application.UserAppService;
+import com.ekin.system.user.response.UserDetailDto;
 import com.ekin.system.user.response.UserDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,7 +70,7 @@ public class UserController {
     @PutMapping("/{userId}/assignDepartments")
     public ResponseEntity<?> assignDepartments(
             @ApiParam(value = "用户Id", required = true) @PathVariable Long userId,
-            @ApiParam(value = "分配的组织", required = true) @RequestBody AssignDepartmentsCommand command) {
+            @ApiParam(value = "分配的组织", required = true) @RequestBody AssignOrganizationsCommand command) {
         service.assignDepartments(userId, command);
         return success();
     }

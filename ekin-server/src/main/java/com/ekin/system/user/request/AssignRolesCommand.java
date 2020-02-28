@@ -10,6 +10,6 @@ import java.util.List;
  */
 @Data
 public class AssignRolesCommand {
-    @ApiModelProperty(value = "分配的角色编码")
-    private List<String> roleCodes;
+    @ApiModelProperty(value = "分配的角色")
+    private List<Long> roleIds;
 }

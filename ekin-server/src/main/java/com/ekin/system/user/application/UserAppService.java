@@ -3,21 +3,19 @@ package com.ekin.system.user.application;
 import com.cartisan.dtos.PageResult;
 import com.cartisan.exceptions.CartisanException;
 import com.ekin.constant.SystemCodeMessage;
-import com.ekin.security.CurrentUser;
 import com.ekin.system.user.UserRepository;
 import com.ekin.system.user.domain.AssignService;
 import com.ekin.system.user.domain.RegisterService;
 import com.ekin.system.user.domain.User;
-import com.ekin.system.user.request.AssignDepartmentsCommand;
+import com.ekin.system.user.request.AssignOrganizationsCommand;
 import com.ekin.system.user.request.AssignRolesCommand;
-import com.ekin.system.user.response.UserConverter;
-import com.ekin.system.user.response.UserDetailDto;
 import com.ekin.system.user.request.CreateAccountCommand;
 import com.ekin.system.user.request.UserQuery;
+import com.ekin.system.user.response.UserConverter;
+import com.ekin.system.user.response.UserDetailDto;
 import com.ekin.system.user.response.UserDto;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -66,20 +64,20 @@ public class UserAppService {
         final User user = registerService.register(
                 command.getUsername(), command.getPhone(), command.getEmail(), command.getRealName());
 
-        assignService.assignRoles(user.getId(), command.getRoleCodes());
-        assignService.assignDepartments(user.getId(), command.getDepartmentIds());
+        assignService.assignRoles(user.getId(), command.getRoleIds());
+        assignService.assignOrganizations(user.getId(), command.getOrganizationIds());
 
         return UserDetailDto.convertFrom(user);
     }
 
     @Transactional(rollbackOn = Exception.class)
     public void assignRoles(Long userId, AssignRolesCommand command) {
-        assignService.assignRoles(userId, command.getRoleCodes());
+        assignService.assignRoles(userId, command.getRoleIds());
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public void assignDepartments(Long userId, AssignDepartmentsCommand command) {
-        assignService.assignDepartments(userId, command.getDepartmentIds());
+    public void assignDepartments(Long userId, AssignOrganizationsCommand command) {
+        assignService.assignOrganizations(userId, command.getOrganizationIds());
     }
 
     @Transactional(rollbackOn = Exception.class)

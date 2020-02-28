@@ -1,4 +1,4 @@
-package com.ekin.system.permission.mapper;
+package com.ekin.system.menu.mapper;
 
 import com.cartisan.dtos.TreeNode;
 import org.apache.ibatis.annotations.Param;

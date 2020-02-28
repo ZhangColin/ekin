@@ -1,0 +1,35 @@
+### 获取所有资源分类
+GET http://{{host}}:{{port}}/system/resources/categories
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 添加资源分类
+POST http://{{host}}:{{port}}/system/resources/categories
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+{
+  "name": "系统管理",
+  "sort": 10
+}
+
+### 编辑资源分类
+PUT http://{{host}}:{{port}}/system/resources/categories/1
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+{
+  "name": "系统管理",
+  "sort": 20
+}
+
+### 删除资源分类
+DELETE http://{{host}}:{{port}}/system/resources/categories/1
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+###

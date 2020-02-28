@@ -1,11 +1,11 @@
 package com.ekin.system.dict;
 
 import com.cartisan.dtos.PageResult;
+import com.ekin.system.dict.request.DictItemParam;
+import com.ekin.system.dict.request.DictParam;
 import com.ekin.system.dict.request.DictQuery;
 import com.ekin.system.dict.response.DictDto;
 import com.ekin.system.dict.response.DictItemDto;
-import com.ekin.system.dict.request.DictItemParam;
-import com.ekin.system.dict.request.DictParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

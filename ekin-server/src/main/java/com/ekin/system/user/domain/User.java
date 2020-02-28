@@ -51,13 +51,13 @@ public class User extends SoftDeleteEntity implements AggregateRoot {
     private Integer status;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name = "user_id")
     @Fetch(FetchMode.SUBSELECT)
-    private List<UserDepartment> departments = new ArrayList<>();
+    @JoinColumn(name = "user_id")
+    private List<UserOrganization> organizations = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name = "user_id")
     @Fetch(FetchMode.SUBSELECT)
+    @JoinColumn(name = "user_id")
     private List<UserRole> roles = new ArrayList<>();
 
     private User() {
@@ -79,22 +79,22 @@ public class User extends SoftDeleteEntity implements AggregateRoot {
         this.status = 1;
     }
 
-    public void assignRoles(List<String> roleCodes) {
+    public void assignRoles(List<Long> roleIds) {
         this.roles.removeAll(this.roles.stream()
-                .filter(role -> !roleCodes.contains(role.getRoleCode()))
+                .filter(role -> !roleIds.contains(role.getRoleId()))
                 .collect(toList()));
 
-        roleCodes.removeAll(this.roles.stream().map(UserRole::getRoleCode).collect(toList()));
-        roleCodes.forEach(roleCode -> this.roles.add(new UserRole(roleCode)));
+        roleIds.removeAll(this.roles.stream().map(UserRole::getRoleId).collect(toList()));
+        roleIds.forEach(roleId -> this.roles.add(new UserRole(roleId)));
     }
 
-    public void assignDepartments(List<Long> departmentIds) {
-        this.departments.removeAll(this.departments.stream()
-                .filter(department -> !departmentIds.contains(department.getDepartmentId()))
+    public void assignOrganizations(List<Long> organizationIds) {
+        this.organizations.removeAll(this.organizations.stream()
+                .filter(userOrganization -> !organizationIds.contains(userOrganization.getOrganizationId()))
                 .collect(toList()));
 
-        departmentIds.removeAll(this.departments.stream().map(UserDepartment::getDepartmentId).collect(toList()));
-        departmentIds.forEach(departmentId -> this.departments.add(new UserDepartment(departmentId)));
+        organizationIds.removeAll(this.organizations.stream().map(UserOrganization::getOrganizationId).collect(toList()));
+        organizationIds.forEach(organizationId -> this.organizations.add(new UserOrganization(organizationId)));
     }
 
     public void disable() {

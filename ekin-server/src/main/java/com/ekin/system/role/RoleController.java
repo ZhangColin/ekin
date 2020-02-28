@@ -1,10 +1,9 @@
 package com.ekin.system.role;
 
 import com.cartisan.dtos.PageResult;
+import com.ekin.system.role.request.RoleParam;
 import com.ekin.system.role.response.RoleDto;
 import com.ekin.system.role.response.RoleInfo;
-import com.ekin.system.role.request.RoleParam;
-import com.ekin.system.role.RoleAppService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -80,18 +79,18 @@ public class RoleController {
         return success();
     }
 
-    @ApiOperation(value = "获取角色下的权限Id")
-    @GetMapping("/{id}/permissions")
-    public ResponseEntity<List<String>> getRolePermissions(@ApiParam(value = "角色Id", required = true) @PathVariable Long id){
-        return success(service.getRolePermissions(id));
-    }
+//    @ApiOperation(value = "获取角色下的权限Id")
+//    @GetMapping("/{id}/permissions")
+//    public ResponseEntity<List<String>> getRolePermissions(@ApiParam(value = "角色Id", required = true) @PathVariable Long id){
+//        return success(service.getRolePermissions(id));
+//    }
 
     @ApiOperation(value = "分配权限")
     @PostMapping("/{id}/permissions")
     public ResponseEntity addRole(
             @ApiParam(value = "角色Id", required = true) @PathVariable Long id,
             @ApiParam(value = "权限Ids", required = true) @Validated @RequestBody List<Long> permissionIds) {
-        service.assignPermissions(id, permissionIds);
+        service.assignMenus(id, permissionIds);
 
         return success();
     }

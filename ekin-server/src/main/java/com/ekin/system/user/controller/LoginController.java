@@ -1,6 +1,6 @@
 package com.ekin.system.user.controller;
 
-import com.ekin.system.permission.mapper.PermissionQueryMapper;
+import com.ekin.system.menu.mapper.PermissionQueryMapper;
 import com.ekin.system.user.application.LoginAppService;
 import com.ekin.system.user.request.LoginCommand;
 import io.swagger.annotations.ApiParam;

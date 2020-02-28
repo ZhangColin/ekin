@@ -1,4 +1,4 @@
-package com.ekin.system.permission;
+package com.ekin.system.menu;
 
 import com.cartisan.exceptions.CartisanException;
 import com.cartisan.utils.SnowflakeIdWorker;

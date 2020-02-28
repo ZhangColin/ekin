@@ -10,11 +10,11 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class RoleInfo {
-    private String code;
+    private String id;
 
     private String name;
 
     public static RoleInfo convertFrom(Role role) {
-        return new RoleInfo(role.getCode(), role.getName());
+        return new RoleInfo(role.getId().toString(), role.getName());
     }
 }

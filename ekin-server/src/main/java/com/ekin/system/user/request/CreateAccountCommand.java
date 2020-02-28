@@ -5,8 +5,6 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,8 +30,8 @@ public class CreateAccountCommand {
     private String realName;
 
     @ApiModelProperty(value = "分配的部门列表")
-    private List<Long> departmentIds;
+    private List<Long> organizationIds;
 
     @ApiModelProperty(value = "分配的角色列表")
-    private List<String>  roleCodes;
+    private List<Long> roleIds;
 }

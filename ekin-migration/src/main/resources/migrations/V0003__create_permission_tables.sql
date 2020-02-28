@@ -59,7 +59,7 @@ CREATE TABLE `sys_resource_categories` (
 
 -- 资源表
 CREATE TABLE `sys_resources` (
-  `id` bigint NOT NULL COMMENT '资源Id',
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '资源Id',
   `category_id` bigint NULL COMMENT '资源分类Id',
   `name` varchar(32) NOT NULL COMMENT '资源名称',
   `code` varchar(128) NOT NULL DEFAULT '' COMMENT '权限编码',

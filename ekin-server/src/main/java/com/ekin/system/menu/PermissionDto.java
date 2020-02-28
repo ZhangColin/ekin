@@ -1,4 +1,4 @@
-package com.ekin.system.permission;
+package com.ekin.system.menu;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ArrayListMultimap;

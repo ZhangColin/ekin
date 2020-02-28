@@ -12,21 +12,21 @@ import javax.persistence.*;
 @Entity
 @Table(name = "sys_user_roles")
 @Getter
-@EqualsAndHashCode(callSuper = true)
-public class UserRole extends AbstractEntity {
+@EqualsAndHashCode
+public class UserRole {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "role_code")
-    private String roleCode;
+    @Column(name = "role_id")
+    private Long roleId;
 
     private UserRole() {
 
     }
 
-    public UserRole(String roleCode) {
-        this.roleCode = roleCode;
+    public UserRole(Long roleId) {
+        this.roleId = roleId;
     }
 }

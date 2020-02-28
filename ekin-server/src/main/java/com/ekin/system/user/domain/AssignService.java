@@ -29,24 +29,24 @@ public class AssignService {
         this.departmentRepository = departmentRepository;
     }
 
-    public void assignRoles(Long userId, List<String> roleCodes) {
+    public void assignRoles(Long userId, List<Long> roleIds) {
         final User user = requirePresent(this.userRepository.findById(userId));
 
-        final List<String> ensureRoleCodes = roleRepository.findByCodeIn(roleCodes)
-                .stream().map(Role::getCode).collect(toList());
+        final List<Long> ensureRoleIds = roleRepository.findAllById(roleIds)
+                .stream().map(Role::getId).collect(toList());
 
-        user.assignRoles(ensureRoleCodes);
+        user.assignRoles(ensureRoleIds);
 
         this.userRepository.save(user);
     }
 
-    public void assignDepartments(Long userId, List<Long> departmentIds) {
+    public void assignOrganizations(Long userId, List<Long> organizationIds) {
         final User user = requirePresent(this.userRepository.findById(userId));
 
-        final List<Long> ensureDepartmentIds = departmentRepository.findByIdIn(departmentIds)
+        final List<Long> ensureOrganizationIds = departmentRepository.findByIdIn(organizationIds)
                 .stream().map(Department::getId).collect(toList());
 
-        user.assignDepartments(ensureDepartmentIds);
+        user.assignOrganizations(ensureOrganizationIds);
 
         this.userRepository.save(user);
     }

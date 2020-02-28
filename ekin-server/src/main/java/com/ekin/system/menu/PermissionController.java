@@ -1,7 +1,7 @@
-package com.ekin.system.permission;
+package com.ekin.system.menu;
 
 import com.cartisan.dtos.TreeNode;
-import com.ekin.system.permission.mapper.PermissionQueryMapper;
+import com.ekin.system.menu.mapper.PermissionQueryMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

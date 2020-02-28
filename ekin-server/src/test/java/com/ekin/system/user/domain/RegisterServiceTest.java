@@ -24,7 +24,7 @@ public class RegisterServiceTest {
     private RegisterService registerService;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         userRepository = mock(UserRepository.class);
         idWorker = mock(SnowflakeIdWorker.class);
         defaultPasswordProvider = mock(DefaultPasswordProvider.class);

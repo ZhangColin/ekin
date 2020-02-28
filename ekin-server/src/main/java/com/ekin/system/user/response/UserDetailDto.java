@@ -1,7 +1,6 @@
 package com.ekin.system.user.response;
 
 import com.ekin.system.user.domain.User;
-import com.ekin.system.user.domain.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -27,7 +26,7 @@ public class UserDetailDto {
     private String email;
     private Integer status;
     private List<String> departmentIds;
-    private List<String> roleCodes;
+    private List<String> roleIds;
 
     public UserDetailDto() {
     }
@@ -35,7 +34,7 @@ public class UserDetailDto {
     public static UserDetailDto convertFrom(User user) {
         return new UserDetailDto(user.getId().toString(), user.getUsername(), user.getRealName(), user.getAvatar(),
                 user.getBirthday(), user.getSex(), user.getPhone(), user.getEmail(), user.getStatus(),
-                user.getDepartments().stream().map(userDepartment->userDepartment.getDepartmentId().toString()).collect(toList()),
-                user.getRoles().stream().map(UserRole::getRoleCode).collect(toList()));
+                user.getOrganizations().stream().map(userDepartment->userDepartment.getOrganizationId().toString()).collect(toList()),
+                user.getRoles().stream().map(userRole -> userRole.getRoleId().toString()).collect(toList()));
     }
 }

@@ -2,7 +2,6 @@ package com.ekin.system.user.application;
 
 import com.cartisan.security.DynamicSecurityService;
 import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.access.SecurityConfig;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

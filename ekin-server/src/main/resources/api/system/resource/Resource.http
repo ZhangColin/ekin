@@ -1,0 +1,43 @@
+### 获取所有资源
+GET http://{{host}}:{{port}}/system/resources
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 添加资源
+POST http://{{host}}:{{port}}/system/resources
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+{
+  "name": "用户管理",
+  "categoryId": 1,
+  "code": "system:user",
+  "url": "/system/users/**",
+  "description": "用户相关资源",
+  "sort": 1
+}
+
+### 编辑资源分类
+PUT http://{{host}}:{{port}}/system/resources/1
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+{
+  "name": "用户管理",
+  "categoryId": 1,
+  "code": "system:user",
+  "url": "/system/users/**",
+  "description": "用户相关资源",
+  "sort": 20
+}
+
+### 删除资源分类
+DELETE http://{{host}}:{{port}}/system/resources/1
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+###

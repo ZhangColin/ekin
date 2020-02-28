@@ -1,4 +1,4 @@
-package com.ekin.system.permission;
+package com.ekin.system.menu;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

@@ -10,22 +10,22 @@ import javax.persistence.*;
  * @author colin
  */
 @Entity
-@Table(name = "sys_role_permissions")
+@Table(name = "sys_role_menus")
 @Getter
 @EqualsAndHashCode(callSuper = true)
-public class RolePermission extends AbstractEntity {
+public class RoleMenu extends AbstractEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "permission_id")
-    private Long permissionId;
+    @Column(name = "menu_id")
+    private Long menuId;
 
-    private RolePermission() {
+    private RoleMenu() {
     }
 
-    public RolePermission(Long permissionId) {
-        this.permissionId = permissionId;
+    public RoleMenu(Long menuId) {
+        this.menuId = menuId;
     }
 }
