@@ -35,14 +35,14 @@ public class ResourceCategoryController {
 
     @ApiOperation(value = "添加资源分类")
     @PostMapping
-    public ResponseEntity<?> addResourceCategory(
+    public ResponseEntity<ResourceCategoryDto> addResourceCategory(
             @ApiParam(value = "资源分类信息", required = true) @Validated @RequestBody ResourceCategoryParam resourceCategoryParam) {
         return success(service.addResourceCategory(resourceCategoryParam));
     }
 
     @ApiOperation(value = "编辑资源分类")
     @PutMapping("/{id}")
-    public ResponseEntity<?> editResourceCategory(
+    public ResponseEntity<ResourceCategoryDto> editResourceCategory(
             @ApiParam(value = "资源分类Id", required = true) @PathVariable Long id,
             @ApiParam(value = "资源分类信息", required = true) @Validated @RequestBody ResourceCategoryParam resourceCategoryParam) {
         return success(service.editResourceCategory(id, resourceCategoryParam));

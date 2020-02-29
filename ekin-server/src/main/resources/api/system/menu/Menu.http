@@ -1,0 +1,43 @@
+### 获取所有资源
+GET http://{{host}}:{{port}}/system/menus
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 添加资源
+POST http://{{host}}:{{port}}/system/menus
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+{
+  "title": "系统管理",
+  "parentId": 0,
+  "name": "system",
+  "icon": "",
+  "hidden": false,
+  "sort": 1
+}
+
+### 编辑资源分类
+PUT http://{{host}}:{{port}}/system/menus/1
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+{
+  "title": "系统管理-1",
+  "parentId": 0,
+  "name": "system-1",
+  "icon": "",
+  "hidden": false,
+  "sort": 1
+}
+
+### 删除资源分类
+DELETE http://{{host}}:{{port}}/system/menus/1
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+###

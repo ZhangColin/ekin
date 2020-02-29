@@ -1,6 +1,6 @@
 package com.ekin.system.resource.request;
 
-import com.ekin.system.resource.validator.ResourceCategoryExists;
+import com.ekin.system.resource.validator.ResourceCategoryVerify;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -20,7 +20,8 @@ public class ResourceParam {
     private String name;
 
     @ApiModelProperty(value = "资源分类", required = true)
-    @ResourceCategoryExists
+    @NotNull(message = "资源分类不能为空")
+    @ResourceCategoryVerify
     private Long categoryId;
 
     @ApiModelProperty(value = "权限编码", required = true)

@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import { getPermissionList } from '@/api/system/permission-api'
+import { getPermissionList } from '@/api/system/menu-api'
 
 const defaultPermission = {
   name: '',
@@ -98,7 +98,7 @@ export default {
       listLoading: true,
       dialogVisible: false,
       dialogTitle: '',
-      permission: Object.assign({}, defaultPermission),
+      menu: Object.assign({}, defaultPermission),
       rules: {
         name: [
           { required: true, message: '请输入权限名称', trigger: 'blur' }
@@ -120,27 +120,27 @@ export default {
         this.fetchPermissionPaths(this.list, [])
       })
     },
-    fetchPermissionPaths(permissions, parentPath) {
-      for (let i = 0; i < permissions.length; i++) {
-        this.permissionPaths[permissions[i].id] = Object.assign([], parentPath)
+    fetchPermissionPaths(menus, parentPath) {
+      for (let i = 0; i < menus.length; i++) {
+        this.permissionPaths[menus[i].id] = Object.assign([], parentPath)
         const newPath = Object.assign([], parentPath)
-        newPath.push(permissions[i].id)
-        this.fetchPermissionPaths(permissions[i].children, newPath)
+        newPath.push(menus[i].id)
+        this.fetchPermissionPaths(menus[i].children, newPath)
       }
     },
-    fetchPermissionOptions(permissions, currentId) {
+    fetchPermissionOptions(menus, currentId) {
       let options = null
-      if (permissions.length > 0) {
+      if (menus.length > 0) {
         options = []
       }
-      for (let i = 0; i < permissions.length; i++) {
+      for (let i = 0; i < menus.length; i++) {
         const option = {
-          label: permissions[i].name,
-          value: permissions[i].id,
-          disabled: permissions[i].id === currentId
+          label: menus[i].name,
+          value: menus[i].id,
+          disabled: menus[i].id === currentId
         }
 
-        option.children = this.fetchPermissionOptions(permissions[i].children, currentId)
+        option.children = this.fetchPermissionOptions(menus[i].children, currentId)
 
         options.push(option)
       }

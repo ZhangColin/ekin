@@ -47,14 +47,14 @@ public class ResourceController {
 
     @ApiOperation(value = "添加资源")
     @PostMapping
-    public ResponseEntity<?> addResource(
+    public ResponseEntity<ResourceDto> addResource(
             @ApiParam(value = "资源信息", required = true) @Validated @RequestBody ResourceParam resourceParam) {
         return success(service.addResource(resourceParam));
     }
 
     @ApiOperation(value = "编辑资源")
     @PutMapping("/{id}")
-    public ResponseEntity<?> editResource(
+    public ResponseEntity<ResourceDto> editResource(
             @ApiParam(value = "资源Id", required = true) @PathVariable Long id,
             @ApiParam(value = "资源信息", required = true) @Validated @RequestBody ResourceParam resourceParam) {
         return success(service.editResource(id, resourceParam));

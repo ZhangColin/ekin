@@ -29,7 +29,7 @@
 
 <script>
 import { getRole, getRolePermissions, assignPermissions } from '@/api/system/role-api'
-import { getPermissionTree } from '@/api/system/permission-api'
+import { getPermissionTree } from '@/api/system/menu-api'
 
 export default {
   name: 'PermissionAssign',
