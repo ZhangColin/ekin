@@ -15,7 +15,7 @@ CREATE TABLE `sys_roles` (
 CREATE TABLE `sys_user_roles` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
   `user_id` bigint NULL COMMENT '用户Id',
-  `role_id` bigint NULL COMMENT '权限Id',
+  `role_id` bigint NULL COMMENT '角色Id',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `index_user_role_user_id_role_id`(`user_id`, `role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户角色关联表';
