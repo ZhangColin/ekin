@@ -18,8 +18,8 @@ public class RoleParam {
     @Length(min = 2, max = 32, message = "角色名称必须在 2 至 32 之间")
     private String name;
 
-    @ApiModelProperty(value = "排序字段")
-    @NotNull(message = "展示顺序不能为空")
+    @ApiModelProperty(value = "角色排序")
+    @NotNull(message = "角色排序不能为空")
     @Min(value = 0, message = "排序最小为0")
     private Integer sort;
 

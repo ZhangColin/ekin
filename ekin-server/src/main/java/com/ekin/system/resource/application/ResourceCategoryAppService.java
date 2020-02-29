@@ -20,7 +20,7 @@ import static com.cartisan.utils.AssertionUtil.requirePresent;
  */
 @Service
 public class ResourceCategoryAppService {
-    public static final String ERR_NAME_EXISTS = "资源分类名称已存在。";
+    public static final String ERR_NAME_EXISTS = "资源分类已存在。";
     private final ResourceCategoryConverter converter = ResourceCategoryConverter.CONVERTER;
 
     private final ResourceCategoryRepository repository;

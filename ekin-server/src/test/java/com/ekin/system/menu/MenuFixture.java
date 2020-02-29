@@ -1,7 +1,5 @@
 package com.ekin.system.menu;
 
-import java.util.List;
-
 public class MenuFixture {
     public static final Long PARENT_ID = 0L;
     public static final String TITLE = "系统管理";

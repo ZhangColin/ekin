@@ -19,7 +19,7 @@ Authorization: {{auth_token}}
   "sort": 1
 }
 
-### 编辑资源分类
+### 编辑资源
 PUT http://{{host}}:{{port}}/system/resources/1
 Accept: application/json
 Content-Type: application/json;charset=UTF-8
@@ -34,7 +34,7 @@ Authorization: {{auth_token}}
   "sort": 20
 }
 
-### 删除资源分类
+### 删除资源
 DELETE http://{{host}}:{{port}}/system/resources/1
 Accept: application/json
 Content-Type: application/json;charset=UTF-8

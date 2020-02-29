@@ -18,6 +18,7 @@ public class RegisterServiceTest {
     public static final String PHONE = "13962830605";
     public static final String EMAIL = "stwyhm@126.com";
     public static final String REALNAME = "colin";
+
     private UserRepository userRepository;
     private SnowflakeIdWorker idWorker;
     private DefaultPasswordProvider defaultPasswordProvider;

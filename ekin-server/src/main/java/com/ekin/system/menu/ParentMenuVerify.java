@@ -1,7 +1,5 @@
 package com.ekin.system.menu;
 
-import com.ekin.system.resource.application.ResourceCategoryAppService;
-
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,0 +1,81 @@
+### 搜索角色
+GET http://{{host}}:{{port}}/system/roles/search?name=&status=&page=0&size=10
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 获取所有启用的角色
+GET http://{{host}}:{{port}}/system/roles
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 获取角色
+GET http://{{host}}:{{port}}/system/roles/2
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 添加角色
+POST http://{{host}}:{{port}}/system/roles
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+{
+  "name": "管理员",
+  "sort": 1,
+  "description": "管理员"
+}
+
+### 编辑角色
+PUT http://{{host}}:{{port}}/system/roles/2
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+{
+  "name": "管理员-1",
+  "sort": 20,
+  "description": "管理员-1"
+}
+
+### 删除角色
+DELETE http://{{host}}:{{port}}/system/roles/2
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 分配菜单
+PUT http://{{host}}:{{port}}/system/roles/2/menus
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+{
+  "menuIds": [1, 2, 3]
+}
+
+### 分配资源
+PUT http://{{host}}:{{port}}/system/roles/2/resources
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+{
+  "resourceIds": [1, 2, 3]
+}
+
+### 启用角色
+PUT http://{{host}}:{{port}}/system/roles/2/enable
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 禁用角色
+PUT http://{{host}}:{{port}}/system/roles/1265585799404064769/disable
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+###

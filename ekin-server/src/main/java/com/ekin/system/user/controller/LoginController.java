@@ -1,6 +1,5 @@
 package com.ekin.system.user.controller;
 
-import com.ekin.system.menu.mapper.PermissionQueryMapper;
 import com.ekin.system.user.application.LoginAppService;
 import com.ekin.system.user.request.LoginCommand;
 import io.swagger.annotations.ApiParam;
@@ -24,12 +23,10 @@ import static java.util.Arrays.asList;
 public class LoginController {
     private final LoginAppService loginAppService;
 
-    private final PermissionQueryMapper permissionQueryMapper;
 
     @Autowired
-    public LoginController(LoginAppService loginAppService, PermissionQueryMapper permissionQueryMapper) {
+    public LoginController(LoginAppService loginAppService) {
         this.loginAppService = loginAppService;
-        this.permissionQueryMapper = permissionQueryMapper;
     }
 
     @PostMapping("/login")

@@ -4,7 +4,6 @@ import com.cartisan.domains.AbstractEntity;
 import com.cartisan.domains.AggregateRoot;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 

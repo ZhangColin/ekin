@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.Length;
 @Data
 public class UserQuery {
     @ApiModelProperty(value = "账号", required = true)
-    @Length(min = 2, max = 32, message = "部门名称必须在 2 至 32 之间")
+    @Length(min = 2, max = 32, message = "账号必须在 2 至 32 之间")
     @Condition(propName = "username", type = Condition.Type.INNER_LIKE)
     private String username;
 

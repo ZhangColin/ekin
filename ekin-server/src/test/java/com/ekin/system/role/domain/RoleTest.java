@@ -14,15 +14,16 @@ public class RoleTest {
 
     @Before
     public void setUp() throws Exception {
-        role = new Role("admin", "super manager", 10);
+        role = new Role("admin");
     }
 
     @Test
     public void should_create_role_success() {
         assertThat(role.getName()).isEqualTo("admin");
-        assertThat(role.getDescription()).isEqualTo("super manager");
-        assertThat(role.getSort()).isEqualTo(10);
+        assertThat(role.getDescription()).isEqualTo("");
+        assertThat(role.getSort()).isEqualTo(1);
         assertThat(role.getStatus()).isEqualTo(1);
+
         assertThat(role.getMenus().size()).isEqualTo(0);
         assertThat(role.getResources().size()).isEqualTo(0);
     }
@@ -30,7 +31,7 @@ public class RoleTest {
     @Test
     public void should_change_role_success() {
         // when
-        role.change("admin1", "super manager 1", 20);
+        role.describe("admin1", "super manager 1", 20);
 
         // then
         assertThat(role.getName()).isEqualTo("admin1");

@@ -1,6 +1,5 @@
 package com.ekin.system.role.domain;
 
-import com.cartisan.domains.AbstractEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -12,8 +11,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "sys_role_resources")
 @Getter
-@EqualsAndHashCode(callSuper = true)
-public class RoleResource extends AbstractEntity {
+@EqualsAndHashCode
+public class RoleResource {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

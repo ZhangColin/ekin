@@ -51,14 +51,14 @@ public class Role extends AbstractEntity implements AggregateRoot {
     private Role() {
     }
 
-    public Role(String name, String description, Integer sort) {
+    public Role(String name) {
         this.name = name;
-        this.description = description;
-        this.sort = sort;
+        this.description = "";
+        this.sort = 1;
         this.status = 1;
     }
 
-    public void change(String name, String description, Integer sort){
+    public void describe(String name, String description, Integer sort){
         this.name = name;
         this.description = description;
         this.sort = sort;

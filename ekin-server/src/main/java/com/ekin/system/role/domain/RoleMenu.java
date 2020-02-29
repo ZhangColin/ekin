@@ -12,8 +12,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "sys_role_menus")
 @Getter
-@EqualsAndHashCode(callSuper = true)
-public class RoleMenu extends AbstractEntity {
+@EqualsAndHashCode
+public class RoleMenu {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,6 +1,5 @@
 package com.ekin.system.user.domain;
 
-import com.cartisan.domains.AbstractEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 

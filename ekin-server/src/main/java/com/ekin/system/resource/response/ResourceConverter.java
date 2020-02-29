@@ -9,8 +9,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-import java.util.List;
-
 import static com.cartisan.utils.AssertionUtil.requirePresent;
 
 /**
@@ -25,10 +23,6 @@ public interface ResourceConverter extends Converter<Resource, ResourceDto> {
     @InheritConfiguration
     @Mapping(source="categoryId", target="category")
     ResourceDto convert(Resource resource);
-
-    @Override
-    @InheritConfiguration
-    List<ResourceDto> convert(List<Resource> resources);
 
     default ResourceCategoryDto categoryId2CategoryDto(Long categoryId){
         final ResourceCategoryAppService resourceCategoryAppService =
