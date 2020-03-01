@@ -13,7 +13,6 @@ import com.ekin.system.dict.response.DictDto;
 import com.ekin.system.dict.response.DictItemConverter;
 import com.ekin.system.dict.response.DictItemDto;
 import lombok.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -34,7 +33,6 @@ public class DictAppService {
     private final DictConverter dictConverter;
     private final DictItemConverter dictItemConverter;
 
-    @Autowired
     public DictAppService(DictRepository repository, DictConverter dictConverter, DictItemConverter dictItemConverter) {
         this.repository = repository;
         this.dictConverter = dictConverter;

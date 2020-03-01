@@ -17,7 +17,7 @@ const system = {
     path: 'departments',
     name: 'departments',
     component: () => import('@/views/system/department/departments'),
-    meta: { title: '部门管理', icon: 'nested', permissions: ['system:department'] }
+    meta: { title: '组织管理', icon: 'nested', permissions: ['system:department'] }
   }, {
     path: 'dictionaries',
     name: 'dictionaries',

@@ -17,7 +17,7 @@ import static com.cartisan.responses.ResponseUtil.success;
 /**
  * @author colin
  */
-@Api(tags = "资源分类")
+@Api(tags = "系统管理：资源分类")
 @RestController
 @RequestMapping("/system/resources/categories")
 public class ResourceCategoryController {

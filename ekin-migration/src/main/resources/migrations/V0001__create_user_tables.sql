@@ -7,7 +7,7 @@ CREATE TABLE `sys_users` (
   `password` varchar(64) NOT NULL COMMENT '密码',
   `real_name` varchar(32) NOT NULL COMMENT '真实姓名',
   `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '头像',
-  `birthday` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '生日',
+  `birthday` date COMMENT '生日',
   `sex` tinyint NOT NULL DEFAULT 1 COMMENT '性别（1：男 2：女）',
   `status` tinyint NOT NULL DEFAULT 1 COMMENT '状态(1：正常  2：冻结 ）',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

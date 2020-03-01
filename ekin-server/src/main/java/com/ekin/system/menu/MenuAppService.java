@@ -1,6 +1,5 @@
 package com.ekin.system.menu;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +16,6 @@ public class MenuAppService {
     private final MenuConverter converter = MenuConverter.CONVERTER;
     private final MenuRepository repository;
 
-    @Autowired
     public MenuAppService(MenuRepository repository) {
         this.repository = repository;
     }

@@ -1,15 +1,16 @@
 package com.ekin.system.user.domain;
 
-import com.ekin.system.department.Department;
-import com.ekin.system.department.DepartmentRepository;
+import com.ekin.system.organization.OrganizationRepository;
 import com.ekin.system.role.RoleRepository;
 import com.ekin.system.role.domain.Role;
-import com.ekin.system.user.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.cartisan.utils.AssertionUtil.requirePresent;
+import static com.google.common.primitives.Longs.asList;
+import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -17,37 +18,27 @@ import static java.util.stream.Collectors.toList;
  */
 @Service
 public class AssignService {
-    private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final DepartmentRepository departmentRepository;
+    private final OrganizationRepository organizationRepository;
 
-    public AssignService(UserRepository userRepository,
-                         RoleRepository roleRepository,
-                         DepartmentRepository departmentRepository) {
-        this.userRepository = userRepository;
+    public AssignService(RoleRepository roleRepository,
+                         OrganizationRepository organizationRepository) {
         this.roleRepository = roleRepository;
-        this.departmentRepository = departmentRepository;
+        this.organizationRepository = organizationRepository;
     }
 
-    public void assignRoles(Long userId, List<Long> roleIds) {
-        final User user = requirePresent(this.userRepository.findById(userId));
-
+    public void assignRoles(User user, List<Long> roleIds) {
         final List<Long> ensureRoleIds = roleRepository.findAllById(roleIds)
                 .stream().map(Role::getId).collect(toList());
 
         user.assignRoles(ensureRoleIds);
-
-        this.userRepository.save(user);
     }
 
-    public void assignOrganizations(Long userId, List<Long> organizationIds) {
-        final User user = requirePresent(this.userRepository.findById(userId));
+    public void assignOrganization(final User user, Long organizationId) {
+        requirePresent(organizationRepository.findById(organizationId), "分配的组织不存在。");
 
-        final List<Long> ensureOrganizationIds = departmentRepository.findByIdIn(organizationIds)
-                .stream().map(Department::getId).collect(toList());
-
+        List<Long> ensureOrganizationIds = new ArrayList<>();
+        ensureOrganizationIds.add(organizationId);
         user.assignOrganizations(ensureOrganizationIds);
-
-        this.userRepository.save(user);
     }
 }

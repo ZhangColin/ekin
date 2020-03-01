@@ -5,6 +5,7 @@ import com.cartisan.utils.SnowflakeIdWorker;
 import com.ekin.system.user.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -23,13 +24,15 @@ public class RegisterServiceTest {
     private SnowflakeIdWorker idWorker;
     private DefaultPasswordProvider defaultPasswordProvider;
     private RegisterService registerService;
+    private PasswordEncoder passwordEncoder;
 
     @Before
     public void setUp() {
         userRepository = mock(UserRepository.class);
         idWorker = mock(SnowflakeIdWorker.class);
         defaultPasswordProvider = mock(DefaultPasswordProvider.class);
-        registerService = new RegisterService(userRepository, idWorker, defaultPasswordProvider);
+        passwordEncoder = mock(PasswordEncoder.class);
+        registerService = new RegisterService(userRepository, idWorker, defaultPasswordProvider, passwordEncoder);
     }
 
     @Test
@@ -85,7 +88,8 @@ public class RegisterServiceTest {
         when(userRepository.existsByPhone(anyString())).thenReturn(false);
         when(userRepository.existsByEmail(anyString())).thenReturn(false);
 
-        when(defaultPasswordProvider.geneate()).thenReturn("123456");
+        when(defaultPasswordProvider.generate()).thenReturn("123456");
+        when(passwordEncoder.encode(anyString())).thenReturn("123456");
 
         // when
         final User user1 = registerService.register(USERNAME, PHONE, EMAIL, REALNAME);

@@ -5,7 +5,6 @@ import com.cartisan.exceptions.CartisanException;
 import com.ekin.security.CurrentUserInfo;
 import com.ekin.system.user.UserRepository;
 import com.ekin.system.user.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,8 +19,6 @@ import java.util.Optional;
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository repository;
 
-
-    @Autowired
     public UserDetailsServiceImpl(UserRepository repository) {
         this.repository = repository;
     }

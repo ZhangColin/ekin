@@ -1,6 +1,8 @@
 package com.ekin.system.role;
 
 import com.cartisan.exceptions.CartisanException;
+import com.ekin.system.menu.MenuRepository;
+import com.ekin.system.resource.repository.ResourceRepository;
 import com.ekin.system.role.request.RoleParam;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,13 +15,18 @@ import static org.mockito.Mockito.when;
 
 public class RoleAppServiceTest {
     private RoleRepository repository;
+    private MenuRepository menuRepository;
+    private ResourceRepository resourceRepository;
     private RoleAppService service;
     private RoleParam roleParam;
 
     @Before
     public void setUp() {
         repository = mock(RoleRepository.class);
-        service = new RoleAppService(repository);
+        menuRepository = mock(MenuRepository.class);
+        resourceRepository = mock(ResourceRepository.class);
+
+        service = new RoleAppService(repository, menuRepository, resourceRepository);
         roleParam = new RoleParam();
         roleParam.setName("用户管理");
         roleParam.setDescription("用户管理描述");

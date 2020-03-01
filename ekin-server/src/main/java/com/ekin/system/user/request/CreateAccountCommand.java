@@ -29,8 +29,8 @@ public class CreateAccountCommand {
     @Length(min = 2, max = 32, message = "真实姓名必须在 2 至 32 之间")
     private String realName;
 
-    @ApiModelProperty(value = "分配的部门列表")
-    private List<Long> organizationIds;
+    @ApiModelProperty(value = "分配的组织")
+    private Long organizationId;
 
     @ApiModelProperty(value = "分配的角色列表")
     private List<Long> roleIds;

@@ -15,7 +15,7 @@ public class MenuTest {
     }
 
     @Test
-    public void should_create_resource_category_success() {
+    public void should_create_menu_success() {
         assertThat(menu.getParentId()).isEqualTo(PARENT_ID);
         assertThat(menu.getTitle()).isEqualTo(TITLE);
         assertThat(menu.getIcon()).isEqualTo(ICON);
@@ -25,7 +25,7 @@ public class MenuTest {
     }
 
     @Test
-    public void should_describe_resource_category_success() {
+    public void should_describe_menu_success() {
         // when
         menu.change(PARENT_ID + 1, TITLE + 1, NAME + 1, ICON + 1,
                 !HIDDEN, LEVEL + 1, SORT + 1);

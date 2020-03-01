@@ -14,8 +14,8 @@
       fit
       highlight-current-row
     >
-      <el-table-column align="left" label="部门名称" prop="name" />
-      <el-table-column align="left" label="部门ID" prop="id" />
+      <el-table-column align="left" label="组织名称" prop="name" />
+      <el-table-column align="left" label="组织ID" prop="id" />
       <el-table-column align="left" label="描述" prop="description" />
       <el-table-column align="left" label="排序" prop="sort" />
       <el-table-column align="center" label="操作" width="200">
@@ -37,11 +37,11 @@
       :visible.sync="dialogVisible"
       :close-on-click-modal="false"
     >
-      <el-form ref="departmentForm" :model="department" :rules="rules" label-width="120px">
+      <el-form ref="departmentForm" :model="organization" :rules="rules" label-width="120px">
         <el-form-item label="名称" prop="name">
-          <el-input v-model="department.name" placeholder="请输入部门名称" />
+          <el-input v-model="organization.name" placeholder="请输入组织名称" />
         </el-form-item>
-        <el-form-item label="上级部门">
+        <el-form-item label="上级组织">
           <el-cascader
             v-model="selectDepartments"
             expand-trigger="hover"
@@ -53,10 +53,10 @@
           />
         </el-form-item>
         <el-form-item label="描述" prop="description">
-          <el-input v-model="department.description" placeholder="请输入描述" />
+          <el-input v-model="organization.description" placeholder="请输入描述" />
         </el-form-item>
         <el-form-item label="排序" prop="sort">
-          <el-input-number v-model="department.sort" placeholder="请输入部门排序" />
+          <el-input-number v-model="organization.sort" placeholder="请输入组织排序" />
         </el-form-item>
       </el-form>
       <span slot="footer">
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { getDepartmentList, addDepartment, editDepartment, removeDepartment } from '@/api/system/department-api'
+import { getDepartmentList, addDepartment, editDepartment, removeDepartment } from '@/api/system/organization-api'
 
 const defaultDepartment = {
   name: '',
@@ -87,10 +87,10 @@ export default {
       listLoading: true,
       dialogVisible: false,
       dialogTitle: '',
-      department: Object.assign({}, defaultDepartment),
+      organization: Object.assign({}, defaultDepartment),
       rules: {
         name: [
-          { required: true, message: '请输入部门名称', trigger: 'blur' }
+          { required: true, message: '请输入组织名称', trigger: 'blur' }
         ]
       },
       departmentPaths: {}
@@ -108,27 +108,27 @@ export default {
         this.fetchDepartmentPaths(this.list, [])
       })
     },
-    fetchDepartmentPaths(departments, parentPath) {
-      for (let i = 0; i < departments.length; i++) {
-        this.departmentPaths[departments[i].id] = Object.assign([], parentPath)
+    fetchDepartmentPaths(organizations, parentPath) {
+      for (let i = 0; i < organizations.length; i++) {
+        this.departmentPaths[organizations[i].id] = Object.assign([], parentPath)
         const newPath = Object.assign([], parentPath)
-        newPath.push(departments[i].id)
-        this.fetchDepartmentPaths(departments[i].children, newPath)
+        newPath.push(organizations[i].id)
+        this.fetchDepartmentPaths(organizations[i].children, newPath)
       }
     },
-    fetchDepartmentOptions(departments, currentId) {
+    fetchDepartmentOptions(organizations, currentId) {
       let options = null
-      if (departments.length > 0) {
+      if (organizations.length > 0) {
         options = []
       }
-      for (let i = 0; i < departments.length; i++) {
+      for (let i = 0; i < organizations.length; i++) {
         const option = {
-          label: departments[i].name,
-          value: departments[i].id,
-          disabled: departments[i].id === currentId
+          label: organizations[i].name,
+          value: organizations[i].id,
+          disabled: organizations[i].id === currentId
         }
 
-        option.children = this.fetchDepartmentOptions(departments[i].children, currentId)
+        option.children = this.fetchDepartmentOptions(organizations[i].children, currentId)
 
         options.push(option)
       }
@@ -138,21 +138,21 @@ export default {
     handleAdd() {
       this.departmentOptions = []
       this.departmentOptions = this.fetchDepartmentOptions(this.list, 0) || []
-      this.department = Object.assign({}, defaultDepartment)
+      this.organization = Object.assign({}, defaultDepartment)
       this.selectDepartments = []
-      this.dialogTitle = '添加部门'
+      this.dialogTitle = '添加组织'
       this.dialogVisible = true
     },
     handleEdit(index, row) {
       this.departmentOptions = []
       this.departmentOptions = this.fetchDepartmentOptions(this.list, row.id) || []
-      this.department = row
-      this.selectDepartments = this.departmentPaths[this.department.id]
-      this.dialogTitle = '编辑部门'
+      this.organization = row
+      this.selectDepartments = this.departmentPaths[this.organization.id]
+      this.dialogTitle = '编辑组织'
       this.dialogVisible = true
     },
     handleDelete(index, row) {
-      this.$confirm('是否要删除该部门', '提示', {
+      this.$confirm('是否要删除该组织', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -171,12 +171,12 @@ export default {
       this.$refs['departmentForm'].validate((valid) => {
         if (valid) {
           if (this.selectDepartments.length > 0) {
-            this.department.parentId = this.selectDepartments[this.selectDepartments.length - 1]
+            this.organization.parentId = this.selectDepartments[this.selectDepartments.length - 1]
           } else {
-            this.department.parentId = 0
+            this.organization.parentId = 0
           }
-          if (this.dialogTitle === '添加部门') {
-            addDepartment(this.department).then(response => {
+          if (this.dialogTitle === '添加组织') {
+            addDepartment(this.organization).then(response => {
               this.$message({
                 message: '添加成功',
                 type: 'success',
@@ -186,7 +186,7 @@ export default {
               this.fetchData()
             })
           } else {
-            editDepartment(this.department.id, this.department).then(response => {
+            editDepartment(this.organization.id, this.organization).then(response => {
               this.$message({
                 message: '修改成功',
                 type: 'success',

@@ -1,40 +1,49 @@
 package com.ekin.system.user.response;
 
-import com.ekin.system.user.domain.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.ekin.system.organization.OrganizationDto;
+import com.ekin.system.role.response.RoleDto;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 /**
  * @author colin
  */
-@Getter
-@AllArgsConstructor
+@Data
 public class UserDetailDto {
+    @ApiModelProperty(value = "用户Id")
     private String id;
 
+    @ApiModelProperty(value = "用户名")
     private String username;
-    private String realName;
-    private String avatar;
-    private Date birthday;
-    private Integer sex;
+
+    @ApiModelProperty(value = "电话")
     private String phone;
+
+    @ApiModelProperty(value = "邮箱")
     private String email;
+
+    @ApiModelProperty(value = "真实姓名")
+    private String realName;
+
+    @ApiModelProperty(value = "性别")
+    private Integer sex;
+
+    @ApiModelProperty(value = "状态")
     private Integer status;
-    private List<String> departmentIds;
-    private List<String> roleIds;
 
-    public UserDetailDto() {
-    }
+    @ApiModelProperty(value = "头像")
+    private String avatar;
 
-    public static UserDetailDto convertFrom(User user) {
-        return new UserDetailDto(user.getId().toString(), user.getUsername(), user.getRealName(), user.getAvatar(),
-                user.getBirthday(), user.getSex(), user.getPhone(), user.getEmail(), user.getStatus(),
-                user.getOrganizations().stream().map(userDepartment->userDepartment.getOrganizationId().toString()).collect(toList()),
-                user.getRoles().stream().map(userRole -> userRole.getRoleId().toString()).collect(toList()));
-    }
+    @ApiModelProperty(value = "生日")
+    private LocalDate birthday;
+
+    @ApiModelProperty(value = "拥有的角色")
+    private List<RoleDto> roles;
+
+    @ApiModelProperty(value = "所属组织")
+    private OrganizationDto organization;
+
 }

@@ -1,10 +1,10 @@
-### 获取所有资源
+### 获取所有菜单
 GET http://{{host}}:{{port}}/system/menus
 Accept: application/json
 Content-Type: application/json;charset=UTF-8
 Authorization: {{auth_token}}
 
-### 添加资源
+### 添加菜单
 POST http://{{host}}:{{port}}/system/menus
 Accept: application/json
 Content-Type: application/json;charset=UTF-8
@@ -19,7 +19,7 @@ Authorization: {{auth_token}}
   "sort": 1
 }
 
-### 编辑资源分类
+### 编辑菜单
 PUT http://{{host}}:{{port}}/system/menus/1
 Accept: application/json
 Content-Type: application/json;charset=UTF-8
@@ -34,7 +34,7 @@ Authorization: {{auth_token}}
   "sort": 1
 }
 
-### 删除资源分类
+### 删除菜单
 DELETE http://{{host}}:{{port}}/system/menus/1
 Accept: application/json
 Content-Type: application/json;charset=UTF-8

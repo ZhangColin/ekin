@@ -9,5 +9,5 @@ public interface DefaultPasswordProvider {
      * 生成默认密码
      * @return 默认密码
      */
-    String geneate();
+    String generate();
 }

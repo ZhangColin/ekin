@@ -23,7 +23,7 @@ import static com.cartisan.responses.ResponseUtil.success;
 /**
  * @author colin
  */
-@Api(tags = "角色")
+@Api(tags = "系统管理：角色")
 @RestController
 @RequestMapping("/system/roles")
 public class RoleController {

@@ -5,6 +5,7 @@ import com.cartisan.exceptions.CartisanException;
 import com.cartisan.utils.SnowflakeIdWorker;
 import com.ekin.system.user.UserRepository;
 import com.google.common.base.Strings;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,11 +16,14 @@ public class RegisterService {
     private final UserRepository userRepository;
     private final SnowflakeIdWorker idWorker;
     private final DefaultPasswordProvider defaultPasswordProvider;
+    private final PasswordEncoder passwordEncoder;
 
-    public RegisterService(UserRepository userRepository, SnowflakeIdWorker idWorker, DefaultPasswordProvider defaultPasswordProvider) {
+    public RegisterService(UserRepository userRepository, SnowflakeIdWorker idWorker,
+                           DefaultPasswordProvider defaultPasswordProvider, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.idWorker = idWorker;
         this.defaultPasswordProvider = defaultPasswordProvider;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User register(String username, String phone, String email, String realName) {
@@ -42,13 +46,9 @@ public class RegisterService {
             throw new CartisanException(CodeMessage.VALIDATE_ERROR.fillArgs("邮箱已被占用。"));
         }
 
-        final String password = defaultPasswordProvider.geneate();
+        final String encodePassword =  passwordEncoder.encode(defaultPasswordProvider.generate());
 
-        final User user = new User(idWorker.nextId(), username, phone, email, password, realName);
-
-        userRepository.save(user);
-
-        return user;
+        return new User(idWorker.nextId(), username, phone, email, encodePassword, realName);
     }
 
     private String ensureUsername(String username, String phone, String email) {

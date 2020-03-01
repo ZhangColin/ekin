@@ -3,6 +3,10 @@ package com.ekin.system.role;
 import com.cartisan.constants.CodeMessage;
 import com.cartisan.dtos.PageResult;
 import com.cartisan.exceptions.CartisanException;
+import com.ekin.system.menu.Menu;
+import com.ekin.system.menu.MenuRepository;
+import com.ekin.system.resource.domain.Resource;
+import com.ekin.system.resource.repository.ResourceRepository;
 import com.ekin.system.role.domain.Role;
 import com.ekin.system.role.request.RoleParam;
 import com.ekin.system.role.request.RoleQuery;
@@ -11,7 +15,6 @@ import com.ekin.system.role.response.RoleDetailConverter;
 import com.ekin.system.role.response.RoleDetailDto;
 import com.ekin.system.role.response.RoleDto;
 import lombok.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -22,6 +25,7 @@ import java.util.List;
 
 import static com.cartisan.repositories.ConditionSpecifications.querySpecification;
 import static com.cartisan.utils.AssertionUtil.requirePresent;
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author colin
@@ -31,12 +35,16 @@ public class RoleAppService {
     public static final String ERR_NAME_EXISTS = "角色已存在。";
 
     private final RoleRepository repository;
+    private final MenuRepository menuRepository;
+    private final ResourceRepository resourceRepository;
+
     private final RoleConverter roleConverter = RoleConverter.CONVERTER;
     private final RoleDetailConverter roleDetailConverter = RoleDetailConverter.CONVERTER;
 
-    @Autowired
-    public RoleAppService(RoleRepository repository) {
+    public RoleAppService(RoleRepository repository, MenuRepository menuRepository, ResourceRepository resourceRepository) {
         this.repository = repository;
+        this.menuRepository = menuRepository;
+        this.resourceRepository = resourceRepository;
     }
 
     public PageResult<RoleDto> searchRoles(@NonNull RoleQuery roleQuery, @NonNull Pageable pageable) {
@@ -92,14 +100,22 @@ public class RoleAppService {
     @Transactional(rollbackOn = Exception.class)
     public void assignMenus(Long id, List<Long> menuIds) {
         final Role role = requirePresent(repository.findById(id));
-        role.assignMenus(menuIds);
+
+        final List<Long> ensureMenuIds = menuRepository.findByIdIn(menuIds)
+                .stream().map(Menu::getId).collect(toList());
+
+        role.assignMenus(ensureMenuIds);
         repository.save(role);
     }
 
     @Transactional(rollbackOn = Exception.class)
     public void assignResources(Long id, List<Long> resourceIds) {
         final Role role = requirePresent(repository.findById(id));
-        role.assignResources(resourceIds);
+
+        final List<Long> ensureResourceIds = resourceRepository.findByIdIn(resourceIds)
+                .stream().map(Resource::getId).collect(toList());
+
+        role.assignResources(ensureResourceIds);
         repository.save(role);
     }
 

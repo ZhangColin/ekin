@@ -4,13 +4,14 @@ import com.cartisan.domains.AggregateRoot;
 import com.cartisan.domains.SoftDeleteEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,9 +42,11 @@ public class User extends SoftDeleteEntity implements AggregateRoot {
     private String password;
 
     @Column(name = "avatar")
+    @Setter
     private String avatar;
+
     @Column(name = "birthday")
-    private Date birthday;
+    private LocalDate birthday;
     @Column(name = "sex")
     private Integer sex;
 
@@ -74,9 +77,14 @@ public class User extends SoftDeleteEntity implements AggregateRoot {
         this.realName = realName;
 
         this.avatar = "";
-        this.birthday = new Date();
+        this.birthday = null;
         this.sex = 1;
         this.status = 1;
+    }
+
+    public void profile(LocalDate birthday, Integer sex) {
+        this.birthday = birthday;
+        this.sex = sex;
     }
 
     public void assignRoles(List<Long> roleIds) {

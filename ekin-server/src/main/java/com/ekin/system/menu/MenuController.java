@@ -3,7 +3,6 @@ package com.ekin.system.menu;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +14,12 @@ import static com.cartisan.responses.ResponseUtil.success;
 /**
  * @author colin
  */
-@Api(tags = "菜单")
+@Api(tags = "系统管理：菜单")
 @RestController
 @RequestMapping("/system/menus")
 public class MenuController {
     private final MenuAppService service;
 
-    @Autowired
     public MenuController(MenuAppService service) {
         this.service = service;
     }

@@ -1,0 +1,64 @@
+### 搜索用户
+GET http://{{host}}:{{port}}/system/users/search?name=&status=&page=0&size=10
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 获取用户
+GET http://{{host}}:{{port}}/system/users/1265586318612762624
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 创建用户账号
+POST http://{{host}}:{{port}}/system/users
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+{
+  "username": "colin",
+  "phone": "13962830605",
+  "email": "stwyhm@126.com",
+  "realName": "colin",
+  "organizationId": 1377345482606645248,
+  "roleIds": [
+    1
+  ]
+}
+
+### 分配角色
+PUT http://{{host}}:{{port}}/system/users/1377347194696372224/assignRoles
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+{
+  "roleIds": [
+    1
+  ]
+}
+
+### 分配部门
+PUT http://{{host}}:{{port}}/system/users/1377347194696372224/assignOrganization
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+{
+  "organizationId": 1377345482606645248
+}
+
+### 启用用户
+PUT http://{{host}}:{{port}}/system/users/1377347194696372224/enable
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 禁用用户
+PUT http://{{host}}:{{port}}/system/users/1377347194696372224/disable
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+###

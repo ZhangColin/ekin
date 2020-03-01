@@ -9,7 +9,6 @@ import com.ekin.system.dict.response.DictItemDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +28,6 @@ import static com.cartisan.responses.ResponseUtil.success;
 public class DictController {
     private final DictAppService service;
 
-    @Autowired
     public DictController(DictAppService service) {
         this.service = service;
     }

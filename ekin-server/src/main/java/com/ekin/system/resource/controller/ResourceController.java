@@ -21,7 +21,7 @@ import static com.cartisan.responses.ResponseUtil.success;
 /**
  * @author colin
  */
-@Api(tags = "资源")
+@Api(tags = "系统管理：资源")
 @RestController
 @RequestMapping("/system/resources")
 public class ResourceController {

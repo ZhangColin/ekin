@@ -16,8 +16,8 @@
       <el-form-item label="分配角色">
         <roleselect v-model="user.roleCodes" :codes="codes" :multiple="true" :filterable="true" :reserve-keyword="false" @showbox="toshow" />
       </el-form-item>
-      <el-form-item label="分配部门">
-        <el-input v-model="selectDepartmentNames" placeholder="请选择部门" readonly>
+      <el-form-item label="分配组织">
+        <el-input v-model="selectDepartmentNames" placeholder="请选择组织" readonly>
           <el-button slot="append" icon="el-icon-setting" @click="selectDepartments" />
         </el-input>
       </el-form-item>
@@ -55,7 +55,7 @@
       </el-form-item>
     </el-form>
     <el-dialog
-      title="选择部门"
+      title="选择组织"
       :visible.sync="dialogVisible"
       :close-on-click-modal="false"
     >
@@ -63,7 +63,7 @@
         ref="selectDepartments"
         node-key="id"
         :default-checked-keys="user.departmentIds"
-        class-name="department"
+        class-name="organization"
         default-expand-all
         check-strictly
       />
@@ -192,10 +192,10 @@ export default {
   },
   methods: {
     init() {
-      getTreeByClassName('department').then(response => {
+      getTreeByClassName('organization').then(response => {
         this.fetchDepartmentList(response.data)
 
-        // TODO: 因为异步，可能 user 返回时，departmentList 还没构建好，这会导致看不到部门，暂时使用同步化的手段来处理，以后再寻求解决方案
+        // TODO: 因为异步，可能 user 返回时，departmentList 还没构建好，这会导致看不到组织，暂时使用同步化的手段来处理，以后再寻求解决方案
         if (this.isEdit) {
           getUser(this.$route.query.id).then(response => {
             this.user = response.data

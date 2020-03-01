@@ -11,7 +11,6 @@ import com.ekin.system.user.response.UserDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -23,22 +22,14 @@ import static com.cartisan.responses.ResponseUtil.success;
 /**
  * @author colin
  */
-@Api(tags = "UserController")
+@Api(tags = "系统管理：用户")
 @RestController
 @RequestMapping("/system/users")
 public class UserController {
     private final UserAppService service;
 
-    @Autowired
     public UserController(UserAppService service) {
         this.service = service;
-    }
-
-    @ApiOperation(value = "获取用户")
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDetailDto> getUser(
-            @ApiParam(value = "用户Id", required = true) @PathVariable Long id) {
-        return success(service.getUser(id));
     }
 
     @ApiOperation(value = "搜索用户")
@@ -48,6 +39,13 @@ public class UserController {
             @ApiParam(value = "查询参数") UserQuery userQuery,
             @PageableDefault Pageable pageable) {
         return success(service.searchUsers(userQuery, pageable));
+    }
+
+    @ApiOperation(value = "获取用户")
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDetailDto> getUser(
+            @ApiParam(value = "用户Id", required = true) @PathVariable Long id) {
+        return success(service.getUser(id));
     }
 
     @ApiOperation(value = "创建用户账号")
@@ -61,17 +59,17 @@ public class UserController {
     @PutMapping("/{userId}/assignRoles")
     public ResponseEntity<?> assignRoles(
             @ApiParam(value = "用户Id", required = true) @PathVariable Long userId,
-            @ApiParam(value = "分配的角色编码", required = true) @RequestBody AssignRolesCommand command) {
+            @ApiParam(value = "分配角色", required = true) @RequestBody AssignRolesCommand command) {
         service.assignRoles(userId, command);
         return success();
     }
 
     @ApiOperation(value = "分配组织")
-    @PutMapping("/{userId}/assignDepartments")
-    public ResponseEntity<?> assignDepartments(
+    @PutMapping("/{userId}/assignOrganization")
+    public ResponseEntity<?> assignOrganizations(
             @ApiParam(value = "用户Id", required = true) @PathVariable Long userId,
-            @ApiParam(value = "分配的组织", required = true) @RequestBody AssignOrganizationsCommand command) {
-        service.assignDepartments(userId, command);
+            @ApiParam(value = "分配组织", required = true) @RequestBody AssignOrganizationsCommand command) {
+        service.assignOrganization(userId, command);
         return success();
     }
 
@@ -94,12 +92,11 @@ public class UserController {
         return success();
     }
 
-    @ApiOperation(value = "修改密码")
-    @PutMapping("/{id}/password")
-    public ResponseEntity changePassword(
-            @ApiParam(value = "用户Id", required = true) @PathVariable Long id,
-            @ApiParam(value = "密码", required = true) @Validated @RequestParam String password) {
-        service.changePassword(id, password);
+    @ApiOperation(value = "重置密码")
+    @PutMapping("/{userId}/resetPassword")
+    public ResponseEntity<?> resetPassword(
+            @ApiParam(value = "用户Id", required = true) @PathVariable Long userId) {
+        service.resetPassword(userId);
 
         return success();
     }

@@ -1,10 +1,9 @@
-package com.ekin.system.department;
+package com.ekin.system.organization;
 
 import com.cartisan.domains.AbstractEntity;
 import com.cartisan.domains.AggregateRoot;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,48 +14,65 @@ import javax.persistence.Table;
  * @author colin
  */
 @Entity
-@Table(name = "sys_departments")
+@Table(name = "sys_organizations")
 @Getter
 @EqualsAndHashCode(callSuper = true)
-public class Department  extends AbstractEntity implements AggregateRoot {
+public class Organization extends AbstractEntity implements AggregateRoot {
     @Id
     @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
-    @Setter
     private String name;
+
     @Column(name = "parent_id")
-    @Setter
     private Long parentId;
+
     @Column(name = "type")
-    @Setter
     private Integer type;
+
     @Column(name = "code")
-    @Setter
     private String code;
+
     @Column(name = "description")
-    @Setter
     private String description;
+
     @Column(name = "sort")
-    @Setter
     private Integer sort;
+
     @Column(name = "enabled")
-    @Setter
     private Boolean enabled;
 
-    private Department() {
+    private Organization() {
 
     }
 
-    public Department(Long id, Long parentId, String name) {
+    public Organization(Long id, Long parentId, String name) {
         this.id = id;
         this.parentId = parentId;
         this.name = name;
-        this.type = 0;
         this.code = "";
+        this.type = 0;
         this.description = "";
         this.sort = 0;
         this.enabled = true;
+    }
+
+    public void changeOrganization(Long parentId, String name) {
+        this.parentId = parentId;
+        this.name = name;
+    }
+
+    public void describe(String description, Integer sort) {
+        this.description = description;
+        this.sort = sort;
+    }
+
+    public void enable() {
+        this.enabled = true;
+    }
+
+    public void disable() {
+        this.enabled = false;
     }
 }
