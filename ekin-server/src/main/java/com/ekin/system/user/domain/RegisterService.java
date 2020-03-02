@@ -46,7 +46,7 @@ public class RegisterService {
             throw new CartisanException(CodeMessage.VALIDATE_ERROR.fillArgs("邮箱已被占用。"));
         }
 
-        final String encodePassword =  passwordEncoder.encode(defaultPasswordProvider.generate());
+        final String encodePassword = passwordEncoder.encode(defaultPasswordProvider.generate());
 
         return new User(idWorker.nextId(), username, phone, email, encodePassword, realName);
     }

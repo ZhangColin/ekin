@@ -1,5 +1,7 @@
 package com.ekin.system.organization;
 
+import com.ekin.system.organization.reponse.OrganizationTreeNode;
+
 public class OrganizationFixture {
     public static final Long ID = 1L;
     public static final Long PARENT_ID = 0L;
@@ -22,14 +24,13 @@ public class OrganizationFixture {
         return organizationParam;
     }
 
-    public static OrganizationDto organizationDtoOf() {
-        final OrganizationDto organizationDto = new OrganizationDto();
-        organizationDto.setId(ID.toString());
-        organizationDto.setParentId(PARENT_ID.toString());
-        organizationDto.setName(NAME);
-        organizationDto.setDescription(DESCRIPTION);
-        organizationDto.setSort(SORT);
+    public static OrganizationTreeNode organizationDtoOf() {
+        final OrganizationTreeNode organizationTreeNode = new OrganizationTreeNode();
+        organizationTreeNode.setId(ID.toString());
+        organizationTreeNode.setParentId(PARENT_ID.toString());
+        organizationTreeNode.setName(NAME);
+        organizationTreeNode.setSort(SORT);
 
-        return organizationDto;
+        return organizationTreeNode;
     }
 }

@@ -1,6 +1,6 @@
 package com.ekin.system.user.response;
 
-import com.ekin.system.organization.OrganizationDto;
+import com.ekin.system.organization.reponse.OrganizationDto;
 import com.ekin.system.role.response.RoleDto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

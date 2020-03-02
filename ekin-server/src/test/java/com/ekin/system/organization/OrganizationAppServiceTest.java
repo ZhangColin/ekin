@@ -1,7 +1,7 @@
 package com.ekin.system.organization;
 
 import com.cartisan.utils.SnowflakeIdWorker;
-import com.ekin.system.organization.*;
+import com.ekin.system.organization.reponse.OrganizationTreeNode;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.data.domain.Sort;
@@ -13,12 +13,8 @@ import static com.ekin.system.organization.OrganizationFixture.organizationOf;
 import static com.ekin.system.organization.OrganizationFixture.organizationParamOf;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
 
 public class OrganizationAppServiceTest {
     private OrganizationRepository repository;
@@ -43,11 +39,11 @@ public class OrganizationAppServiceTest {
         when(repository.findAll(any(Sort.class))).thenReturn(singletonList(organization));
 
         // when
-        final List<OrganizationDto> organizationDtos = service.getOrganizationTreeList();
+        final List<OrganizationTreeNode> organizationTreeNodes = service.getOrganizationTreeList();
 
         // then
-        assertThat(organizationDtos.size()).isEqualTo(1);
-        assertThat(organizationDtos.get(0).getName()).isEqualTo(organization.getName());
+        assertThat(organizationTreeNodes.size()).isEqualTo(1);
+        assertThat(organizationTreeNodes.get(0).getName()).isEqualTo(organization.getName());
     }
 
     @Test

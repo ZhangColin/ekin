@@ -1,5 +1,5 @@
-### 获取所有组织
-GET http://{{host}}:{{port}}/system/organizations
+### 获取组织树
+GET http://{{host}}:{{port}}/system/organizations/search
 Accept: application/json
 Content-Type: application/json;charset=UTF-8
 Authorization: {{auth_token}}
