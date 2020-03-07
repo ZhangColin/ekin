@@ -27,6 +27,7 @@
 target/
 
 logs
+spy.log
 
 application-local.yml
-/ekin-server/src/main/resources/api/rest-client.private.env.json
+rest-client.private.env.json

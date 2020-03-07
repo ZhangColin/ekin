@@ -9,8 +9,10 @@ import com.ekin.system.resource.request.ResourceParam;
 import com.ekin.system.resource.request.ResourceQuery;
 import com.ekin.system.resource.response.ResourceConverter;
 import com.ekin.system.resource.response.ResourceDto;
+import com.ekin.system.role.domain.Role;
 import lombok.NonNull;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -41,9 +43,10 @@ public class ResourceAppService {
     }
 
     public PageResult<ResourceDto> searchResources(@NonNull ResourceQuery resourceQuery, @NonNull Pageable pageable) {
-        pageable.getSort().and(Sort.by(Sort.Direction.ASC, "categoryId"))
-                .and(Sort.by(Sort.Direction.ASC, "sort"));
-        final Page<Resource> searchResult = repository.findAll(querySpecification(resourceQuery), pageable);
+        final Page<Resource> searchResult = repository.findAll(querySpecification(resourceQuery),
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
+                        Sort.by(Sort.Direction.ASC, "categoryId")
+                                .and(Sort.by(Sort.Direction.ASC, "sort"))));
 
         return new PageResult<>(searchResult.getTotalElements(), searchResult.getTotalPages(),
                 converter.convert(searchResult.getContent()));

@@ -1,7 +1,7 @@
 package com.ekin.system.organization;
 
 import com.cartisan.utils.SnowflakeIdWorker;
-import com.ekin.system.organization.reponse.OrganizationTreeNode;
+import com.ekin.system.organization.reponse.OrganizationDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.data.domain.Sort;
@@ -39,11 +39,11 @@ public class OrganizationAppServiceTest {
         when(repository.findAll(any(Sort.class))).thenReturn(singletonList(organization));
 
         // when
-        final List<OrganizationTreeNode> organizationTreeNodes = service.getOrganizationTreeList();
+        final List<OrganizationDto> organizationDtos = service.getOrganizationTreeList();
 
         // then
-        assertThat(organizationTreeNodes.size()).isEqualTo(1);
-        assertThat(organizationTreeNodes.get(0).getName()).isEqualTo(organization.getName());
+        assertThat(organizationDtos.size()).isEqualTo(1);
+        assertThat(organizationDtos.get(0).getName()).isEqualTo(organization.getName());
     }
 
     @Test

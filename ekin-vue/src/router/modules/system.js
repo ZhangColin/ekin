@@ -14,10 +14,44 @@ const system = {
     permissions: ['system']
   },
   children: [{
-    path: 'departments',
-    name: 'departments',
-    component: () => import('@/views/system/department/departments'),
-    meta: { title: '组织管理', icon: 'nested', permissions: ['system:department'] }
+    path: 'organization',
+    name: 'organization',
+    component: () => import('@/views/system/organization/organization'),
+    meta: { title: '组织管理', icon: 'nested', permissions: ['system:permission'] }
+  }, {
+    path: 'user',
+    name: 'user',
+    component: () => import('@/views/system/user/user'),
+    meta: { title: '用户管理', icon: 'nested', permissions: ['system:user'] }
+  }, {
+    path: 'role',
+    name: 'role',
+    component: () => import('@/views/system/role/role'),
+    meta: { title: '角色管理', icon: 'nested', permissions: ['system:permission'] }
+  }, {
+    path: 'resource',
+    name: 'resource',
+    component: nested,
+    redirect: '/system/resource/resource',
+    meta: { title: '资源管理', icon: 'nested', permissions: ['system:role'] },
+    children: [{
+      path: 'resource-list',
+      name: 'resource-list',
+      component: () => import('@/views/system/resource/resource'),
+      meta: { title: '资源管理', breadcrumb: false },
+      hidden: false
+    }, {
+      path: 'resource-category',
+      name: 'resource-category',
+      component: () => import('@/views/system/resource/resource-category'),
+      meta: { title: '资源分类' },
+      hidden: true
+    }]
+  }, {
+    path: 'menu',
+    name: 'menu',
+    component: () => import('@/views/system/menu/menu'),
+    meta: { title: '菜单管理', icon: 'nested', permissions: ['system:permission'] }
   }, {
     path: 'dictionaries',
     name: 'dictionaries',
@@ -28,7 +62,7 @@ const system = {
       path: 'dictionaryList',
       name: 'dictionaryList',
       component: () => import('@/views/system/dictionary/dictionaries'),
-      meta: { title: '字典查看', breadcrumb: false },
+      meta: { title: '字典管理', breadcrumb: false },
       hidden: false
     }, {
       path: 'dictionaryItems',
@@ -37,55 +71,6 @@ const system = {
       meta: { title: '字典项查看' },
       hidden: true
     }]
-  }, {
-    path: 'users',
-    name: 'users',
-    component: nested,
-    redirect: '/system/users/userList',
-    meta: { title: '用户管理', icon: 'nested', permissions: ['system:user'] },
-    children: [{
-      path: 'userList',
-      name: 'userList',
-      component: () => import('@/views/system/user/users'),
-      meta: { title: '用户管理', breadcrumb: false },
-      hidden: false
-    }, {
-      path: 'userAdd',
-      name: 'userAdd',
-      component: () => import('@/views/system/user/userAdd'),
-      meta: { title: '添加用户' },
-      hidden: true
-    }, {
-      path: 'userEdit',
-      name: 'userEdit',
-      component: () => import('@/views/system/user/userEdit'),
-      meta: { title: '编辑用户' },
-      hidden: true
-    }]
-  }, {
-    path: 'roles',
-    name: 'roles',
-    component: nested,
-    redirect: '/system/roles/roleList',
-    meta: { title: '角色管理', icon: 'nested', permissions: ['system:role'] },
-    children: [{
-      path: 'roleList',
-      name: 'roleList',
-      component: () => import('@/views/system/role/roles'),
-      meta: { title: '角色列表', breadcrumb: false },
-      hidden: false
-    }, {
-      path: 'permissionAssign',
-      name: 'permissionAssign',
-      component: () => import('@/views/system/role/permissionAssign'),
-      meta: { title: '权限分配' },
-      hidden: true
-    }]
-  }, {
-    path: 'permissions',
-    name: 'permissions',
-    component: () => import('@/views/system/permission/permissions'),
-    meta: { title: '权限管理', icon: 'nested', permissions: ['system:permission'] }
   }]
 }
 

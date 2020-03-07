@@ -21,6 +21,9 @@ public class RoleDetailConverterTest {
         // then
         assertThat(roleDetailDto).isNotNull();
         assertThat(roleDetailDto.getName()).isEqualTo(role.getName());
+        assertThat(roleDetailDto.getDescription()).isEqualTo(role.getDescription());
+        assertThat(roleDetailDto.getSort()).isEqualTo(role.getSort());
+        assertThat(roleDetailDto.getStatus()).isEqualTo(role.getStatus());
 
         assertThat(roleDetailDto.getMenuIds().size()).isEqualTo(3);
         assertThat(roleDetailDto.getMenuIds().get(0)).isEqualTo("1");

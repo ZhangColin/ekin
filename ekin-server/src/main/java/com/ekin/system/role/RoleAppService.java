@@ -16,6 +16,7 @@ import com.ekin.system.role.response.RoleDetailDto;
 import com.ekin.system.role.response.RoleDto;
 import lombok.NonNull;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -47,12 +48,12 @@ public class RoleAppService {
         this.resourceRepository = resourceRepository;
     }
 
-    public PageResult<RoleDto> searchRoles(@NonNull RoleQuery roleQuery, @NonNull Pageable pageable) {
-        pageable.getSort().and(Sort.by(Sort.Direction.ASC, "sort"));
-        final Page<Role> searchResult = repository.findAll(querySpecification(roleQuery), pageable);
+    public PageResult<RoleDetailDto> searchRoles(@NonNull RoleQuery roleQuery, @NonNull Pageable pageable) {
+        final Page<Role> searchResult = repository.findAll(querySpecification(roleQuery),
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.ASC, "sort")));
 
         return new PageResult<>(searchResult.getTotalElements(), searchResult.getTotalPages(),
-                roleConverter.convert(searchResult.getContent()));
+                roleDetailConverter.convert(searchResult.getContent()));
     }
 
     public List<RoleDto> getAllEnableRoles() {
@@ -75,7 +76,7 @@ public class RoleAppService {
             throw new CartisanException(CodeMessage.VALIDATE_ERROR.fillArgs(ERR_NAME_EXISTS));
         }
         final Role role = new Role(roleParam.getName());
-        role.describe(roleParam.getName(), roleParam.getDescription(), role.getSort());
+        role.describe(roleParam.getName(), roleParam.getDescription(), roleParam.getSort());
 
         return roleDetailConverter.convert(repository.save(role));
     }

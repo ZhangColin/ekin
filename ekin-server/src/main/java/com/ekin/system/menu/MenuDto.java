@@ -49,7 +49,12 @@ public class MenuDto {
 
     private static List<MenuDto> buildMenuTreeList(String parentId, Multimap<String, MenuDto> menuMap) {
         return menuMap.get(parentId).stream()
-                .peek(menu -> menu.setChildMenus(buildMenuTreeList(menu.getId(), menuMap)))
+                .peek(menu -> {
+                    final List<MenuDto> childMenus = buildMenuTreeList(menu.getId(), menuMap);
+                    if (childMenus.size()>0) {
+                        menu.setChildMenus(childMenus);
+                    }
+                })
                 .collect(Collectors.toList());
     }
 }

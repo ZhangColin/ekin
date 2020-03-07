@@ -3,6 +3,8 @@ package com.ekin.system.role.response;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.persistence.Column;
+
 /**
  * @author colin
  */
@@ -13,4 +15,7 @@ public class RoleDto {
 
     @ApiModelProperty(value = "角色名称")
     private String name;
+
+    @ApiModelProperty(value = "状态")
+    private Integer status;
 }

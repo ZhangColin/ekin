@@ -38,11 +38,11 @@ public class RegisterService {
             throw new CartisanException(CodeMessage.VALIDATE_ERROR.fillArgs("账号已被占用。"));
         }
 
-        if (userRepository.existsByPhone(phone)) {
+        if (!Strings.isNullOrEmpty(phone) && userRepository.existsByPhone(phone)) {
             throw new CartisanException(CodeMessage.VALIDATE_ERROR.fillArgs("手机号已被占用。"));
         }
 
-        if (userRepository.existsByEmail(email)) {
+        if (!Strings.isNullOrEmpty(email) && userRepository.existsByEmail(email)) {
             throw new CartisanException(CodeMessage.VALIDATE_ERROR.fillArgs("邮箱已被占用。"));
         }
 

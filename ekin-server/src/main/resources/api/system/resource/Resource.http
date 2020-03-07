@@ -1,3 +1,9 @@
+### 搜索资源
+GET http://{{host}}:{{port}}/system/resources/search
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
 ### 获取所有资源
 GET http://{{host}}:{{port}}/system/resources
 Accept: application/json

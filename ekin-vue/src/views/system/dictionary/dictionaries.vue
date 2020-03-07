@@ -10,8 +10,8 @@
       </el-col>
     </el-row>
     <el-table
-      v-loading="listLoading"
-      :data="list"
+      v-loading="loading"
+      :data="dataSource"
       row-key="id"
       class="table-container"
       element-loading-text="加载中..."
@@ -51,8 +51,8 @@ export default {
   name: 'Dictionary',
   data() {
     return {
-      list: null,
-      listLoading: true,
+      dataSource: null,
+      loading: true,
       searchParam: '',
       page: {
         total: 0,
@@ -66,11 +66,11 @@ export default {
   },
   methods: {
     fetchData() {
-      this.listLoading = true
+      this.loading = true
       searchDictionarys(this.page.currentPage, this.page.pageSize, this.searchParam).then(response => {
-        this.list = response.data.rows
+        this.dataSource = response.data.rows
         this.page.total = response.data.total
-        this.listLoading = false
+        this.loading = false
       })
     },
     handleSearch() {

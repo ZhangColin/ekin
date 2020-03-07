@@ -189,3 +189,32 @@ aside {
 .multiselect--active {
   z-index: 1000 !important;
 }
+
+
+// 自定义样式
+
+.el-drawer__body {
+    padding: 20px;
+}
+
+.drawer__content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.drawer__content form {
+    flex: 1;
+}
+
+.drawer__footer {
+    display: flex;
+}
+
+.drawer__footer button {
+    flex: 1;
+}
+
+:focus{
+    outline:0;
+}

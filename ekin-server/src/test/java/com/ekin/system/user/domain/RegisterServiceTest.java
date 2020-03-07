@@ -10,8 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class RegisterServiceTest {
 
@@ -82,6 +81,25 @@ public class RegisterServiceTest {
     }
 
     @Test
+    public void when_register_phone_or_email_is_empty_then_not_call_exists_method() {
+        // given
+        when(userRepository.existsByUsername(anyString())).thenReturn(false);
+
+        // when
+        final User user1 = registerService.register(USERNAME, null, null, REALNAME);
+
+        // then
+        verify(userRepository, never()).existsByPhone(anyString());
+        verify(userRepository, never()).existsByEmail(anyString());
+
+        final User user2 = registerService.register(USERNAME, "", "", REALNAME);
+
+        // then
+        verify(userRepository, never()).existsByPhone(anyString());
+        verify(userRepository, never()).existsByEmail(anyString());
+    }
+
+    @Test
     public void should_be_register_success() {
         // given
         when(userRepository.existsByUsername(anyString())).thenReturn(false);
@@ -94,6 +112,7 @@ public class RegisterServiceTest {
         // when
         final User user1 = registerService.register(USERNAME, PHONE, EMAIL, REALNAME);
         final User user2 = registerService.register(USERNAME, null, null, REALNAME);
+        final User user3 = registerService.register(USERNAME, "", "", REALNAME);
 
         // then
         assertThat(user1).isNotNull();
@@ -108,6 +127,10 @@ public class RegisterServiceTest {
         assertThat(user2).isNotNull();
         assertThat(user2.getPhone()).isEqualTo("");
         assertThat(user2.getEmail()).isEqualTo("");
+
+        assertThat(user3).isNotNull();
+        assertThat(user3.getPhone()).isEqualTo("");
+        assertThat(user3.getEmail()).isEqualTo("");
     }
 
     @Test

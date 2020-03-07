@@ -1,6 +1,8 @@
 package com.ekin.system.role;
 
+import com.cartisan.constants.CodeMessage;
 import com.cartisan.dtos.PageResult;
+import com.cartisan.exceptions.CartisanException;
 import com.ekin.system.role.request.AssignMenusCommand;
 import com.ekin.system.role.request.AssignResourcesCommand;
 import com.ekin.system.role.request.RoleParam;
@@ -35,7 +37,7 @@ public class RoleController {
 
     @ApiOperation(value = "搜索角色")
     @GetMapping("/search")
-    public ResponseEntity<PageResult<RoleDto>> searchRoles(
+    public ResponseEntity<PageResult<RoleDetailDto>> searchRoles(
             @ApiParam(value = "查询参数") RoleQuery roleQuery,
             @PageableDefault Pageable pageable) {
         return success(service.searchRoles(roleQuery, pageable));
@@ -106,7 +108,8 @@ public class RoleController {
     @PutMapping("/{id}/disable")
     public ResponseEntity<?> disable(
             @ApiParam(value = "角色Id", required = true) @PathVariable Long id) {
-        service.disable(id);
-        return success();
+        throw new CartisanException(CodeMessage.FAIL.fillArgs("测试异常"));
+//        service.disable(id);
+//        return success();
     }
 }

@@ -15,9 +15,7 @@ import static com.cartisan.utils.AssertionUtil.requirePresent;
  */
 @Service
 public class OrganizationAppService {
-    private final OrganizationTreeNodeConverter treeNodeConverter = OrganizationTreeNodeConverter.CONVERTER;
-    private final OrganizationConverter organizationConverter = OrganizationConverter.CONVERTER;
-    private final OrganizationDetailConverter organizationDetailConverter = OrganizationDetailConverter.CONVERTER;
+    private final OrganizationConverter convert = OrganizationConverter.CONVERTER;
 
     private final OrganizationRepository repository;
     private final SnowflakeIdWorker idWorker;
@@ -27,36 +25,36 @@ public class OrganizationAppService {
         this.idWorker = idWorker;
     }
 
-    public List<OrganizationTreeNode> getOrganizationTreeList() {
-        final List<OrganizationTreeNode> organizationTreeNodes = treeNodeConverter.convert(
+    public List<OrganizationDto> getOrganizationTreeList() {
+        final List<OrganizationDto> organizationDtos = convert.convert(
                 repository.findAll(Sort.by(Sort.Direction.ASC, "sort")));
 
-        return OrganizationTreeNode.buildOrganizationTreeList(organizationTreeNodes);
+        return OrganizationDto.buildOrganizationTreeList(organizationDtos);
     }
 
     public List<OrganizationDto> getAllOrganizations() {
-        return organizationConverter.convert(
+        return convert.convert(
                 repository.findAll(Sort.by(Sort.Direction.ASC, "sort")));
     }
 
 
     @Transactional(rollbackOn = Exception.class)
-    public OrganizationDetailDto addOrganization(OrganizationParam organizationParam) {
+    public OrganizationDto addOrganization(OrganizationParam organizationParam) {
         final Organization organization = new Organization(idWorker.nextId(), organizationParam.getParentId(), organizationParam.getName());
 
         organization.describe(organizationParam.getDescription(), organizationParam.getSort());
 
-        return organizationDetailConverter.convert(repository.save(organization));
+        return convert.convert(repository.save(organization));
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public OrganizationDetailDto editOrganization(Long id, OrganizationParam organizationParam) {
+    public OrganizationDto editOrganization(Long id, OrganizationParam organizationParam) {
         final Organization organization = requirePresent(repository.findById(id));
 
         organization.changeOrganization(organizationParam.getParentId(), organizationParam.getName());
         organization.describe(organizationParam.getDescription(), organizationParam.getSort());
 
-        return organizationDetailConverter.convert(repository.save(organization));
+        return convert.convert(repository.save(organization));
     }
 
     @Transactional(rollbackOn = Exception.class)

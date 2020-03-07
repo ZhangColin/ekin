@@ -1,64 +1,29 @@
 import request from '@/utils/request'
-import qs from 'qs'
-
-export function searchUsers(currentPage, pageSize, params) {
-  return request({
-    url: `/system/users/search?page=${currentPage}&size=${pageSize}`,
-    method: 'get',
-    params: params
-  })
-}
 
 export function getUser(id) {
-  return request({
-    url: `/system/users/${id}`,
-    method: 'get'
-  })
+  return request.get(`/system/users/${id}`)
 }
 
-export function addUser(params) {
-  return request({
-    url: '/system/users',
-    method: 'post',
-    data: params
-  })
+export function createUser(params) {
+  return request.post('/system/users', params)
 }
 
-export function editUser(id, params) {
-  return request({
-    url: `/system/users/${id}`,
-    method: 'put',
-    data: params
-  })
+export function disableUser(id) {
+  return request.put(`/system/users/${id}/disable`)
 }
 
-export function removeUser(id) {
-  return request({
-    url: `/system/users/${id}`,
-    method: 'delete'
-  })
+export function enableUser(id) {
+  return request.put(`/system/users/${id}/enable`)
 }
 
-export function frozenUser(id) {
-  return request({
-    url: `/system/users/${id}/frozen`,
-    method: 'put'
-  })
+export function resetPassword(id) {
+  return request.put(`/system/users/${id}/resetPassword`)
 }
 
-export function unFrozenUser(id) {
-  return request({
-    url: `/system/users/${id}/unFrozen`,
-    method: 'put'
-  })
+export function assignRoles(id, roleIds) {
+  return request.put(`/system/users/${id}/assignRoles`, { roleIds })
 }
 
-export function changePassword(id, password) {
-  return request({
-    url: `/system/users/${id}/password`,
-    method: 'put',
-    headers: { 'content-type': 'application/x-www-form-urlencoded' },
-    data: qs.stringify({ password })
-  })
+export function assignOrganization(id, organizationId) {
+  return request.put(`/system/users/${id}/assignOrganization`, { organizationId })
 }
-

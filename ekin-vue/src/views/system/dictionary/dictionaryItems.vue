@@ -5,8 +5,8 @@
         <span>{{ dict }}  字典项</span>
       </div>
       <el-table
-        v-loading="listLoading"
-        :data="list"
+        v-loading="loading"
+        :data="dataSource"
         row-key="value"
         class="table-container"
         element-loading-text="加载中..."
@@ -31,8 +31,8 @@ export default {
   data() {
     return {
       dict: '',
-      list: null,
-      listLoading: true
+      dataSource: null,
+      loading: true
     }
   },
   created() {
@@ -43,8 +43,8 @@ export default {
   methods: {
     init() {
       searchItemsByDictCode(this.dict).then(response => {
-        this.list = response.data
-        this.listLoading = false
+        this.dataSource = response.data
+        this.loading = false
       })
     }
   }

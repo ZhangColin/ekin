@@ -19,6 +19,9 @@ public class RoleDetailDto {
     @ApiModelProperty(value = "角色排序")
     private Integer sort;
 
+    @ApiModelProperty(value = "状态")
+    private Integer status;
+
     @ApiModelProperty(value = "描述")
     private String description;
 

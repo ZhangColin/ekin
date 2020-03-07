@@ -4,7 +4,7 @@
 
       <div class="title-container text-center">
         <img src="../../../public/logo.png" style="margin-bottom: 30px">
-        <h3 class="title">Cartisan 后台管理系统</h3>
+        <h3 class="title">Cartisan 管理系统</h3>
       </div>
 
       <el-form-item prop="username">

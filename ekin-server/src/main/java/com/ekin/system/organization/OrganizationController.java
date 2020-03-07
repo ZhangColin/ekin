@@ -1,8 +1,6 @@
 package com.ekin.system.organization;
 
-import com.ekin.system.organization.reponse.OrganizationDetailDto;
 import com.ekin.system.organization.reponse.OrganizationDto;
-import com.ekin.system.organization.reponse.OrganizationTreeNode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,21 +26,21 @@ public class OrganizationController {
     }
 
     @ApiOperation(value = "获取组织树")
-    @GetMapping("/search")
-    public ResponseEntity<List<OrganizationTreeNode>> getOrganizationTreeList() {
+    @GetMapping
+    public ResponseEntity<List<OrganizationDto>> getOrganizationTreeList() {
         return success(service.getOrganizationTreeList());
     }
 
     @ApiOperation(value = "添加组织")
     @PostMapping
-    public ResponseEntity<OrganizationDetailDto> addOrganization(
+    public ResponseEntity<OrganizationDto> addOrganization(
             @ApiParam(value = "组织信息", required = true) @Validated @RequestBody OrganizationParam organizationParam) {
         return success(service.addOrganization(organizationParam));
     }
 
     @ApiOperation(value = "编辑组织")
     @PutMapping("/{id}")
-    public ResponseEntity<OrganizationDetailDto> editOrganization(
+    public ResponseEntity<OrganizationDto> editOrganization(
             @ApiParam(value = "组织Id", required = true) @PathVariable Long id,
             @ApiParam(value = "组织信息", required = true) @Validated @RequestBody OrganizationParam organizationParam) {
         return success(service.editOrganization(id, organizationParam));
