@@ -22,7 +22,7 @@ import static com.cartisan.responses.ResponseUtil.success;
 /**
  * @author colin
  */
-@Api(tags = "DictController")
+@Api(tags = "系统管理：数据字典")
 @RestController
 @RequestMapping("/system/dicts")
 public class DictController {
@@ -60,7 +60,7 @@ public class DictController {
     public ResponseEntity<?> editDict(
             @ApiParam(value = "字典Id", required = true) @PathVariable Long id,
             @ApiParam(value = "字典信息", required = true) @Validated @RequestBody DictParam dictParam) {
-        service.updateDict(id, dictParam);
+        service.editDict(id, dictParam);
 
         return success();
     }

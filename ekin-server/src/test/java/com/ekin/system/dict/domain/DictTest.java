@@ -13,24 +13,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class DictTest {
-    @Test(expected = CartisanException.class)
-    public void should_be_dict_code_unique() {
-        // given
-        final DictRepository dictRepository = mock(DictRepository.class);
-        when(dictRepository.existsByCode(anyString())).thenReturn(true);
-
-        final DictAppService dictAppService = new DictAppService(dictRepository, null, null);
-
-        final DictParam dictParam = new DictParam();
-        dictParam.setCode("test");
-
-        // when
-        dictAppService.addDict(dictParam);
-    }
-
     @Test
     public void should_add_and_update_dict_item() {
-        final Dict sexDict = new Dict("性别", "sex");
+        final Dict sexDict = new Dict("sex");
 
         sexDict.submitItem("男", "1", 10);
         assertThat(sexDict.getDictItems().size()).isEqualTo(1);

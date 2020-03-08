@@ -29,14 +29,14 @@ import static com.cartisan.utils.AssertionUtil.requirePresent;
  */
 @Service
 public class DictAppService {
-    private final DictRepository repository;
-    private final DictConverter dictConverter;
-    private final DictItemConverter dictItemConverter;
+    public static final String ERR_CODE_EXISTS = "字典编码已存在。";
 
-    public DictAppService(DictRepository repository, DictConverter dictConverter, DictItemConverter dictItemConverter) {
+    private final DictRepository repository;
+    private final DictConverter dictConverter = DictConverter.CONVERTER;
+    private final DictItemConverter dictItemConverter = DictItemConverter.CONVERTER;
+
+    public DictAppService(DictRepository repository) {
         this.repository = repository;
-        this.dictConverter = dictConverter;
-        this.dictItemConverter = dictItemConverter;
     }
 
     public PageResult<DictDto> searchDicts(@NonNull DictQuery dictQuery, @NonNull Pageable pageable) {
@@ -57,27 +57,25 @@ public class DictAppService {
     @Transactional(rollbackOn = Exception.class)
     public void addDict(@NonNull DictParam param) {
         if(repository.existsByCode(param.getCode())){
-            throw new CartisanException(CodeMessage.ENTITY_EXIST);
+            throw new CartisanException(CodeMessage.VALIDATE_ERROR.fillArgs(ERR_CODE_EXISTS));
         }
 
-        final Dict dict = new Dict(param.getName(), param.getCode());
-        dict.setDescription(param.getDescription());
+        final Dict dict = new Dict(param.getCode());
+        dict.describe(param.getName(), param.getDescription());
 
         repository.save(dict);
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public void updateDict(@NonNull Long id, @NonNull DictParam param) {
+    public void editDict(@NonNull Long id, @NonNull DictParam param) {
         if (repository.existsByCodeAndIdNot(param.getCode(), id)) {
-            throw new CartisanException(CodeMessage.ENTITY_EXIST);
+            throw new CartisanException(CodeMessage.VALIDATE_ERROR.fillArgs(ERR_CODE_EXISTS));
         }
 
         final Dict dict = requirePresent(repository.findById(id));
 
-        dict.setName(param.getName());
-        dict.setCode(param.getCode());
-
-        dict.setDescription(param.getDescription());
+        dict.changeCode(param.getCode());
+        dict.describe(param.getName(), param.getDescription());
 
         repository.save(dict);
     }

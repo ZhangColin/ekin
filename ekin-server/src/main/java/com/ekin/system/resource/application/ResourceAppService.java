@@ -28,7 +28,7 @@ import static com.cartisan.utils.AssertionUtil.requirePresent;
  */
 @Service
 public class ResourceAppService {
-    public static final String ERR_NAME_EXISTS = "资源已存在。";
+    public static final String ERR_NAME_EXISTS = "资源名称已存在。";
     private final ResourceConverter converter = ResourceConverter.CONVERTER;
 
     private final ResourceRepository repository;

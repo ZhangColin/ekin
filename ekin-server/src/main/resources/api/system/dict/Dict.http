@@ -1,0 +1,68 @@
+### 搜索字典
+GET http://{{host}}:{{port}}/system/dicts/search?blurry=&status=&page=0&size=10
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 获取指定Code的字典项
+GET http://{{host}}:{{port}}/system/dicts/sex/items
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 添加字典
+POST http://{{host}}:{{port}}/system/dicts
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+{
+  "name": "启用/禁用",
+  "code": "status",
+  "description": "用于启用禁用状态"
+}
+
+### 编辑字典
+PUT http://{{host}}:{{port}}/system/dicts/2
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+{
+  "name": "启用/禁用-edit",
+  "code": "status",
+  "description": "用于启用禁用状态-edit"
+}
+
+### 删除字典
+DELETE http://{{host}}:{{port}}/system/dicts/2
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 提交字典项
+PUT http://{{host}}:{{port}}/system/dicts/status/items
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+{
+  "label": "启用",
+  "value": "1",
+  "sort": 10
+}
+
+### 移除字典项
+DELETE http://{{host}}:{{port}}/system/dicts/status/items
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+{
+  "label": "启用",
+  "value": "1",
+  "sort": 10
+}
+
+###
+

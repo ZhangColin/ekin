@@ -25,15 +25,12 @@ public class Dict extends AbstractEntity implements AggregateRoot {
     private Long id;
 
     @Column(name = "name")
-    @Setter
     private String name;
 
     @Column(name = "code")
-    @Setter
     private String code;
 
     @Column(name = "description")
-    @Setter
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -43,10 +40,22 @@ public class Dict extends AbstractEntity implements AggregateRoot {
     protected Dict() {
     }
 
-    public Dict(@NonNull String name, @NonNull String code) {
+    public Dict(@NonNull String code) {
+        this.code = code;
+
+        this.name = "";
+        this.description = "";
+    }
+
+    public void describe(String name, String description) {
         this.name = name;
+        this.description = description;
+    }
+
+    public void changeCode(String code) {
         this.code = code;
     }
+
 
     public void submitItem(String label, String value, int sort) {
         final DictItem dictItem = new DictItem(label, value);

@@ -6,7 +6,7 @@ import nested from '@/layout/nested'
 const system = {
   path: '/system',
   component: Layout,
-  redirect: '/system/departments',
+  redirect: '/system/user',
   name: 'system',
   meta: {
     title: '系统管理',
@@ -32,7 +32,7 @@ const system = {
     path: 'resource',
     name: 'resource',
     component: nested,
-    redirect: '/system/resource/resource',
+    redirect: '/system/resource/resource-list',
     meta: { title: '资源管理', icon: 'nested', permissions: ['system:role'] },
     children: [{
       path: 'resource-list',
@@ -53,22 +53,22 @@ const system = {
     component: () => import('@/views/system/menu/menu'),
     meta: { title: '菜单管理', icon: 'nested', permissions: ['system:permission'] }
   }, {
-    path: 'dictionaries',
-    name: 'dictionaries',
+    path: 'dictionary',
+    name: 'dictionary',
     component: nested,
-    redirect: '/system/dictionaries/dictionaryList',
+    redirect: '/system/dictionary/dictionary-list',
     meta: { title: '字典管理', icon: 'nested', permission: ['system:dictionary'] },
     children: [{
-      path: 'dictionaryList',
-      name: 'dictionaryList',
-      component: () => import('@/views/system/dictionary/dictionaries'),
+      path: 'dictionary-list',
+      name: 'dictionary-list',
+      component: () => import('@/views/system/dictionary/dictionary'),
       meta: { title: '字典管理', breadcrumb: false },
       hidden: false
     }, {
-      path: 'dictionaryItems',
-      name: 'dictionaryItems',
-      component: () => import('@/views/system/dictionary/dictionaryItems'),
-      meta: { title: '字典项查看' },
+      path: 'dictionary-item',
+      name: 'dictionary-item',
+      component: () => import('@/views/system/dictionary/dictionary-item'),
+      meta: { title: '字典项' },
       hidden: true
     }]
   }]
