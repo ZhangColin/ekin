@@ -2,7 +2,6 @@ package com.ekin.system.dict.response;
 
 import com.cartisan.dtos.Converter;
 import com.ekin.system.dict.domain.Dict;
-import com.ekin.system.organization.reponse.OrganizationConverter;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

@@ -53,17 +53,16 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
 import { encrypt } from '@/utils/crypto'
 
 export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
-      } else {
+      if (value && value.length > 0) {
         callback()
+      } else {
+        callback(new Error('Please enter the correct user name'))
       }
     }
     const validatePassword = (rule, value, callback) => {

@@ -1,7 +1,8 @@
 package com.ekin.system.organization;
 
 import com.cartisan.utils.SnowflakeIdWorker;
-import com.ekin.system.organization.reponse.*;
+import com.ekin.system.organization.reponse.OrganizationConverter;
+import com.ekin.system.organization.reponse.OrganizationDto;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 

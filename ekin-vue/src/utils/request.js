@@ -45,8 +45,6 @@ service.interceptors.response.use(
     return response
   },
   error => {
-    console.log('err' + error.response.data.message) // for debug
-
     if (error.response.status === 401) {
       store.dispatch('user/resetToken')
         .then(() => location.reload())

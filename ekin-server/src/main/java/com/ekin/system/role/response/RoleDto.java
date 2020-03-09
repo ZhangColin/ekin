@@ -3,8 +3,6 @@ package com.ekin.system.role.response;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.persistence.Column;
-
 /**
  * @author colin
  */

@@ -30,38 +30,18 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(
-            @ApiParam(value = "登录信息", required = true) @Validated @RequestBody LoginCommand loginCommand,
-            HttpServletRequest request) {
-        final String token = loginAppService.login(loginCommand);
-        HashMap<String, Object> data = new HashMap<>();
-        data.put("token", token);
-
-//        LogExeManager.getInstance().executeLogTask(LogTaskFactory.loginLog(0L,
-//                IpUtil.getIpFromRequest(WebUtils.toHttp(request)),
-//                "/login", "POST", "", true));
-
-        return success(data);
+            @ApiParam(value = "登录信息", required = true) @Validated @RequestBody LoginCommand loginCommand) {
+        return success(loginAppService.login(loginCommand));
     }
 
     @PostMapping("/logout")
-    public ResponseEntity logout(@RequestHeader String authorization) {
-        loginAppService.logout(authorization.substring(7));
+    public ResponseEntity<?> logout() {
+        loginAppService.logout();
         return success();
     }
 
     @GetMapping("/user/info")
-    public ResponseEntity info() {
-//        final UserDto user = loginService.getUserByToken(token);
-//        final UserDto user = new UserDto();
-//        final List<String> roles = user.getRoleCodes();
-//        final List<String> permissions = permissionQueryMapper.getPermissionCodesByRoleCodes(roles);
-
-        Map<String, Object> info = new HashMap<>();
-        info.put("roles", asList("admin"));
-        info.put("permissions", asList("admin"));
-        info.put("name", "colin");
-        info.put("avatar", "");
-
-        return success(info);
+    public ResponseEntity<?> info() {
+        return success(loginAppService.info());
     }
 }

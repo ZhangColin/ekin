@@ -11,5 +11,19 @@ Content-Type: application/json;charset=UTF-8
 
 > {% client.global.set("auth_token", "Bearer " + response.body.token); %}
 
+### 退出
+POST http://{{host}}:{{port}}/system/logout
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 用户信息
+GET http://{{host}}:{{port}}/system/user/info
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
 ###
+
+
 

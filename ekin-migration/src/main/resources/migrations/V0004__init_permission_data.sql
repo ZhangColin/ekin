@@ -5,13 +5,13 @@ INSERT INTO `sys_roles`(`id`, `name`) VALUES (1, '超级管理员');
 INSERT INTO `sys_user_roles`(`user_id`, `role_id`) VALUES (1265586318612762624, 1);
 
 -- 菜单
-INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (1, 0, '系统管理', 'systems', 's-tools', 0, 99);
-INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (2, 1, '组织管理', 'organizations', 'tree', 0, 10);
-INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (3, 1, '用户管理', 'users', 'user', 0, 20);
-INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (4, 1, '角色管理', 'roles', 'peoples', 0, 30);
-INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (5, 1, '菜单管理', 'menus', 'tree-table', 0, 40);
-INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (6, 1, '资源管理', 'resources', 'list', 0, 50);
-INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (7, 1, '字典管理', 'dictionaries', 'education', 0, 60);
+INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (1, 0, '系统管理', 'system', 's-tools', 0, 99);
+INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (2, 1, '组织管理', 'organization', 'tree', 0, 10);
+INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (3, 1, '用户管理', 'user', 'user', 0, 20);
+INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (4, 1, '角色管理', 'role', 'peoples', 0, 30);
+INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (5, 1, '菜单管理', 'menu', 'tree-table', 0, 40);
+INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (6, 1, '资源管理', 'resource', 'list', 0, 50);
+INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (7, 1, '字典管理', 'dictionary', 'education', 0, 60);
 
 -- 角色菜单
 INSERT INTO `sys_role_menus`(`role_id`, `menu_id`) VALUES (1, 1);

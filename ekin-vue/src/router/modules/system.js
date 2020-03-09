@@ -8,35 +8,30 @@ const system = {
   component: Layout,
   redirect: '/system/user',
   name: 'system',
-  meta: {
-    title: '系统管理',
-    icon: 'component',
-    permissions: ['system']
-  },
+  meta: { title: '系统管理', icon: 'component' },
   children: [{
     path: 'organization',
     name: 'organization',
     component: () => import('@/views/system/organization/organization'),
-    meta: { title: '组织管理', icon: 'nested', permissions: ['system:permission'] }
+    meta: { title: '组织管理', icon: 'nested' }
   }, {
     path: 'user',
     name: 'user',
     component: () => import('@/views/system/user/user'),
-    meta: { title: '用户管理', icon: 'nested', permissions: ['system:user'] }
+    meta: { title: '用户管理', icon: 'nested' }
   }, {
     path: 'role',
     name: 'role',
     component: () => import('@/views/system/role/role'),
-    meta: { title: '角色管理', icon: 'nested', permissions: ['system:permission'] }
+    meta: { title: '角色管理', icon: 'nested' }
   }, {
     path: 'resource',
     name: 'resource',
     component: nested,
     redirect: '/system/resource/resource-list',
-    meta: { title: '资源管理', icon: 'nested', permissions: ['system:role'] },
+    meta: { title: '资源管理', icon: 'nested' },
     children: [{
       path: 'resource-list',
-      name: 'resource-list',
       component: () => import('@/views/system/resource/resource'),
       meta: { title: '资源管理', breadcrumb: false },
       hidden: false
@@ -51,16 +46,15 @@ const system = {
     path: 'menu',
     name: 'menu',
     component: () => import('@/views/system/menu/menu'),
-    meta: { title: '菜单管理', icon: 'nested', permissions: ['system:permission'] }
+    meta: { title: '菜单管理', icon: 'nested' }
   }, {
     path: 'dictionary',
     name: 'dictionary',
     component: nested,
     redirect: '/system/dictionary/dictionary-list',
-    meta: { title: '字典管理', icon: 'nested', permission: ['system:dictionary'] },
+    meta: { title: '字典管理', icon: 'nested' },
     children: [{
       path: 'dictionary-list',
-      name: 'dictionary-list',
       component: () => import('@/views/system/dictionary/dictionary'),
       meta: { title: '字典管理', breadcrumb: false },
       hidden: false

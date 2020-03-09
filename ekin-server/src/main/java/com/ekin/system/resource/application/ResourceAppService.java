@@ -9,7 +9,6 @@ import com.ekin.system.resource.request.ResourceParam;
 import com.ekin.system.resource.request.ResourceQuery;
 import com.ekin.system.resource.response.ResourceConverter;
 import com.ekin.system.resource.response.ResourceDto;
-import com.ekin.system.role.domain.Role;
 import lombok.NonNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -78,7 +77,7 @@ public class ResourceAppService {
         resource.describe(resourceParam.getName(), resourceParam.getCategoryId(),
                 resourceParam.getDescription(), resourceParam.getSort());
 
-        resource.configPermission(resourceParam.getCode(), resource.getUrl());
+        resource.configPermission(resourceParam.getCode(), resourceParam.getUrl());
 
         return converter.convert(repository.save(resource));
     }
