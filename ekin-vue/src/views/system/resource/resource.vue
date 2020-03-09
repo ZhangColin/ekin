@@ -108,7 +108,7 @@
 <script>
 import { PaginationMixin } from '@/mixins/pagination-mixin'
 import { CudMixin } from '@/mixins/cud-mixin'
-import { getAllResourceCategoryCategories } from '@/api/system/resource-api'
+import { getAllResourceCategories } from '@/api/system/resource-api'
 
 export default {
   name: 'Resource',
@@ -139,7 +139,7 @@ export default {
     }
   },
   created() {
-    getAllResourceCategoryCategories().then(response => {
+    getAllResourceCategories().then(response => {
       this.resourceCategories = response.data
     })
   },

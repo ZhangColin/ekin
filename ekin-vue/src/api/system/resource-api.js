@@ -4,6 +4,6 @@ export function getAllResources() {
   return request.get(`/system/resources`)
 }
 
-export function getAllResourceCategoryCategories() {
+export function getAllResourceCategories() {
   return request.get(`/system/resources/categories`)
 }
