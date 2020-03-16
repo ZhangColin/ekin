@@ -11,25 +11,45 @@ import java.util.Optional;
 import static com.ekin.system.user.UserFixture.userOf;
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.never;
 
 public class AssignServiceTest {
-
     private User user;
     private OrganizationRepository organizationRepository;
     private Organization organization;
     private AssignService assignService;
+    private RoleRepository roleRepository;
 
     @Before
     public void setUp() throws Exception {
         user = userOf();
         organizationRepository = mock(OrganizationRepository.class);
+        roleRepository = mock(RoleRepository.class);
         organization = new Organization(1L, 0L, "Cartisan");
-        assignService = new AssignService(mock(RoleRepository.class), organizationRepository);
+        assignService = new AssignService(roleRepository, organizationRepository);
 
         when(organizationRepository.findById(anyLong())).thenReturn(Optional.of(organization));
+    }
+
+    @Test
+    public void when_assign_role_ids_is_null_then_not_call_repository() {
+        // when
+        assignService.assignRoles(user, null);
+
+        // then
+        verify(roleRepository, never()).findAllById(any());
+    }
+
+    @Test
+    public void when_assign_organization_id_is_null_then_not_call_repository() {
+        // when
+        assignService.assignOrganization(user, null);
+
+        // then
+        verify(organizationRepository, never()).findById(any());
     }
 
     @Test

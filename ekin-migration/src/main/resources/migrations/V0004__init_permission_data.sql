@@ -1,11 +1,12 @@
 -- 角色
 INSERT INTO `sys_roles`(`id`, `name`) VALUES (1, '超级管理员');
+INSERT INTO `sys_roles`(`id`, `name`) VALUES (2, '员工');
 
 -- 用户角色
 INSERT INTO `sys_user_roles`(`user_id`, `role_id`) VALUES (1265586318612762624, 1);
 
 -- 菜单
-INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (1, 0, '系统管理', 'system', 's-tools', 0, 99);
+INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (1, 0, '系统管理', 'system', 'component', 0, 99);
 INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (2, 1, '组织管理', 'organization', 'tree', 0, 10);
 INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (3, 1, '用户管理', 'user', 'user', 0, 20);
 INSERT INTO `sys_menus`(`id`, `parent_id`, `title`, `name`, `icon`, `hidden`, `sort`) VALUES (4, 1, '角色管理', 'role', 'peoples', 0, 30);

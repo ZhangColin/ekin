@@ -26,6 +26,9 @@ public class AssignService {
     }
 
     public void assignRoles(User user, List<Long> roleIds) {
+        if (roleIds == null) {
+            return;
+        }
         final List<Long> ensureRoleIds = roleRepository.findAllById(roleIds)
                 .stream().map(Role::getId).collect(toList());
 
@@ -33,6 +36,10 @@ public class AssignService {
     }
 
     public void assignOrganization(final User user, Long organizationId) {
+        if (organizationId == null) {
+            return;
+        }
+
         requirePresent(organizationRepository.findById(organizationId), "分配的组织不存在。");
 
         List<Long> ensureOrganizationIds = new ArrayList<>();
