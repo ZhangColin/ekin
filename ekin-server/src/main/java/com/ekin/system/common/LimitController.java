@@ -1,6 +1,6 @@
 package com.ekin.system.common;
 
-import com.cartisan.security.limit.Limit;
+import com.cartisan.aops.limit.Limit;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

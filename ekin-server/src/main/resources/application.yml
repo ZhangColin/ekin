@@ -16,7 +16,7 @@ cartisan:
     key: cartisan-jwt
     ttl: 1800000
   info:
-    title: 权限认证服务
+    title: Ekin 后台管理系统
     serviceUrl: http://www.cartisan.com
     version: 1.0
     contact:

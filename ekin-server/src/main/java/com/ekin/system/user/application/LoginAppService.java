@@ -3,15 +3,12 @@ package com.ekin.system.user.application;
 import com.cartisan.security.LoginService;
 import com.cartisan.utils.AesUtil;
 import com.ekin.security.CurrentUser;
-import com.ekin.system.menu.MenuDto;
 import com.ekin.system.user.mapper.UserQueryMapper;
 import com.ekin.system.user.request.LoginCommand;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static java.util.Arrays.asList;
 
 /**
  * @author colin

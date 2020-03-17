@@ -7,6 +7,8 @@ import com.ekin.system.resource.repository.ResourceCategoryRepository;
 import com.ekin.system.resource.request.ResourceCategoryParam;
 import com.ekin.system.resource.response.ResourceCategoryConverter;
 import com.ekin.system.resource.response.ResourceCategoryDto;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +31,13 @@ public class ResourceCategoryAppService {
         this.repository = repository;
     }
 
+    @Cacheable(value = "System", key="'system:resource-category'")
     public List<ResourceCategoryDto> getAllResourceCategories() {
         return converter.convert(repository.findAll(Sort.by(Sort.Direction.ASC, "sort")));
     }
 
     @Transactional(rollbackOn = Exception.class)
+    @CacheEvict(value = "System", key="'system:resource-category'")
     public ResourceCategoryDto addResourceCategory(ResourceCategoryParam resourceCategoryParam) {
         if (repository.existsByName(resourceCategoryParam.getName())) {
             throw new CartisanException(CodeMessage.VALIDATE_ERROR.fillArgs(ERR_NAME_EXISTS));
@@ -46,6 +50,7 @@ public class ResourceCategoryAppService {
     }
 
     @Transactional(rollbackOn = Exception.class)
+    @CacheEvict(value = "System", key="'system:resource-category'")
     public ResourceCategoryDto editResourceCategory(Long id, ResourceCategoryParam resourceCategoryParam) {
         if (repository.existsByNameAndIdNot(resourceCategoryParam.getName(), id)) {
             throw new CartisanException(CodeMessage.VALIDATE_ERROR.fillArgs(ERR_NAME_EXISTS));
@@ -59,6 +64,7 @@ public class ResourceCategoryAppService {
     }
 
     @Transactional(rollbackOn = Exception.class)
+    @CacheEvict(value = "System", key="'system:resource-category'")
     public void removeResourceCategory(long id) {
         repository.deleteById(id);
     }
