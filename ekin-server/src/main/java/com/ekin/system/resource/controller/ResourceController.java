@@ -8,6 +8,7 @@ import com.ekin.system.resource.response.ResourceDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,8 @@ import static com.cartisan.responses.ResponseUtil.success;
 @Api(tags = "系统管理：资源")
 @RestController
 @RequestMapping("/system/resources")
+@Validated
+@Slf4j
 public class ResourceController {
     private final ResourceAppService service;
 

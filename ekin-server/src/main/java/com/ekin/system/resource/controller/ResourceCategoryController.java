@@ -6,6 +6,7 @@ import com.ekin.system.resource.response.ResourceCategoryDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,8 @@ import static com.cartisan.responses.ResponseUtil.success;
 @Api(tags = "系统管理：资源分类")
 @RestController
 @RequestMapping("/system/resources/categories")
+@Validated
+@Slf4j
 public class ResourceCategoryController {
     private final ResourceCategoryAppService service;
 
@@ -29,7 +32,7 @@ public class ResourceCategoryController {
 
     @ApiOperation(value = "获取所有资源分类")
     @GetMapping
-    public ResponseEntity<List<ResourceCategoryDto>> getAllResourceCategories(){
+    public ResponseEntity<List<ResourceCategoryDto>> getAllResourceCategories(String categoryName) {
         return success(service.getAllResourceCategories());
     }
 

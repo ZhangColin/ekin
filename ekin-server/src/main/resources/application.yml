@@ -43,4 +43,11 @@ cartisan:
         - /system/login
 #        - /admin/register
 
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

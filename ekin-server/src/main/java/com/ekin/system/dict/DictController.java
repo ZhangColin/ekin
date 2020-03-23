@@ -9,6 +9,7 @@ import com.ekin.system.dict.response.DictItemDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,8 @@ import static com.cartisan.responses.ResponseUtil.success;
 @Api(tags = "系统管理：数据字典")
 @RestController
 @RequestMapping("/system/dicts")
+@Validated
+@Slf4j
 public class DictController {
     private final DictAppService service;
 
@@ -49,7 +52,7 @@ public class DictController {
     @ApiOperation(value = "添加字典")
     @PostMapping
     public ResponseEntity<?> addDict(
-            @ApiParam(value = "字典信息", required = true) @Validated @RequestBody DictParam dictParam) {
+            @ApiParam(value = "字典信息", required = true) @RequestBody DictParam dictParam) {
         service.addDict(dictParam);
 
         return success();
@@ -59,7 +62,7 @@ public class DictController {
     @PutMapping("/{id}")
     public ResponseEntity<?> editDict(
             @ApiParam(value = "字典Id", required = true) @PathVariable Long id,
-            @ApiParam(value = "字典信息", required = true) @Validated @RequestBody DictParam dictParam) {
+            @ApiParam(value = "字典信息", required = true) @RequestBody DictParam dictParam) {
         service.editDict(id, dictParam);
 
         return success();
@@ -78,7 +81,7 @@ public class DictController {
     @PutMapping("/{dictCode}/items")
     public ResponseEntity<?> submitDictItem(
             @ApiParam(value = "字典Code", required = true) @PathVariable String dictCode,
-            @ApiParam(value = "字典项信息", required = true) @Validated @RequestBody DictItemParam dictItemParam){
+            @ApiParam(value = "字典项信息", required = true) @RequestBody DictItemParam dictItemParam){
         service.submitDictItem(dictCode, dictItemParam);
         return success();
     }
@@ -87,7 +90,7 @@ public class DictController {
     @DeleteMapping("/{dictCode}/items")
     public ResponseEntity<?> removeDictItem(
             @ApiParam(value = "字典Code", required = true) @PathVariable String dictCode,
-            @ApiParam(value = "字典项信息", required = true) @Validated @RequestBody DictItemParam dictItemParam) {
+            @ApiParam(value = "字典项信息", required = true) @RequestBody DictItemParam dictItemParam) {
         service.removeDictItem(dictCode, dictItemParam);
 
         return success();

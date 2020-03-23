@@ -39,6 +39,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>p6spy</groupId>
             <artifactId>p6spy</artifactId>
         </dependency>
@@ -83,6 +88,16 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
@@ -97,6 +112,28 @@
 <!--                <configuration>-->
 <!--                    <skip>true</skip>-->
 <!--                </configuration>-->
+            </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+
+                <configuration>
+                    <locations>
+                        <location>filesystem:src/main/resources/db/migration</location>
+                        <location>filesystem:src/main/resources/db/${spring.profiles.active}/migration</location>
+                    </locations>
+                    <cleanDisabled>false</cleanDisabled>
+                    <outOfOrder>false</outOfOrder>
+                    <validateOnMigrate>true</validateOnMigrate>
+                    <cleanOnValidationError>false</cleanOnValidationError>
+                    <baselineOnMigrate>false</baselineOnMigrate>
+                    <baselineVersion>0000</baselineVersion>
+                    <baselineDescription>init baseline</baselineDescription>
+                    <skip>false</skip>
+                    <configFiles>
+                        <configFile>src/main/resources/flyway-${spring.profiles.active}.properties</configFile>
+                    </configFiles>
+                </configuration>
             </plugin>
         </plugins>
     </build>

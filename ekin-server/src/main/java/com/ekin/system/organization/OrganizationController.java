@@ -4,6 +4,7 @@ import com.ekin.system.organization.reponse.OrganizationDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,8 @@ import static com.cartisan.responses.ResponseUtil.success;
 @Api(tags = "系统管理：组织")
 @RestController
 @RequestMapping("/system/organizations")
+@Validated
+@Slf4j
 public class OrganizationController {
     private final OrganizationAppService service;
 

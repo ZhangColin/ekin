@@ -5,6 +5,7 @@ import com.ekin.system.user.request.ChangePasswordCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,6 +21,8 @@ import static com.cartisan.responses.ResponseUtil.success;
 @Api(tags = "系统管理：个人中心")
 @RestController
 @RequestMapping("/system/users/profile")
+@Validated
+@Slf4j
 public class UserProfileController {
 
     private final UserProfileAppService service;

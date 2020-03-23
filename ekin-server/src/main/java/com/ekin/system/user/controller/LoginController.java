@@ -5,6 +5,7 @@ import com.ekin.system.user.request.LoginCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,8 @@ import static com.cartisan.responses.ResponseUtil.success;
 @Api(tags = "系统管理：登录")
 @RestController
 @RequestMapping("/system")
+@Validated
+@Slf4j
 public class LoginController {
     private final LoginAppService loginAppService;
 
