@@ -32,7 +32,7 @@ public class ResourceCategoryController {
 
     @ApiOperation(value = "获取所有资源分类")
     @GetMapping
-    public ResponseEntity<List<ResourceCategoryDto>> getAllResourceCategories(String categoryName) {
+    public ResponseEntity<List<ResourceCategoryDto>> getAllResourceCategories() {
         return success(service.getAllResourceCategories());
     }
 

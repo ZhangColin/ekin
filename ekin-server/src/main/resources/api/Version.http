@@ -1,0 +1,16 @@
+### 测试版本1
+GET http://{{host}}:{{port}}/v1/versions
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 测试版本2
+GET http://{{host}}:{{port}}/v2/versions
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 测试版本3
+GET http://{{host}}:{{port}}/v3/versions
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+###
