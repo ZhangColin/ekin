@@ -1,0 +1,10 @@
+
+### 关闭应用
+POST http://{{host}}:{{port}}/actuator/shutdown
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+
+###
+
+
+
