@@ -16,7 +16,7 @@ import static com.cartisan.responses.ResponseUtil.success;
 @RestController
 @ApiVersion
 @RequestMapping("/{version}/versions")
-@Api(tags = "版本：测试版本1")
+@Api(tags = "版本：测试版本")
 @Slf4j
 public class VersionController {
 
