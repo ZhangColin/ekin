@@ -1,5 +1,5 @@
 ### 获取所有资源分类
-GET http://{{host}}:{{port}}/system/resources/categories?categoryName=test
+GET http://{{host}}:{{port}}/system/resources/categories
 Accept: application/json
 Content-Type: application/json;charset=UTF-8
 Authorization: {{auth_token}}
