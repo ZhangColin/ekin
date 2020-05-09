@@ -1,5 +1,6 @@
 package com.ekin.system.user.request;
 
+import com.ekin.system.user.domain.Gender;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -29,4 +30,7 @@ public class CreateAccountCommand {
 
     @ApiModelProperty(value = "分配的角色列表")
     private List<Long> roleIds;
+
+    @ApiModelProperty(value = "性别")
+    private Gender gender;
 }

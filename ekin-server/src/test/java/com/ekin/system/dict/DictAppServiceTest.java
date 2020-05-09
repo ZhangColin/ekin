@@ -25,7 +25,7 @@ public class DictAppServiceTest {
 
         dictParam = new DictParam();
         dictParam.setName("性别");
-        dictParam.setCode("sex");
+        dictParam.setCode("gender");
         dictParam.setDescription("性别描述");
 
         dict = new Dict(dictParam.getCode());

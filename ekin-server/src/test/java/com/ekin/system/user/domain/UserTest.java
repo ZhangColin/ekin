@@ -33,14 +33,14 @@ public class UserTest {
     public void should_fill_profile() {
         // given
         final LocalDate birthday = LocalDate.of(2009, 10, 4);
-        final Integer sex = 2;
+        final Gender gender = Gender.FEMALE;
 
         // when
-        user.profile(birthday, sex);
+        user.profile(birthday, gender);
 
         // then
         assertThat(user.getBirthday()).isEqualTo(birthday);
-        assertThat(user.getSex()).isEqualTo(sex);
+        assertThat(user.getGender()).isEqualTo(gender);
     }
 
     @Test

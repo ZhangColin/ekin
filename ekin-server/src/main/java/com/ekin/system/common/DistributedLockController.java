@@ -1,6 +1,5 @@
 package com.ekin.system.common;
 
-import com.cartisan.controllers.ApiVersion;
 import com.cartisan.utils.RedisDistributedLock;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +25,8 @@ import static com.cartisan.responses.ResponseUtil.success;
 public class DistributedLockController {
     private final RedisDistributedLock distributedLock;
     private long stocks = 10;
-    private int timeout = 30*1000;
+//    private int timeout = 30 * 1000;
+    private int timeout = 500;
     private String key = "lockKey";
 
     public DistributedLockController(RedisDistributedLock distributedLock) {
@@ -38,11 +38,11 @@ public class DistributedLockController {
         final ArrayList<String> users = new ArrayList<>(100000);
         final ArrayList<String> shopUsers = new ArrayList<>(10);
 
-        IntStream.range(0, 100000).parallel().forEach(index->users.add("User-"+index));
+        IntStream.range(0, 100000).parallel().forEach(index -> users.add("User-" + index));
 
         stocks = 10;
 
-        users.parallelStream().forEach(user->{
+        users.parallelStream().forEach(user -> {
             final String result = qiang(user);
             if (!StringUtils.isEmpty(result)) {
                 shopUsers.add(result);
@@ -52,7 +52,7 @@ public class DistributedLockController {
         return success(shopUsers);
     }
 
-    private String qiang(String user){
+    private String qiang(String user) {
         final long startTime = System.currentTimeMillis();
 
         while ((startTime + timeout) >= System.currentTimeMillis()) {
@@ -72,12 +72,11 @@ public class DistributedLockController {
                         e.printStackTrace();
                     }
 
-                    stocks--;
+                    stocks -= 1;
 
                     log.info("用户[{}]抢单成功，剩余库存[{}]", user, stocks);
-                    return user + "抢单成功，剩余库存"+stocks;
-                }
-                finally {
+                    return user + "抢单成功，剩余库存" + stocks;
+                } finally {
                     log.info("用户[{}]释放锁...", user);
                     distributedLock.release(key, user);
                 }

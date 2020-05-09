@@ -1,5 +1,6 @@
 package com.ekin.system.user.response;
 
+import com.ekin.system.user.domain.Gender;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -24,7 +25,7 @@ public class UserDto {
     private String realName;
 
     @ApiModelProperty(value = "性别")
-    private Integer sex;
+    private Gender gender;
 
     @ApiModelProperty(value = "状态")
     private Integer status;

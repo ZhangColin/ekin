@@ -70,6 +70,17 @@
             <artifactId>knife4j-spring-boot-starter</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>net.hasor</groupId>
+            <artifactId>hasor-spring</artifactId>
+            <version>4.1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>net.hasor</groupId>
+            <artifactId>hasor-dataway</artifactId>
+            <version>4.1.4</version>
+        </dependency>
+
         <!-- test -->
         <dependency>
             <groupId>junit</groupId>

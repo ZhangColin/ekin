@@ -1,6 +1,7 @@
 package com.ekin.system.user.request;
 
 import com.cartisan.repositories.Condition;
+import com.ekin.system.user.domain.Gender;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -26,8 +27,8 @@ public class UserQuery {
     private String email;
 
     @ApiModelProperty(value = "性别")
-    @Condition(propName = "sex", type = Condition.Type.EQUAL)
-    private Integer sex;
+    @Condition(propName = "gender", type = Condition.Type.EQUAL)
+    private Gender gender;
 
     @ApiModelProperty(value = "状态")
     @Condition(propName = "status", type = Condition.Type.EQUAL)

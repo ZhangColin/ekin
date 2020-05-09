@@ -5,7 +5,7 @@ Content-Type: application/json;charset=UTF-8
 Authorization: {{auth_token}}
 
 ### 获取指定Code的字典项
-GET http://{{host}}:{{port}}/system/dicts/sex/items
+GET http://{{host}}:{{port}}/system/dicts/gender/items
 Accept: application/json
 Content-Type: application/json;charset=UTF-8
 Authorization: {{auth_token}}

@@ -10,7 +10,7 @@ CREATE TABLE `sys_dicts` (
   UNIQUE key `index_dict_code` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='数据字典表';
 
-INSERT INTO `sys_dicts`(`id`, `name`, `code`, `description`) VALUES (1, '性别', 'sex', '');
+INSERT INTO `sys_dicts`(`id`, `name`, `code`, `description`) VALUES (1, '性别', 'gender', '');
 
 -- 数据字典项表
 CREATE TABLE `sys_dict_items` (

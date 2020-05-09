@@ -47,8 +47,9 @@ public class User extends SoftDeleteEntity implements AggregateRoot {
 
     @Column(name = "birthday")
     private LocalDate birthday;
-    @Column(name = "sex")
-    private Integer sex;
+    @Column(name = "gender")
+    @Convert(converter = Gender.Converter.class)
+    private Gender gender;
 
     @Column(name = "status")
     private Integer status;
@@ -78,13 +79,13 @@ public class User extends SoftDeleteEntity implements AggregateRoot {
 
         this.avatar = "";
         this.birthday = null;
-        this.sex = 1;
+        this.gender = Gender.UNKNOWN;
         this.status = 1;
     }
 
-    public void profile(LocalDate birthday, Integer sex) {
+    public void profile(LocalDate birthday, Gender gender) {
         this.birthday = birthday;
-        this.sex = sex;
+        this.gender = gender;
     }
 
     public void assignRoles(List<Long> roleIds) {
