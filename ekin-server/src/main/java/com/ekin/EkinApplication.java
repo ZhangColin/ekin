@@ -20,17 +20,17 @@ import javax.annotation.PreDestroy;
 @SpringBootApplication(scanBasePackages = {"com.cartisan", "com.ekin"})
 @MapperScan("com.ekin.**.mapper")
 @Slf4j
-@EnableHasor
-@EnableHasorWeb
+//@EnableHasor
+//@EnableHasorWeb
 public class EkinApplication {
     public static void main(String[] args) {
         /* 在指定的目录下生成应用pid，执行下面的命令关闭应用 :
             'cat /Users/colin/app.pid | xargs kill' */
-        SpringApplication application = new SpringApplication(EkinApplication.class);
-        application.addListeners(new ApplicationPidFileWriter("/Users/colin/ekin.pid"));
-        application.run(args);
+//        SpringApplication application = new SpringApplication(EkinApplication.class);
+//        application.addListeners(new ApplicationPidFileWriter("/Users/colin/ekin.pid"));
+//        application.run(args);
 
-//        SpringApplication.run(EkinApplication.class, args);
+        SpringApplication.run(EkinApplication.class, args);
     }
 
     @Bean
