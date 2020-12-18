@@ -23,7 +23,7 @@ CREATE TABLE `sys_dict_items` (
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `index_dict_item_dict_id`(`dict_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户角色关联表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='数据字典项表';
 
 INSERT INTO `sys_dict_items`(`id`, `dict_id`, `label`, `value`, `sort`) VALUES (1, 1, '男', '1', 1);
 INSERT INTO `sys_dict_items`(`id`, `dict_id`, `label`, `value`, `sort`) VALUES (2, 1, '女', '2', 2);

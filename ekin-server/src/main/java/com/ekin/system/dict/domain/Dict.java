@@ -32,7 +32,7 @@ public class Dict extends AbstractEntity implements AggregateRoot {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "dict_id", nullable = false)
     private List<DictItem> dictItems = new ArrayList<>();
 
