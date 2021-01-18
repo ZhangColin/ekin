@@ -1,6 +1,5 @@
 package com.ekin.system.user.domain;
 
-import com.ekin.system.operationlog.OperationLogType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 

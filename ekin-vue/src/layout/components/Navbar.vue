@@ -24,24 +24,44 @@
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
-          <router-link to="/profile/index">
-            <el-dropdown-item>Profile</el-dropdown-item>
-          </router-link>
+          <!--          <router-link to="/profile/index">-->
+          <!--            <el-dropdown-item>Profile</el-dropdown-item>-->
+          <!--          </router-link>-->
           <router-link to="/">
-            <el-dropdown-item>Dashboard</el-dropdown-item>
+            <el-dropdown-item>首页</el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-element-admin/">
-            <el-dropdown-item>Github</el-dropdown-item>
-          </a>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a>
+          <!--          <a target="_blank" href="https://github.com/PanJiaChen/vue-element-admin/">-->
+          <!--            <el-dropdown-item>Github</el-dropdown-item>-->
+          <!--          </a>-->
+          <!--          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">-->
+          <!--            <el-dropdown-item>Docs</el-dropdown-item>-->
+          <!--          </a>-->
+          <el-dropdown-item @click.native="changePasswordFormVisible = true">
+            <span style="display:block;">修改密码</span>
+          </el-dropdown-item>
           <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">Log Out</span>
+            <span style="display:block;">退出</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+    <el-dialog title="修改密码" :visible.sync="changePasswordFormVisible">
+      <el-form>
+        <el-form-item label="原密码" label-width="120px">
+          <el-input ref="oldPassword" v-model="changePasswordForm.oldPassword" type="password" />
+        </el-form-item>
+        <el-form-item label="新密码" label-width="120px">
+          <el-input ref="newPassword" v-model="changePasswordForm.newPassword" type="password" />
+        </el-form-item>
+        <el-form-item label="重复密码" label-width="120px">
+          <el-input ref="confirmPassword" v-model="changePasswordForm.confirmPassword" type="password" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="changePasswordFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="confirmChangePassword">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -54,6 +74,10 @@ import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
 import Search from '@/components/HeaderSearch'
 
+import { changePassword } from '@/api/user'
+import { encrypt } from '@/utils/crypto'
+import { Notification } from 'element-ui'
+
 export default {
   components: {
     Breadcrumb,
@@ -62,6 +86,16 @@ export default {
     Screenfull,
     SizeSelect,
     Search
+  },
+  data() {
+    return {
+      changePasswordFormVisible: false,
+      changePasswordForm: {
+        oldPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+      }
+    }
   },
   computed: {
     ...mapGetters([
@@ -73,6 +107,21 @@ export default {
   methods: {
     toggleSideBar() {
       this.$store.dispatch('app/toggleSideBar')
+    },
+    confirmChangePassword() {
+      if (this.changePasswordForm.newPassword !== this.changePasswordForm.confirmPassword) {
+        Notification({
+          title: '错误',
+          dangerouslyUseHTMLString: true,
+          message: '两次密码输入不一致',
+          type: 'error'
+        })
+      } else {
+        changePassword(encrypt(this.changePasswordForm.oldPassword), encrypt(this.changePasswordForm.newPassword)).then(() => {
+          this.$store.dispatch('user/logout')
+          this.$router.push('/login')
+        })
+      }
     },
     async logout() {
       await this.$store.dispatch('user/logout')

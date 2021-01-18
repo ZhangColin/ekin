@@ -35,8 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     private CurrentUserInfo buildUserDetails(User user, List<String> authorities) {
-        return new CurrentUserInfo(user.getId(), user.getUsername(), user.getPassword(),
-                user.getStatus().equals(1), authorities);
+        return new CurrentUserInfo(user, authorities);
     }
 
     private User requireUserPresent(Optional<User> userOptional) {

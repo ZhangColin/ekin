@@ -16,13 +16,13 @@ import java.util.stream.Collectors;
 @Data
 public class OrganizationDto {
     @ApiModelProperty(value = "组织Id")
-    private String id;
+    private Long id;
 
     @ApiModelProperty(value = "组织名称")
     private String name;
 
     @ApiModelProperty(value = "上级组织")
-    private String parentId;
+    private Long parentId;
 
     @ApiModelProperty(value = "描述")
     private String description;
@@ -35,13 +35,13 @@ public class OrganizationDto {
     private List<OrganizationDto> childOrganizations;
 
     public static List<OrganizationDto> buildOrganizationTreeList(List<OrganizationDto> organizations) {
-        Multimap<String, OrganizationDto> organizationMap = ArrayListMultimap.create();
+        Multimap<Long, OrganizationDto> organizationMap = ArrayListMultimap.create();
         organizations.forEach(organization -> organizationMap.put(organization.getParentId(), organization));
 
-        return buildMenuTreeList("0", organizationMap);
+        return buildMenuTreeList(0L, organizationMap);
     }
 
-    private static List<OrganizationDto> buildMenuTreeList(String parentId, Multimap<String, OrganizationDto> organizationMap) {
+    private static List<OrganizationDto> buildMenuTreeList(Long parentId, Multimap<Long, OrganizationDto> organizationMap) {
         return organizationMap.get(parentId).stream()
                 .peek(organization -> {
                     final List<OrganizationDto> childOrganizations = buildMenuTreeList(organization.getId(), organizationMap);

@@ -26,8 +26,8 @@ public class OrganizationFixture {
 
     public static OrganizationDto organizationDtoOf() {
         final OrganizationDto organizationDto = new OrganizationDto();
-        organizationDto.setId(ID.toString());
-        organizationDto.setParentId(PARENT_ID.toString());
+        organizationDto.setId(ID);
+        organizationDto.setParentId(PARENT_ID);
         organizationDto.setName(NAME);
         organizationDto.setSort(SORT);
 

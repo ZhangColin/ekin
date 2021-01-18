@@ -18,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static com.cartisan.responses.ResponseUtil.success;
 
 /**
@@ -42,6 +44,12 @@ public class UserController {
             @ApiParam(value = "查询参数") UserQuery userQuery,
             @PageableDefault Pageable pageable) {
         return success(service.searchUsers(userQuery, pageable));
+    }
+
+    @ApiOperation(value = "获取所有正常用户")
+    @GetMapping
+    public ResponseEntity<List<UserDto>> findAllNormalUsers() {
+        return success(service.findAllNormalUsers());
     }
 
     @ApiOperation(value = "获取用户")

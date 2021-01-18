@@ -22,6 +22,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 import static com.cartisan.repositories.ConditionSpecifications.querySpecification;
 import static com.cartisan.utils.AssertionUtil.requirePresent;
@@ -60,8 +62,19 @@ public class UserAppService {
                 userConverter.convert(searchResult.getContent()));
     }
 
+    public List<UserDto> findAllNormalUsers() {
+        final UserQuery userQuery = new UserQuery();
+        userQuery.setStatus(1);
+
+        return userConverter.convert(repository.findAll(querySpecification(userQuery)));
+    }
+
     public UserDetailDto getUser(Long id) {
         return userDetailConverter.convert(requirePresent(repository.findById(id)));
+    }
+
+    public Optional<UserDto> getUserByRealName(String realName) {
+        return repository.findByRealName(realName).map(userConverter::convert);
     }
 
 
@@ -71,7 +84,7 @@ public class UserAppService {
                 command.getUsername(), command.getPhone(), command.getEmail(), command.getRealName());
 
         assignService.assignRoles(user, command.getRoleIds());
-        assignService.assignOrganization(user, command.getOrganizationId());
+        assignService.assignOrganization(user, command.getOrganizationIds());
 
         repository.save(user);
         return userDetailConverter.convert(user);
@@ -88,7 +101,7 @@ public class UserAppService {
     @Transactional(rollbackOn = Exception.class)
     public void assignOrganization(Long userId, AssignOrganizationsCommand command) {
         final User user = requirePresent(repository.findById(userId));
-        assignService.assignOrganization(user, command.getOrganizationId());
+        assignService.assignOrganization(user, command.getOrganizationIds());
 
         repository.save(user);
     }
@@ -118,6 +131,15 @@ public class UserAppService {
         changePasswordService.resetPassword(user);
 
         loginService.logoutByUsername(user.getUsername());
+
+        repository.save(user);
+    }
+
+    @Transactional(rollbackOn = Exception.class)
+    public void setAvatar(Long userId, String avatar) {
+        final User user = requirePresent(repository.findById(userId));
+
+        user.setAvatar(avatar);
 
         repository.save(user);
     }

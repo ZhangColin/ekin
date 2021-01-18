@@ -194,7 +194,17 @@ aside {
 
 .el-drawer__body {
     padding: 20px;
+    overflow: auto;
+
+    overflow-y: scroll;
+    border-top: 1px solid #e8e8e8;
+    margin-bottom: 70px;
 }
+/*2.隐藏滚动条，太丑了*/
+.el-drawer__container ::-webkit-scrollbar{
+    display: none;
+}
+
 
 .drawer__content {
     display: flex;
@@ -208,6 +218,15 @@ aside {
 
 .drawer__footer {
     display: flex;
+
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid #e8e8e8;
+    padding: 10px 16px;
+    text-align: right;
+    background-color: white;
 }
 
 .drawer__footer button {

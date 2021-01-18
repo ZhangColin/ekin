@@ -1,14 +1,13 @@
 package com.ekin.system.user.domain;
 
+import com.ekin.system.organization.Organization;
 import com.ekin.system.organization.OrganizationRepository;
 import com.ekin.system.role.RoleRepository;
 import com.ekin.system.role.domain.Role;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.cartisan.utils.AssertionUtil.requirePresent;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -35,15 +34,12 @@ public class AssignService {
         user.assignRoles(ensureRoleIds);
     }
 
-    public void assignOrganization(final User user, Long organizationId) {
-        if (organizationId == null) {
+    public void assignOrganization(final User user, List<Long> organizationIds) {
+        if (organizationIds == null) {
             return;
         }
-
-        requirePresent(organizationRepository.findById(organizationId), "分配的组织不存在。");
-
-        List<Long> ensureOrganizationIds = new ArrayList<>();
-        ensureOrganizationIds.add(organizationId);
+        List<Long> ensureOrganizationIds = organizationRepository.findAllById(organizationIds)
+                .stream().map(Organization::getId).collect(toList());
         user.assignOrganizations(ensureOrganizationIds);
     }
 }

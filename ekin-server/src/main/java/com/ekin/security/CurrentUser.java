@@ -4,6 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author colin
+ */
 @Component
 @Slf4j
 public class CurrentUser {
@@ -12,10 +15,14 @@ public class CurrentUser {
     }
 
     public Long getUserId() {
-        return getCurrentUser().getUserId();
+        return getCurrentUser().getUser().getId();
     }
 
     public String getUsername() {
         return getCurrentUser().getUsername();
+    }
+
+    public String getRealName() {
+        return getCurrentUser().getUser().getRealName();
     }
 }

@@ -26,7 +26,7 @@ public class CreateAccountCommand {
     private String realName;
 
     @ApiModelProperty(value = "分配的组织")
-    private Long organizationId;
+    private List<Long> organizationIds;
 
     @ApiModelProperty(value = "分配的角色列表")
     private List<Long> roleIds;

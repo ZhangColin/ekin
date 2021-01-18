@@ -44,7 +44,7 @@ public class UserDetailConverterTest {
                 .thenReturn(singletonList(roleDto));
 
         organizationDto = new OrganizationDto();
-        organizationDto.setId("1");
+        organizationDto.setId(1L);
         organizationDto.setName("Cartisan");
 
         OrganizationAppService organizationAppService = mock(OrganizationAppService.class);

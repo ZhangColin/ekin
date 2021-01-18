@@ -19,4 +19,6 @@ public interface UserRepository extends BaseRepository<User, Long> {
     boolean existsByEmailAndIdNot(String email, Long id);
 
     Optional<User> findByUsername(String username);
+
+    Optional<User> findByRealName(String realName);
 }

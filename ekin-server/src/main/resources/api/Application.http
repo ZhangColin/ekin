@@ -4,6 +4,18 @@ POST http://{{host}}:{{port}}/actuator/shutdown
 Accept: application/json
 Content-Type: application/json;charset=UTF-8
 
+### Id生成
+GET http://{{host}}:{{port}}/system/idGenerate?count=50
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
+### 数据库重置
+GET http://{{host}}:{{port}}/system/dbReset
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: {{auth_token}}
+
 ###
 
 

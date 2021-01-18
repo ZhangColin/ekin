@@ -38,6 +38,10 @@ public class OrganizationAppService {
                 repository.findAll(Sort.by(Sort.Direction.ASC, "sort")));
     }
 
+    public OrganizationDto getOrganization(Long organizationId) {
+        return convert.convert(requirePresent(repository.findById(organizationId)));
+    }
+
 
     @Transactional(rollbackOn = Exception.class)
     public OrganizationDto addOrganization(OrganizationParam organizationParam) {

@@ -1,5 +1,4 @@
-
-### 登录
+### 超级管理员登录
 POST http://{{host}}:{{port}}/system/login
 Accept: application/json
 Content-Type: application/json;charset=UTF-8
@@ -8,7 +7,17 @@ Content-Type: application/json;charset=UTF-8
   "username": "admin",
   "password": "8tK2r6Rrfsg9IKTpYqtMug=="
 }
+> {% client.global.set("auth_token", "Bearer " + response.body.token); %}
 
+### 普通用户登录
+POST http://{{host}}:{{port}}/system/login
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+
+{
+  "username": "colin.zhang",
+  "password": "8tK2r6Rrfsg9IKTpYqtMug=="
+}
 > {% client.global.set("auth_token", "Bearer " + response.body.token); %}
 
 ### 退出

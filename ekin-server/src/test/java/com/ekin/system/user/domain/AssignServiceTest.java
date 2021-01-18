@@ -6,6 +6,7 @@ import com.ekin.system.role.RoleRepository;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import static com.ekin.system.user.UserFixture.userOf;
@@ -54,7 +55,7 @@ public class AssignServiceTest {
     @Test
     public void should_assign_organization_success() {
         // when
-        assignService.assignOrganization(user, 1L);
+        assignService.assignOrganization(user, Arrays.asList(1L));
 
         // then
         assertThat(user.getOrganizations().size()).isEqualTo(1);
@@ -68,7 +69,7 @@ public class AssignServiceTest {
         user.assignOrganizations(singletonList(organization.getId()));
 
         // when
-        assignService.assignOrganization(user, 1L);
+        assignService.assignOrganization(user, Arrays.asList(1L));
 
         // then
         assertThat(user.getOrganizations().size()).isEqualTo(1);
