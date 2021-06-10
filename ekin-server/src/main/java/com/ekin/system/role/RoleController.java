@@ -111,8 +111,7 @@ public class RoleController {
     @PutMapping("/{id}/disable")
     public ResponseEntity<?> disable(
             @ApiParam(value = "角色Id", required = true) @PathVariable Long id) {
-        throw new CartisanException(CodeMessage.FAIL.fillArgs("测试异常"));
-//        service.disable(id);
-//        return success();
+        service.disable(id);
+        return success();
     }
 }
