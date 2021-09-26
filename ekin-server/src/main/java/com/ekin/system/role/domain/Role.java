@@ -48,7 +48,7 @@ public class Role extends AbstractEntity implements AggregateRoot {
     @JoinColumn(name = "role_id")
     private List<RoleResource> resources = new ArrayList<>();
 
-    private Role() {
+    protected Role() {
     }
 
     public Role(String name) {
