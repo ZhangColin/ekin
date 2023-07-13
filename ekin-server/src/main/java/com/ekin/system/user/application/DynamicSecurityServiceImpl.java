@@ -1,6 +1,6 @@
 package com.ekin.system.user.application;
 
-import com.cartisan.security.DynamicSecurityService;
+import com.ekin.security.DynamicSecurityService;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.stereotype.Component;
 

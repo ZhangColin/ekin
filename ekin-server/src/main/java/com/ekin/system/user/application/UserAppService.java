@@ -1,7 +1,7 @@
 package com.ekin.system.user.application;
 
 import com.cartisan.dto.PageResult;
-import com.cartisan.security.LoginService;
+import com.ekin.security.LoginService;
 import com.ekin.system.user.UserRepository;
 import com.ekin.system.user.domain.AssignService;
 import com.ekin.system.user.domain.ChangePasswordService;

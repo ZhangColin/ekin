@@ -1,6 +1,6 @@
 package com.ekin.system.user.application;
 
-import com.cartisan.security.LoginService;
+import com.ekin.security.LoginService;
 import com.ekin.system.user.UserRepository;
 import com.ekin.system.user.domain.AssignService;
 import com.ekin.system.user.domain.ChangePasswordService;
@@ -18,7 +18,7 @@ public class UserAppServiceTest {
     private  RegisterService registerService;
     private  AssignService assignService;
     private  ChangePasswordService changePasswordService;
-    private  LoginService loginService;
+    private LoginService loginService;
     private  UserRepository repository;
 
     private UserAppService userAppService;
