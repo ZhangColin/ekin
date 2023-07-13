@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.cartisan.responses.ResponseUtil.success;
+import static com.cartisan.response.ResponseUtil.success;
 
 /**
  * @author colin

@@ -1,7 +1,7 @@
 package com.ekin.system.resource.response;
 
 import com.cartisan.CartisanContext;
-import com.cartisan.dtos.Converter;
+import com.cartisan.dto.Converter;
 import com.ekin.system.resource.application.ResourceCategoryAppService;
 import com.ekin.system.resource.domain.Resource;
 import org.mapstruct.InheritConfiguration;
@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-import static com.cartisan.utils.AssertionUtil.requirePresent;
+import static com.cartisan.util.AssertionUtil.requirePresent;
 
 /**
  * @author colin

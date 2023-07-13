@@ -1,6 +1,6 @@
 package com.ekin.system.user.application;
 
-import com.cartisan.dtos.PageResult;
+import com.cartisan.dto.PageResult;
 import com.cartisan.security.LoginService;
 import com.ekin.system.user.UserRepository;
 import com.ekin.system.user.domain.AssignService;
@@ -25,8 +25,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static com.cartisan.repositories.ConditionSpecifications.querySpecification;
-import static com.cartisan.utils.AssertionUtil.requirePresent;
+import static com.cartisan.repository.ConditionSpecifications.querySpecification;
+import static com.cartisan.util.AssertionUtil.requirePresent;
 
 
 /**

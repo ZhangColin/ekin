@@ -1,11 +1,11 @@
 package com.ekin.system.common;
 
-import com.cartisan.utils.SnowflakeIdWorker;
+import com.cartisan.util.SnowflakeIdWorker;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.flywaydb.core.Flyway;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.flywaydb.core.Flyway;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-import static com.cartisan.responses.ResponseUtil.success;
+import static com.cartisan.response.ResponseUtil.success;
 import static java.util.stream.Collectors.toList;
 
 
@@ -69,14 +69,14 @@ private final SnowflakeIdWorker snowflakeIdWorker;
         return success(Stream.generate(snowflakeIdWorker::nextId).limit(count).collect(toList()));
     }
 
-    @Autowired
-    private Flyway flyway;
-
-    @ApiOperation(value = "数据库重置")
-    @GetMapping("/dbReset")
-    public ResponseEntity<?> dbReset() {
-        flyway.clean();
-        flyway.migrate();
-        return success();
-    }
+//    @Autowired
+//    private Flyway flyway;
+//
+//    @ApiOperation(value = "数据库重置")
+//    @GetMapping("/dbReset")
+//    public ResponseEntity<?> dbReset() {
+//        flyway.clean();
+//        flyway.migrate();
+//        return success();
+//    }
 }

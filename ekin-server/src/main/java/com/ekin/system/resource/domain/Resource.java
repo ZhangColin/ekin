@@ -1,9 +1,9 @@
 package com.ekin.system.resource.domain;
 
-import com.cartisan.constants.CodeMessage;
-import com.cartisan.domains.AbstractEntity;
-import com.cartisan.domains.AggregateRoot;
-import com.cartisan.exceptions.CartisanException;
+import com.cartisan.constant.CodeMessage;
+import com.cartisan.domain.AbstractEntity;
+import com.cartisan.domain.AggregateRoot;
+import com.cartisan.exception.CartisanException;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
@@ -41,7 +41,7 @@ public class Resource extends AbstractEntity implements AggregateRoot {
     @Column(name = "sort")
     private Integer sort;
 
-    private Resource() {
+    protected Resource() {
     }
 
     public Resource(String name, String code, String url, Long categoryId) {

@@ -11,7 +11,7 @@ spring:
   application:
     name: ekin
   profiles:
-    include: web, mysql
+#    include: web, mysql
     active: local
 
 
@@ -60,3 +60,24 @@ management:
       enabled: true
     health:
       show-details: always
+
+
+logging:
+  pattern:
+    file: "[%d{yyyy-MM-dd HH:mm:ss.SSS} %X{request-id} %X{user}] %level - [%thread %logger{30}] - [%replace(%msg){'\n', ''}]%n"
+  level:
+    root: info
+
+---
+spring:
+  profiles: local, dev
+logging:
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID} %10.10X{request-id} %10.10X{user}){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx"
+  level:
+    root: info
+    org.apache.http.wire: info
+    org.apache.http.headers: info
+    # 在日志中打印应用映射的所有请求路径
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: trace
+    com.cartisan: debug

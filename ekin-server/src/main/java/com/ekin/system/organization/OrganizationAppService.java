@@ -1,6 +1,6 @@
 package com.ekin.system.organization;
 
-import com.cartisan.utils.SnowflakeIdWorker;
+import com.cartisan.util.SnowflakeIdWorker;
 import com.ekin.system.organization.reponse.OrganizationConverter;
 import com.ekin.system.organization.reponse.OrganizationDto;
 import org.springframework.data.domain.Sort;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-import static com.cartisan.utils.AssertionUtil.requirePresent;
+import static com.cartisan.util.AssertionUtil.requirePresent;
 
 /**
  * @author colin

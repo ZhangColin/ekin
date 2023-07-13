@@ -1,6 +1,6 @@
 package com.ekin.system.resource.domain;
 
-import com.cartisan.exceptions.CartisanException;
+import com.cartisan.exception.CartisanException;
 import org.junit.Before;
 import org.junit.Test;
 

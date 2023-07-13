@@ -1,6 +1,6 @@
 package com.ekin.system.menu;
 
-import com.cartisan.repositories.BaseRepository;
+import com.cartisan.repository.BaseRepository;
 
 import java.util.List;
 

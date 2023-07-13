@@ -1,6 +1,6 @@
 package com.ekin.system.organization;
 
-import com.cartisan.repositories.BaseRepository;
+import com.cartisan.repository.BaseRepository;
 
 /**
  * @author colin

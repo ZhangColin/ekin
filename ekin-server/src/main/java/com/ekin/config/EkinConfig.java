@@ -1,6 +1,6 @@
 package com.ekin.config;
 
-import com.cartisan.repositories.CartisanRepositoryFactoryBean;
+import com.cartisan.repository.CartisanRepositoryFactoryBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 

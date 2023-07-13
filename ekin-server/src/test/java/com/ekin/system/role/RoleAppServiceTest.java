@@ -1,6 +1,6 @@
 package com.ekin.system.role;
 
-import com.cartisan.exceptions.CartisanException;
+import com.cartisan.exception.CartisanException;
 import com.ekin.system.menu.MenuRepository;
 import com.ekin.system.resource.repository.ResourceRepository;
 import com.ekin.system.role.request.RoleParam;

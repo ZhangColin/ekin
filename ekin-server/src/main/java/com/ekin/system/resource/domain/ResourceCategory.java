@@ -1,7 +1,7 @@
 package com.ekin.system.resource.domain;
 
-import com.cartisan.domains.AbstractEntity;
-import com.cartisan.domains.AggregateRoot;
+import com.cartisan.domain.AbstractEntity;
+import com.cartisan.domain.AggregateRoot;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 

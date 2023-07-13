@@ -1,8 +1,8 @@
 package com.ekin.system.role;
 
-import com.cartisan.constants.CodeMessage;
-import com.cartisan.dtos.PageResult;
-import com.cartisan.exceptions.CartisanException;
+import com.cartisan.constant.CodeMessage;
+import com.cartisan.dto.PageResult;
+import com.cartisan.exception.CartisanException;
 import com.ekin.system.role.request.AssignMenusCommand;
 import com.ekin.system.role.request.AssignResourcesCommand;
 import com.ekin.system.role.request.RoleParam;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.cartisan.responses.ResponseUtil.success;
+import static com.cartisan.response.ResponseUtil.success;
 
 /**
  * @author colin

@@ -1,8 +1,8 @@
 package com.ekin.system.resource.application;
 
 import com.cartisan.CartisanContext;
-import com.cartisan.dtos.PageResult;
-import com.cartisan.exceptions.CartisanException;
+import com.cartisan.dto.PageResult;
+import com.cartisan.exception.CartisanException;
 import com.ekin.system.resource.domain.Resource;
 import com.ekin.system.resource.repository.ResourceRepository;
 import com.ekin.system.resource.request.ResourceParam;

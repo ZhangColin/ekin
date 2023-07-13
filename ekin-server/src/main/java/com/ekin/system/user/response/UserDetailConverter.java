@@ -1,7 +1,7 @@
 package com.ekin.system.user.response;
 
 import com.cartisan.CartisanContext;
-import com.cartisan.dtos.Converter;
+import com.cartisan.dto.Converter;
 import com.ekin.system.organization.OrganizationAppService;
 import com.ekin.system.organization.reponse.OrganizationDto;
 import com.ekin.system.role.RoleAppService;

@@ -1,7 +1,7 @@
 package com.ekin.system.user.domain;
 
-import com.cartisan.domains.AggregateRoot;
-import com.cartisan.domains.SoftDeleteEntity;
+import com.cartisan.domain.AggregateRoot;
+import com.cartisan.domain.SoftDeleteEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -64,7 +64,7 @@ public class User extends SoftDeleteEntity implements AggregateRoot {
     @JoinColumn(name = "user_id")
     private List<UserRole> roles = new ArrayList<>();
 
-    private User() {
+    protected User() {
 
     }
 

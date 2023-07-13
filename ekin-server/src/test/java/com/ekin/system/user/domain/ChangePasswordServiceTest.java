@@ -1,7 +1,7 @@
 package com.ekin.system.user.domain;
 
 
-import com.cartisan.exceptions.CartisanException;
+import com.cartisan.exception.CartisanException;
 import com.ekin.system.user.UserFixture;
 import org.junit.Before;
 import org.junit.Test;

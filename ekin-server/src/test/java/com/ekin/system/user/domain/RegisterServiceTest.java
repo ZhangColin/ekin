@@ -1,7 +1,7 @@
 package com.ekin.system.user.domain;
 
-import com.cartisan.exceptions.CartisanException;
-import com.cartisan.utils.SnowflakeIdWorker;
+import com.cartisan.exception.CartisanException;
+import com.cartisan.util.SnowflakeIdWorker;
 import com.ekin.system.user.UserRepository;
 import org.junit.Before;
 import org.junit.Test;

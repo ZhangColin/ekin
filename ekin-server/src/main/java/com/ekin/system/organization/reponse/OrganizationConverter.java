@@ -1,6 +1,6 @@
 package com.ekin.system.organization.reponse;
 
-import com.cartisan.dtos.Converter;
+import com.cartisan.dto.Converter;
 import com.ekin.system.organization.Organization;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

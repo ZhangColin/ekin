@@ -1,6 +1,6 @@
 package com.ekin.system.resource.request;
 
-import com.cartisan.repositories.Condition;
+import com.cartisan.repository.Condition;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

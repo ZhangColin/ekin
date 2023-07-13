@@ -1,6 +1,6 @@
 package com.ekin.system.menu;
 
-import com.cartisan.dtos.Converter;
+import com.cartisan.dto.Converter;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

@@ -1,6 +1,6 @@
 package com.ekin.system.resource.application;
 
-import com.cartisan.exceptions.CartisanException;
+import com.cartisan.exception.CartisanException;
 import com.ekin.system.resource.domain.ResourceCategory;
 import com.ekin.system.resource.repository.ResourceCategoryRepository;
 import com.ekin.system.resource.request.ResourceCategoryParam;

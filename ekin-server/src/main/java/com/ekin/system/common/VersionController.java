@@ -11,7 +11,7 @@
 //import java.util.HashMap;
 //import java.util.Map;
 //
-//import static com.cartisan.responses.ResponseUtil.success;
+//import static com.cartisan.response.ResponseUtil.success;
 //
 //@RestController
 //@ApiVersion

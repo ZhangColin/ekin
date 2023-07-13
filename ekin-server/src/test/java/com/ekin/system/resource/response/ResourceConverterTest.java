@@ -1,7 +1,7 @@
 package com.ekin.system.resource.response;
 
 import com.cartisan.CartisanContext;
-import com.cartisan.exceptions.CartisanException;
+import com.cartisan.exception.CartisanException;
 import com.ekin.system.resource.ResourceCategoryFixture;
 import com.ekin.system.resource.ResourceFixture;
 import com.ekin.system.resource.application.ResourceCategoryAppService;

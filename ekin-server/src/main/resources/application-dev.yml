@@ -7,11 +7,11 @@ spring:
     public-key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIdafBFEbA+F7zB0RcwPOFzGUSo5tB2ggQh2Ay0MlKjlt9oKFfIHDKzt9jim+mZHONZsgOUktccAb0nFYX4TlikCAwEAAQ==
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
 
-  flyway:
-    clean-disabled: false
-    locations: classpath:db/migration,classpath:db/dev.migration
-    out-of-order: true
-    table: schema_ekin_version
+#  flyway:
+#    clean-disabled: false
+#    locations: classpath:db/migration,classpath:db/dev.migration
+#    out-of-order: true
+#    table: schema_ekin_version
 
   rabbitmq:
     host: localhost

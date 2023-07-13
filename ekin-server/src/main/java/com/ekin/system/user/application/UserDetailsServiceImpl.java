@@ -1,7 +1,7 @@
 package com.ekin.system.user.application;
 
-import com.cartisan.constants.CodeMessage;
-import com.cartisan.exceptions.CartisanException;
+import com.cartisan.constant.CodeMessage;
+import com.cartisan.exception.CartisanException;
 import com.ekin.security.CurrentUserInfo;
 import com.ekin.system.user.UserRepository;
 import com.ekin.system.user.domain.User;

@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import static com.cartisan.responses.ResponseUtil.success;
+import static com.cartisan.response.ResponseUtil.success;
 
 /**
  * @author colin

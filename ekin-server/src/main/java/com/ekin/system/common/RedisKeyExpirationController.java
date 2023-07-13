@@ -1,6 +1,6 @@
 package com.ekin.system.common;
 
-import com.cartisan.aops.limit.Limit;
+import com.cartisan.aop.limit.Limit;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.ekin.system.organization;
 
-import com.cartisan.utils.SnowflakeIdWorker;
+import com.cartisan.util.SnowflakeIdWorker;
 import com.ekin.system.organization.reponse.OrganizationDto;
 import org.junit.Before;
 import org.junit.Test;

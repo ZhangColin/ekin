@@ -6,13 +6,13 @@
     <parent>
         <artifactId>cartisan-parent</artifactId>
         <groupId>com.cartisan</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.0</version>
         <relativePath />
     </parent>
 
     <groupId>com.ekin</groupId>
     <artifactId>ekin-server</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -20,28 +20,23 @@
         <dependency>
             <groupId>com.cartisan</groupId>
             <artifactId>cartisan-web</artifactId>
-            <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.cartisan</groupId>
             <artifactId>cartisan-security</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.cartisan</groupId>
             <artifactId>cartisan-persistence</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.flywaydb</groupId>-->
+<!--            <artifactId>flyway-core</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>p6spy</groupId>
@@ -104,38 +99,38 @@
 
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-<!--                <configuration>-->
-<!--                    <skip>true</skip>-->
-<!--                </configuration>-->
-            </plugin>
-            <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--&lt;!&ndash;                <configuration>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <skip>true</skip>&ndash;&gt;-->
+<!--&lt;!&ndash;                </configuration>&ndash;&gt;-->
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <groupId>org.flywaydb</groupId>-->
+<!--                <artifactId>flyway-maven-plugin</artifactId>-->
 
-                <configuration>
-                    <locations>
-                        <location>filesystem:src/main/resources/db/migration</location>
-                        <location>filesystem:src/main/resources/db/${spring.profiles.active}/migration</location>
-                    </locations>
-                    <cleanDisabled>false</cleanDisabled>
-                    <outOfOrder>false</outOfOrder>
-                    <validateOnMigrate>true</validateOnMigrate>
-                    <cleanOnValidationError>false</cleanOnValidationError>
-                    <baselineOnMigrate>false</baselineOnMigrate>
-                    <baselineVersion>0000</baselineVersion>
-                    <baselineDescription>init baseline</baselineDescription>
-                    <skip>false</skip>
-                    <configFiles>
-                        <configFile>src/main/resources/flyway-${spring.profiles.active}.properties</configFile>
-                    </configFiles>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+<!--                <configuration>-->
+<!--                    <locations>-->
+<!--                        <location>filesystem:src/main/resources/db/migration</location>-->
+<!--                        <location>filesystem:src/main/resources/db/${spring.profiles.active}/migration</location>-->
+<!--                    </locations>-->
+<!--                    <cleanDisabled>false</cleanDisabled>-->
+<!--                    <outOfOrder>false</outOfOrder>-->
+<!--                    <validateOnMigrate>true</validateOnMigrate>-->
+<!--                    <cleanOnValidationError>false</cleanOnValidationError>-->
+<!--                    <baselineOnMigrate>false</baselineOnMigrate>-->
+<!--                    <baselineVersion>0000</baselineVersion>-->
+<!--                    <baselineDescription>init baseline</baselineDescription>-->
+<!--                    <skip>false</skip>-->
+<!--                    <configFiles>-->
+<!--                        <configFile>src/main/resources/flyway-${spring.profiles.active}.properties</configFile>-->
+<!--                    </configFiles>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
 
 </project>

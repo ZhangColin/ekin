@@ -1,6 +1,6 @@
 package com.ekin.system.resource.controller;
 
-import com.cartisan.dtos.PageResult;
+import com.cartisan.dto.PageResult;
 import com.ekin.system.resource.application.ResourceAppService;
 import com.ekin.system.resource.request.ResourceParam;
 import com.ekin.system.resource.request.ResourceQuery;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.cartisan.responses.ResponseUtil.success;
+import static com.cartisan.response.ResponseUtil.success;
 
 /**
  * @author colin

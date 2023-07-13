@@ -1,8 +1,8 @@
 package com.ekin.system.dict;
 
-import com.cartisan.constants.CodeMessage;
-import com.cartisan.dtos.PageResult;
-import com.cartisan.exceptions.CartisanException;
+import com.cartisan.constant.CodeMessage;
+import com.cartisan.dto.PageResult;
+import com.cartisan.exception.CartisanException;
 import com.ekin.system.dict.domain.Dict;
 import com.ekin.system.dict.domain.DictItem;
 import com.ekin.system.dict.request.DictItemParam;
@@ -21,8 +21,8 @@ import javax.transaction.Transactional;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.cartisan.repositories.ConditionSpecifications.querySpecification;
-import static com.cartisan.utils.AssertionUtil.requirePresent;
+import static com.cartisan.repository.ConditionSpecifications.querySpecification;
+import static com.cartisan.util.AssertionUtil.requirePresent;
 
 /**
  * @author colin

@@ -1,6 +1,6 @@
 package com.ekin.system.user;
 
-import com.cartisan.repositories.BaseRepository;
+import com.cartisan.repository.BaseRepository;
 import com.ekin.system.user.domain.User;
 
 import java.util.Optional;

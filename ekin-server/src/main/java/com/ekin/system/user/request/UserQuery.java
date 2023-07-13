@@ -1,6 +1,6 @@
 package com.ekin.system.user.request;
 
-import com.cartisan.repositories.Condition;
+import com.cartisan.repository.Condition;
 import com.ekin.system.user.domain.Gender;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

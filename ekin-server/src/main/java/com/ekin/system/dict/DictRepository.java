@@ -1,6 +1,6 @@
 package com.ekin.system.dict;
 
-import com.cartisan.repositories.BaseRepository;
+import com.cartisan.repository.BaseRepository;
 import com.ekin.system.dict.domain.Dict;
 
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package com.ekin.system.role.response;
 
-import com.cartisan.dtos.Converter;
+import com.cartisan.dto.Converter;
 import com.ekin.system.role.domain.Role;
 import com.ekin.system.role.domain.RoleMenu;
 import com.ekin.system.role.domain.RoleResource;

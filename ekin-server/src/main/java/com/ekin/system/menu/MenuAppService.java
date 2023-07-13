@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-import static com.cartisan.utils.AssertionUtil.requirePresent;
+import static com.cartisan.util.AssertionUtil.requirePresent;
 
 /**
  * @author colin

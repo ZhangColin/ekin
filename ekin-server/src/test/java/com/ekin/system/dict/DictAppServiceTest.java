@@ -1,6 +1,6 @@
 package com.ekin.system.dict;
 
-import com.cartisan.exceptions.CartisanException;
+import com.cartisan.exception.CartisanException;
 import com.ekin.system.dict.domain.Dict;
 import com.ekin.system.dict.request.DictParam;
 import org.junit.Before;

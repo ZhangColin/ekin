@@ -1,6 +1,6 @@
 package com.ekin.system.common;
 
-import com.cartisan.utils.RedisDistributedLock;
+import com.cartisan.util.RedisDistributedLock;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
-import static com.cartisan.responses.ResponseUtil.success;
+import static com.cartisan.response.ResponseUtil.success;
 
 /**
  * @author colin

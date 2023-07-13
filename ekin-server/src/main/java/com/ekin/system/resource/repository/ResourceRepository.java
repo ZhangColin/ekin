@@ -1,6 +1,6 @@
 package com.ekin.system.resource.repository;
 
-import com.cartisan.repositories.BaseRepository;
+import com.cartisan.repository.BaseRepository;
 import com.ekin.system.resource.domain.Resource;
 
 import java.util.List;

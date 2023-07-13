@@ -1,8 +1,8 @@
 package com.ekin.system.role;
 
-import com.cartisan.constants.CodeMessage;
-import com.cartisan.dtos.PageResult;
-import com.cartisan.exceptions.CartisanException;
+import com.cartisan.constant.CodeMessage;
+import com.cartisan.dto.PageResult;
+import com.cartisan.exception.CartisanException;
 import com.ekin.system.menu.Menu;
 import com.ekin.system.menu.MenuRepository;
 import com.ekin.system.resource.domain.Resource;
@@ -24,8 +24,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-import static com.cartisan.repositories.ConditionSpecifications.querySpecification;
-import static com.cartisan.utils.AssertionUtil.requirePresent;
+import static com.cartisan.repository.ConditionSpecifications.querySpecification;
+import static com.cartisan.util.AssertionUtil.requirePresent;
 import static java.util.stream.Collectors.toList;
 
 /**

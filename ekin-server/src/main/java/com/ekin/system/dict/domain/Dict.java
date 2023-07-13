@@ -1,7 +1,7 @@
 package com.ekin.system.dict.domain;
 
-import com.cartisan.domains.AbstractEntity;
-import com.cartisan.domains.AggregateRoot;
+import com.cartisan.domain.AbstractEntity;
+import com.cartisan.domain.AggregateRoot;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;

@@ -1,6 +1,6 @@
 package com.ekin.system.user.controller;
 
-import com.cartisan.dtos.PageResult;
+import com.cartisan.dto.PageResult;
 import com.ekin.system.user.application.UserAppService;
 import com.ekin.system.user.request.AssignOrganizationsCommand;
 import com.ekin.system.user.request.AssignRolesCommand;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.cartisan.responses.ResponseUtil.success;
+import static com.cartisan.response.ResponseUtil.success;
 
 /**
  * @author colin

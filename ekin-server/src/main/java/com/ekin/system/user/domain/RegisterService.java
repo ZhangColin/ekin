@@ -1,8 +1,8 @@
 package com.ekin.system.user.domain;
 
-import com.cartisan.constants.CodeMessage;
-import com.cartisan.exceptions.CartisanException;
-import com.cartisan.utils.SnowflakeIdWorker;
+import com.cartisan.constant.CodeMessage;
+import com.cartisan.exception.CartisanException;
+import com.cartisan.util.SnowflakeIdWorker;
 import com.ekin.system.user.UserRepository;
 import com.google.common.base.Strings;
 import org.springframework.security.crypto.password.PasswordEncoder;

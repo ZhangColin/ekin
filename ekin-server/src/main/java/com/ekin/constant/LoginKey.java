@@ -1,6 +1,6 @@
 package com.ekin.constant;
 
-import com.cartisan.constants.BasePrefix;
+import com.cartisan.constant.BasePrefix;
 
 /**
  * @author colin

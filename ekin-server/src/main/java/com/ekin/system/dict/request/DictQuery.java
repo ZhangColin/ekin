@@ -1,6 +1,6 @@
 package com.ekin.system.dict.request;
 
-import com.cartisan.repositories.Condition;
+import com.cartisan.repository.Condition;
 import lombok.Data;
 
 /**

@@ -1,7 +1,7 @@
 package com.ekin.system.user.application;
 
 import com.cartisan.security.LoginService;
-import com.cartisan.utils.AesUtil;
+import com.cartisan.util.AesUtil;
 import com.ekin.security.CurrentUser;
 import com.ekin.system.user.UserRepository;
 import com.ekin.system.user.domain.ChangePasswordService;
