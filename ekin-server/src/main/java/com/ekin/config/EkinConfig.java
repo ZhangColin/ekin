@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 /**
  * @author colin
  */
-@Configuration
-@EnableJpaRepositories(basePackages = {"com.ekin"},
-        repositoryFactoryBeanClass = CartisanRepositoryFactoryBean.class)
-public class EkinConfig {
-}
+//@Configuration
+//@EnableJpaRepositories(basePackages = {"com.ekin"},
+//        repositoryFactoryBeanClass = CartisanRepositoryFactoryBean.class)
+//public class EkinConfig {
+//}

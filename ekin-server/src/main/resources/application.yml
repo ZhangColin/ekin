@@ -11,11 +11,17 @@ spring:
   application:
     name: ekin
   profiles:
-#    include: web, mysql
+    include: web, mysql
     active: local
+  config:
+    use-legacy-processing: true
+  datasource:
+    druid:
+      db-type: mysql
 
 
 cartisan:
+  basePackages: com.ekin
   jwt:
     key: cartisan-jwt
     ttl: 1800000

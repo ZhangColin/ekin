@@ -49,7 +49,7 @@ public interface UserDetailConverter extends Converter<User, UserDetailDto>{
         final List<String> organizationIds = userOrganizations.stream()
                 .map(userOrganization -> userOrganization.getOrganizationId().toString()).collect(toList());
         return organizationAppService.getAllOrganizations().stream()
-                .filter(organizationDto -> organizationIds.contains(organizationDto.getId()))
+                .filter(organizationDto -> organizationIds.contains(organizationDto.getId().toString()))
                 .findFirst()
                 .orElse(null);
     }

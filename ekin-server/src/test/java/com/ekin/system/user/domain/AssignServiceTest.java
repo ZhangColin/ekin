@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static com.ekin.system.user.UserFixture.userOf;
@@ -32,6 +33,7 @@ public class AssignServiceTest {
         assignService = new AssignService(roleRepository, organizationRepository);
 
         when(organizationRepository.findById(anyLong())).thenReturn(Optional.of(organization));
+        when(organizationRepository.findAllById(anyList())).thenReturn(Arrays.asList(organization));
     }
 
     @Test
