@@ -21,7 +21,7 @@
 //public class VersionController {
 //
 //    @GetMapping
-//    public ResponseEntity<?> version1() {
+//    public GenericResponse<?> version1() {
 //        Map<String, String> result = new HashMap<>();
 //        result.put("data", "测试版本1");
 //        return success(result);
@@ -29,7 +29,7 @@
 //
 //    @GetMapping
 //    @ApiVersion(2)
-//    public ResponseEntity<?> version2() {
+//    public GenericResponse<?> version2() {
 //        Map<String, String> result = new HashMap<>();
 //        result.put("data", "测试版本2");
 //        return success(result);

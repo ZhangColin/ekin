@@ -21,7 +21,7 @@
 //public class VersionExtController {
 //
 //    @GetMapping
-//    public ResponseEntity<?> version3() {
+//    public GenericResponse<?> version3() {
 //        Map<String, String> result = new HashMap<>();
 //        result.put("data", "测试版本3");
 //        return success(result);

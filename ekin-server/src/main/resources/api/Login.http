@@ -7,7 +7,7 @@ Content-Type: application/json;charset=UTF-8
   "username": "admin",
   "password": "8tK2r6Rrfsg9IKTpYqtMug=="
 }
-> {% client.global.set("auth_token", "Bearer " + response.body.token); %}
+> {% client.global.set("auth_token", "Bearer " + response.body.data.token); %}
 
 ### 普通用户登录
 POST http://{{host}}:{{port}}/system/login

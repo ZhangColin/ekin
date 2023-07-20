@@ -1,6 +1,7 @@
 package com.ekin.system.user.controller;
 
 import com.cartisan.dto.PageResult;
+import com.cartisan.response.GenericResponse;
 import com.ekin.system.user.application.UserAppService;
 import com.ekin.system.user.request.AssignOrganizationsCommand;
 import com.ekin.system.user.request.AssignRolesCommand;
@@ -14,7 +15,6 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +40,7 @@ public class UserController {
     @ApiOperation(value = "搜索用户")
     @GetMapping("/search")
 //    @PreAuthorize("hasAuthority('test')")
-    public ResponseEntity<PageResult<UserDto>> searchUsers(
+    public GenericResponse<PageResult<UserDto>> searchUsers(
             @ApiParam(value = "查询参数") UserQuery userQuery,
             @PageableDefault Pageable pageable) {
         return success(service.searchUsers(userQuery, pageable));
@@ -48,27 +48,27 @@ public class UserController {
 
     @ApiOperation(value = "获取所有正常用户")
     @GetMapping
-    public ResponseEntity<List<UserDto>> findAllNormalUsers() {
+    public GenericResponse<List<UserDto>> findAllNormalUsers() {
         return success(service.findAllNormalUsers());
     }
 
     @ApiOperation(value = "获取用户")
     @GetMapping("/{id}")
-    public ResponseEntity<UserDetailDto> getUser(
+    public GenericResponse<UserDetailDto> getUser(
             @ApiParam(value = "用户Id", required = true) @PathVariable Long id) {
         return success(service.getUser(id));
     }
 
     @ApiOperation(value = "创建用户账号")
     @PostMapping
-    public ResponseEntity<?> createAccount(
+    public GenericResponse<?> createAccount(
             @ApiParam(value = "账号信息", required = true) @Validated @RequestBody CreateAccountCommand createAccountCommand) {
         return success(service.createAccount(createAccountCommand));
     }
 
     @ApiOperation(value = "分配角色")
     @PutMapping("/{userId}/assignRoles")
-    public ResponseEntity<?> assignRoles(
+    public GenericResponse<?> assignRoles(
             @ApiParam(value = "用户Id", required = true) @PathVariable Long userId,
             @ApiParam(value = "分配角色", required = true) @RequestBody AssignRolesCommand command) {
         service.assignRoles(userId, command);
@@ -77,7 +77,7 @@ public class UserController {
 
     @ApiOperation(value = "分配组织")
     @PutMapping("/{userId}/assignOrganization")
-    public ResponseEntity<?> assignOrganizations(
+    public GenericResponse<?> assignOrganizations(
             @ApiParam(value = "用户Id", required = true) @PathVariable Long userId,
             @ApiParam(value = "分配组织", required = true) @RequestBody AssignOrganizationsCommand command) {
         service.assignOrganization(userId, command);
@@ -87,7 +87,7 @@ public class UserController {
 
     @ApiOperation(value = "禁用用户")
     @PutMapping("/{userId}/disable")
-    public ResponseEntity<?> disableUser(
+    public GenericResponse<?> disableUser(
             @ApiParam(value = "用户Id", required = true) @PathVariable Long userId) {
         service.disable(userId);
 
@@ -96,7 +96,7 @@ public class UserController {
 
     @ApiOperation(value = "启用用户")
     @PutMapping("/{userId}/enable")
-    public ResponseEntity<?> enableUser(
+    public GenericResponse<?> enableUser(
             @ApiParam(value = "用户Id", required = true) @PathVariable Long userId) {
         service.enable(userId);
 
@@ -105,7 +105,7 @@ public class UserController {
 
     @ApiOperation(value = "重置密码")
     @PutMapping("/{userId}/resetPassword")
-    public ResponseEntity<?> resetPassword(
+    public GenericResponse<?> resetPassword(
             @ApiParam(value = "用户Id", required = true) @PathVariable Long userId) {
         service.resetPassword(userId);
 

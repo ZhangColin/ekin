@@ -1,8 +1,7 @@
 package com.ekin.system.role;
 
-import com.cartisan.constant.CodeMessage;
 import com.cartisan.dto.PageResult;
-import com.cartisan.exception.CartisanException;
+import com.cartisan.response.GenericResponse;
 import com.ekin.system.role.request.AssignMenusCommand;
 import com.ekin.system.role.request.AssignResourcesCommand;
 import com.ekin.system.role.request.RoleParam;
@@ -15,7 +14,6 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +38,7 @@ public class RoleController {
 
     @ApiOperation(value = "搜索角色")
     @GetMapping("/search")
-    public ResponseEntity<PageResult<RoleDetailDto>> searchRoles(
+    public GenericResponse<PageResult<RoleDetailDto>> searchRoles(
             @ApiParam(value = "查询参数") RoleQuery roleQuery,
             @PageableDefault Pageable pageable) {
         return success(service.searchRoles(roleQuery, pageable));
@@ -48,26 +46,26 @@ public class RoleController {
 
     @ApiOperation(value = "获取所有启用的角色")
     @GetMapping
-    public ResponseEntity<List<RoleDto>> getAllEnableRoles(){
+    public GenericResponse<List<RoleDto>> getAllEnableRoles(){
         return success(service.getAllEnableRoles());
     }
 
     @ApiOperation(value = "获取角色")
     @GetMapping("/{id}")
-    public ResponseEntity<RoleDetailDto> getRole(@ApiParam(value = "角色Id", required = true) @PathVariable Long id){
+    public GenericResponse<RoleDetailDto> getRole(@ApiParam(value = "角色Id", required = true) @PathVariable Long id){
         return success(service.getRole(id));
     }
 
     @ApiOperation(value = "添加角色")
     @PostMapping
-    public ResponseEntity<RoleDetailDto> addRole(
+    public GenericResponse<RoleDetailDto> addRole(
             @ApiParam(value = "角色信息", required = true) @Validated @RequestBody RoleParam roleParam) {
         return success(service.addRole(roleParam));
     }
 
     @ApiOperation(value = "编辑角色")
     @PutMapping("/{id}")
-    public ResponseEntity<RoleDetailDto> editRole(
+    public GenericResponse<RoleDetailDto> editRole(
             @ApiParam(value = "角色Id", required = true) @PathVariable Long id,
             @ApiParam(value = "角色信息", required = true) @Validated @RequestBody RoleParam roleParam) {
         return success(service.editRole(id, roleParam));
@@ -75,7 +73,7 @@ public class RoleController {
 
     @ApiOperation(value = "删除角色")
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> removeRole(
+    public GenericResponse<?> removeRole(
             @ApiParam(value = "角色Id", required = true) @PathVariable long id) {
         service.removeRole(id);
         return success();
@@ -83,7 +81,7 @@ public class RoleController {
 
     @ApiOperation(value = "分配菜单")
     @PutMapping("/{id}/menus")
-    public ResponseEntity<?> assignMenus(
+    public GenericResponse<?> assignMenus(
             @ApiParam(value = "角色Id", required = true) @PathVariable Long id,
             @ApiParam(value = "菜单Ids", required = true) @Validated @RequestBody AssignMenusCommand command) {
         service.assignMenus(id, command.getMenuIds());
@@ -92,7 +90,7 @@ public class RoleController {
 
     @ApiOperation(value = "分配资源")
     @PutMapping("/{id}/resources")
-    public ResponseEntity<?> assignResources(
+    public GenericResponse<?> assignResources(
             @ApiParam(value = "角色Id", required = true) @PathVariable Long id,
             @ApiParam(value = "资源Ids", required = true) @Validated @RequestBody AssignResourcesCommand command) {
         service.assignResources(id, command.getResourceIds());
@@ -101,7 +99,7 @@ public class RoleController {
 
     @ApiOperation(value = "启用角色")
     @PutMapping("/{id}/enable")
-    public ResponseEntity<?> enable(
+    public GenericResponse<?> enable(
             @ApiParam(value = "角色Id", required = true) @PathVariable Long id) {
         service.enable(id);
         return success();
@@ -109,7 +107,7 @@ public class RoleController {
 
     @ApiOperation(value = "禁用角色")
     @PutMapping("/{id}/disable")
-    public ResponseEntity<?> disable(
+    public GenericResponse<?> disable(
             @ApiParam(value = "角色Id", required = true) @PathVariable Long id) {
         service.disable(id);
         return success();

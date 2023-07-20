@@ -1,10 +1,10 @@
 package com.ekin.system.menu;
 
+import com.cartisan.response.GenericResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,20 +29,20 @@ public class MenuController {
 
     @ApiOperation(value = "获取所有菜单")
     @GetMapping
-    public ResponseEntity<List<MenuDto>> getMenuTreeList() {
+    public GenericResponse<List<MenuDto>> getMenuTreeList() {
         return success(service.getMenuTreeList());
     }
 
     @ApiOperation(value = "添加菜单")
     @PostMapping
-    public ResponseEntity<MenuDto> addMenu(
+    public GenericResponse<MenuDto> addMenu(
             @ApiParam(value = "菜单信息", required = true) @Validated @RequestBody MenuParam menuParam) {
         return success(service.addMenu(menuParam));
     }
 
     @ApiOperation(value = "编辑菜单")
     @PutMapping("/{id}")
-    public ResponseEntity<MenuDto> editMenu(
+    public GenericResponse<MenuDto> editMenu(
             @ApiParam(value = "菜单Id", required = true) @PathVariable Long id,
             @ApiParam(value = "菜单信息", required = true) @Validated @RequestBody MenuParam menuParam) {
         return success(service.editMenu(id, menuParam));
@@ -50,7 +50,7 @@ public class MenuController {
 
     @ApiOperation(value = "删除菜单")
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> removeMenu(
+    public GenericResponse<?> removeMenu(
             @ApiParam(value = "菜单Id", required = true) @PathVariable long id) {
         service.removeMenu(id);
         return success();

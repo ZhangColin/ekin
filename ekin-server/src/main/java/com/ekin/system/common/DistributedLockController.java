@@ -1,10 +1,10 @@
 package com.ekin.system.common;
 
+import com.cartisan.response.GenericResponse;
 import com.cartisan.util.RedisDistributedLock;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +34,7 @@ public class DistributedLockController {
     }
 
     @GetMapping("/lockDemo")
-    public ResponseEntity<?> lockDemo() {
+    public GenericResponse<?> lockDemo() {
         final ArrayList<String> users = new ArrayList<>(100000);
         final ArrayList<String> shopUsers = new ArrayList<>(10);
 

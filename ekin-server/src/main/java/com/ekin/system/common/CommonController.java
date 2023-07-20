@@ -1,12 +1,10 @@
 package com.ekin.system.common;
 
+import com.cartisan.response.GenericResponse;
 import com.cartisan.util.SnowflakeIdWorker;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-//import org.flywaydb.core.Flyway;
-//import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,7 +33,7 @@ public class CommonController {
     private SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/");
 
     @PostMapping("/import")
-    public ResponseEntity<String> importData(MultipartFile file, HttpServletRequest request) throws IOException {
+    public GenericResponse<String> importData(MultipartFile file, HttpServletRequest request) throws IOException {
         String format = sdf.format(new Date());
         String realPath = request.getServletContext().getRealPath("/upload") + format;
 
@@ -65,7 +63,7 @@ private final SnowflakeIdWorker snowflakeIdWorker;
 
     @ApiOperation(value = "Id生成")
     @GetMapping("/idGenerate")
-    public ResponseEntity<?> idGenerate(@RequestParam(value = "count", defaultValue = "10") Integer count) {
+    public GenericResponse<?> idGenerate(@RequestParam(value = "count", defaultValue = "10") Integer count) {
         return success(Stream.generate(snowflakeIdWorker::nextId).limit(count).collect(toList()));
     }
 
@@ -74,7 +72,7 @@ private final SnowflakeIdWorker snowflakeIdWorker;
 //
 //    @ApiOperation(value = "数据库重置")
 //    @GetMapping("/dbReset")
-//    public ResponseEntity<?> dbReset() {
+//    public GenericResponse<?> dbReset() {
 //        flyway.clean();
 //        flyway.migrate();
 //        return success();

@@ -1,5 +1,6 @@
 package com.ekin.system.uploadfile.controller;
 
+import com.cartisan.response.GenericResponse;
 import com.ekin.system.uploadfile.application.FileStorageService;
 import com.ekin.system.uploadfile.domain.UploadFile;
 import org.springframework.core.io.Resource;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.cartisan.response.ResponseUtil.success;
+import static com.cartisan.response.ResponseUtil.successWithMessage;
 
 /**
  * @author colin
@@ -26,13 +28,13 @@ public class FileUploadController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file) {
+    public GenericResponse upload(@RequestParam("file") MultipartFile file) {
         fileStorageService.save(file);
-        return success("Upload file successfully: " + file.getOriginalFilename());
+        return successWithMessage("Upload file successfully: " + file.getOriginalFilename());
     }
 
     @GetMapping("files")
-    public ResponseEntity<List<UploadFile>> files() {
+    public GenericResponse<List<UploadFile>> files() {
         return success(fileStorageService.load()
                 .map(path -> {
                     final String fileName = path.getFileName().toString();
