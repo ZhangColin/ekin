@@ -1,4 +1,4 @@
-package com.ekin.system.user.application;
+package com.ekin.security.application;
 
 import com.ekin.security.DynamicSecurityService;
 import org.springframework.security.access.ConfigAttribute;

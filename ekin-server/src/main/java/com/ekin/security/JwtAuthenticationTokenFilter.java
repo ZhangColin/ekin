@@ -1,5 +1,6 @@
 package com.ekin.security;
 
+import com.ekin.security.config.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.redis.core.HashOperations;

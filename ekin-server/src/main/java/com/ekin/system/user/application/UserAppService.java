@@ -38,7 +38,6 @@ public class UserAppService {
     private final RegisterService registerService;
     private final AssignService assignService;
     private final ChangePasswordService changePasswordService;
-    private final LoginService loginService;
     private final UserRepository repository;
     private final UserConverter userConverter = UserConverter.CONVERTER;
     private final UserDetailConverter userDetailConverter = UserDetailConverter.CONVERTER;
@@ -46,12 +45,10 @@ public class UserAppService {
     public UserAppService(RegisterService registerService,
                           AssignService assignService,
                           ChangePasswordService changePasswordService,
-                          LoginService loginService,
                           UserRepository repository) {
         this.registerService = registerService;
         this.assignService = assignService;
         this.changePasswordService = changePasswordService;
-        this.loginService = loginService;
         this.repository = repository;
     }
 
@@ -130,7 +127,7 @@ public class UserAppService {
 
         changePasswordService.resetPassword(user);
 
-        loginService.logoutByUsername(user.getUsername());
+//        loginService.logoutByUsername(user.getUsername());
 
         repository.save(user);
     }

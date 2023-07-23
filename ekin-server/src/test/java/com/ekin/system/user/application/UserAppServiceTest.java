@@ -29,9 +29,8 @@ public class UserAppServiceTest {
         registerService = mock(RegisterService.class);
         assignService = mock(AssignService.class);
         changePasswordService = mock(ChangePasswordService.class);
-        loginService = mock(LoginService.class);
         repository = mock(UserRepository.class);
-        userAppService = new UserAppService(registerService, assignService, changePasswordService, loginService, repository);
+        userAppService = new UserAppService(registerService, assignService, changePasswordService, repository);
 
         user = userOf();
     }

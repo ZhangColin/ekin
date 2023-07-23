@@ -1,9 +1,10 @@
-package com.ekin.system.user.application;
+package com.ekin.security.application;
 
 import com.cartisan.util.AesUtil;
 import com.ekin.security.CurrentUser;
 import com.ekin.security.LoginService;
 import com.ekin.system.user.UserRepository;
+import com.ekin.system.user.domain.User;
 import com.ekin.system.user.mapper.UserQueryMapper;
 import com.ekin.system.user.request.LoginCommand;
 import org.springframework.stereotype.Service;
@@ -33,10 +34,19 @@ public class LoginAppService{
     public Map<String, Object> login(LoginCommand loginCommand) {
         final String token = loginService.login(loginCommand.getUsername(), AesUtil.aesDecode(loginCommand.getPassword()));
 
-        HashMap<String, Object> data = new HashMap<>();
-        data.put("token", token);
+        HashMap<String, Object> userInfo = new HashMap<>();
 
-        return data;
+        User user = requirePresent(userRepository.findById(currentUser.getUserId()));
+
+        userInfo.put("token", token);
+        userInfo.put("refresh_token", "");
+        userInfo.put("avatar", user.getAvatar());
+        userInfo.put("username", user.getUsername());
+        userInfo.put("nickname", user.getRealName());
+        userInfo.put("id", user.getId());
+        userInfo.put("super", user.getUsername().equals("admin"));
+
+        return userInfo;
     }
 
     public void logout() {

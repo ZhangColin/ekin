@@ -51,7 +51,7 @@ cartisan:
         - /webjars/springfox-swagger-ui/**
         - /actuator/**
         - /druid/**
-        - /system/login
+        - /login
         - /interface-ui/**
         - /api/**
 #        - /admin/register

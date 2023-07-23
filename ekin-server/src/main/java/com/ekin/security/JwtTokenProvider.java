@@ -1,5 +1,6 @@
 package com.ekin.security;
 
+import com.ekin.security.config.SecurityProperties;
 import com.google.common.base.Strings;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;

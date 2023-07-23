@@ -1,6 +1,7 @@
 package com.ekin.security;
 
 
+import com.ekin.security.config.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -86,6 +87,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             registry.and()
                     .addFilterBefore(dynamicSecurityFilter, FilterSecurityInterceptor.class);
         }
+
+        http.logout().disable();
     }
 
     @Override

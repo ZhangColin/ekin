@@ -1,4 +1,4 @@
-package com.ekin.system.user.application;
+package com.ekin.security.application;
 
 import com.cartisan.constant.CodeMessage;
 import com.cartisan.exception.CartisanException;

@@ -1,5 +1,5 @@
 ### 超级管理员登录
-POST http://{{host}}:{{port}}/system/login
+POST http://{{host}}:{{port}}/login
 Accept: application/json
 Content-Type: application/json;charset=UTF-8
 
@@ -10,7 +10,7 @@ Content-Type: application/json;charset=UTF-8
 > {% client.global.set("auth_token", "Bearer " + response.body.data.token); %}
 
 ### 普通用户登录
-POST http://{{host}}:{{port}}/system/login
+POST http://{{host}}:{{port}}/login
 Accept: application/json
 Content-Type: application/json;charset=UTF-8
 
@@ -18,16 +18,16 @@ Content-Type: application/json;charset=UTF-8
   "username": "colin.zhang",
   "password": "8tK2r6Rrfsg9IKTpYqtMug=="
 }
-> {% client.global.set("auth_token", "Bearer " + response.body.token); %}
+> {% client.global.set("auth_token", "Bearer " + response.body.data.userInfo.token); %}
 
 ### 退出
-POST http://{{host}}:{{port}}/system/logout
+POST http://{{host}}:{{port}}/logout
 Accept: application/json
 Content-Type: application/json;charset=UTF-8
 Authorization: {{auth_token}}
 
 ### 用户信息
-GET http://{{host}}:{{port}}/system/user/info
+GET http://{{host}}:{{port}}/user/info
 Accept: application/json
 Content-Type: application/json;charset=UTF-8
 Authorization: {{auth_token}}

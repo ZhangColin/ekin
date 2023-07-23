@@ -1,5 +1,6 @@
-package com.ekin.security;
+package com.ekin.security.config;
 
+import com.ekin.security.IgnoreUrlsProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
