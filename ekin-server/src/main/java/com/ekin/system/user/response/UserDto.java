@@ -1,6 +1,6 @@
 package com.ekin.system.user.response;
 
-import com.ekin.system.user.domain.Gender;
+import com.cartisan.dp.OnOffStatus;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -21,12 +21,15 @@ public class UserDto {
     @ApiModelProperty(value = "邮箱")
     private String email;
 
-    @ApiModelProperty(value = "真实姓名")
-    private String realName;
+    @ApiModelProperty(value = "昵称")
+    private String nickname;
 
-    @ApiModelProperty(value = "性别")
-    private Gender gender;
+    @ApiModelProperty(value = "头像")
+    private String avatar;
+
+    @ApiModelProperty(value = "签名")
+    private String motto;
 
     @ApiModelProperty(value = "状态")
-    private Integer status;
+    private OnOffStatus status;
 }

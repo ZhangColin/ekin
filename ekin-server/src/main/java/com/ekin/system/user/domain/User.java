@@ -1,7 +1,9 @@
 package com.ekin.system.user.domain;
 
+import com.cartisan.converter.OnOffStatusConverter;
 import com.cartisan.domain.AggregateRoot;
 import com.cartisan.domain.SoftDeleteEntity;
+import com.cartisan.dp.OnOffStatus;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,35 +31,30 @@ public class User extends SoftDeleteEntity implements AggregateRoot {
     @Id
     @Column(name = "id")
     private Long id;
-
     @Column(name = "username")
     private String username;
     @Column(name = "phone")
     private String phone;
     @Column(name = "email")
     private String email;
-    @Column(name = "real_name")
-    private String realName;
+    @Column(name = "nickname")
+    private String nickname;
     @Column(name = "password")
     private String password;
-
     @Column(name = "avatar")
     @Setter
     private String avatar;
-
-    @Column(name = "birthday")
-    private LocalDate birthday;
-    @Column(name = "gender")
-    @Convert(converter = Gender.Converter.class)
-    private Gender gender;
-
+    @Column(name = "motto")
+    @Setter
+    private String motto;
     @Column(name = "status")
-    private Integer status;
+    @Convert(converter = OnOffStatusConverter.class)
+    private OnOffStatus status;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @Fetch(FetchMode.SUBSELECT)
-    @JoinColumn(name = "user_id")
-    private List<UserOrganization> organizations = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+//    @Fetch(FetchMode.SUBSELECT)
+//    @JoinColumn(name = "user_id")
+//    private List<UserOrganization> organizations = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @Fetch(FetchMode.SUBSELECT)
@@ -68,24 +65,18 @@ public class User extends SoftDeleteEntity implements AggregateRoot {
 
     }
 
-    public User(Long id, String username, String phone, String email, String password, String realName) {
+    public User(Long id, String username, String phone, String email, String password, String nickname) {
         this.id = id;
 
         this.username = username;
         this.phone = Optional.ofNullable(phone).orElse("");
         this.email = Optional.ofNullable(email).orElse("");
         this.password = password;
-        this.realName = realName;
+        this.nickname = nickname;
 
         this.avatar = "";
-        this.birthday = null;
-        this.gender = Gender.UNKNOWN;
-        this.status = 1;
-    }
-
-    public void profile(LocalDate birthday, Gender gender) {
-        this.birthday = birthday;
-        this.gender = gender;
+        this.motto = "";
+        this.status = OnOffStatus.Enabled;
     }
 
     public void assignRoles(List<Long> roleIds) {
@@ -97,21 +88,21 @@ public class User extends SoftDeleteEntity implements AggregateRoot {
         roleIds.forEach(roleId -> this.roles.add(new UserRole(roleId)));
     }
 
-    public void assignOrganizations(List<Long> organizationIds) {
-        this.organizations.removeAll(this.organizations.stream()
-                .filter(userOrganization -> !organizationIds.contains(userOrganization.getOrganizationId()))
-                .collect(toList()));
-
-        organizationIds.removeAll(this.organizations.stream().map(UserOrganization::getOrganizationId).collect(toList()));
-        organizationIds.forEach(organizationId -> this.organizations.add(new UserOrganization(organizationId)));
-    }
+//    public void assignOrganizations(List<Long> organizationIds) {
+//        this.organizations.removeAll(this.organizations.stream()
+//                .filter(userOrganization -> !organizationIds.contains(userOrganization.getOrganizationId()))
+//                .collect(toList()));
+//
+//        organizationIds.removeAll(this.organizations.stream().map(UserOrganization::getOrganizationId).collect(toList()));
+//        organizationIds.forEach(organizationId -> this.organizations.add(new UserOrganization(organizationId)));
+//    }
 
     public void disable() {
-        this.status = 2;
+        this.status = OnOffStatus.Disabled;
     }
 
     public void enable() {
-        this.status = 1;
+        this.status = OnOffStatus.Enabled;
     }
 
     public void changePassword(String password) {

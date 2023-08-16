@@ -26,13 +26,13 @@ public class RegisterService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User register(String username, String phone, String email, String realName) {
+    public User register(String username, String phone, String email, String nickName) {
         if (Strings.isNullOrEmpty(username) && Strings.isNullOrEmpty(phone) && Strings.isNullOrEmpty(email)) {
             throw new CartisanException(CodeMessage.VALIDATE_ERROR.fillArgs("账号、手机、邮箱至少提供一个。"));
         }
 
         username = ensureUsername(username, phone, email);
-        realName = ensureRealName(realName, username);
+        nickName = ensureNickname(nickName, username);
 
         if (userRepository.existsByUsername(username)) {
             throw new CartisanException(CodeMessage.VALIDATE_ERROR.fillArgs("账号已被占用。"));
@@ -48,7 +48,7 @@ public class RegisterService {
 
         final String encodePassword = passwordEncoder.encode(defaultPasswordProvider.generate());
 
-        return new User(idWorker.nextId(), username, phone, email, encodePassword, realName);
+        return new User(idWorker.nextId(), username, phone, email, encodePassword, nickName);
     }
 
     private String ensureUsername(String username, String phone, String email) {
@@ -61,9 +61,9 @@ public class RegisterService {
         return email;
     }
 
-    private String ensureRealName(String realName, String username) {
-        if (!Strings.isNullOrEmpty(realName)) {
-            return realName;
+    private String ensureNickname(String nickname, String username) {
+        if (!Strings.isNullOrEmpty(nickname)) {
+            return nickname;
         }
         return username;
     }

@@ -1,7 +1,7 @@
 package com.ekin.system.user.application;
 
+import com.cartisan.dp.OnOffStatus;
 import com.cartisan.dto.PageResult;
-import com.ekin.security.LoginService;
 import com.ekin.system.user.UserRepository;
 import com.ekin.system.user.domain.AssignService;
 import com.ekin.system.user.domain.ChangePasswordService;
@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 import static com.cartisan.repository.ConditionSpecifications.querySpecification;
 import static com.cartisan.util.AssertionUtil.requirePresent;
@@ -61,7 +60,7 @@ public class UserAppService {
 
     public List<UserDto> findAllNormalUsers() {
         final UserQuery userQuery = new UserQuery();
-        userQuery.setStatus(1);
+        userQuery.setStatus(OnOffStatus.Enabled);
 
         return userConverter.convert(repository.findAll(querySpecification(userQuery)));
     }
@@ -70,15 +69,10 @@ public class UserAppService {
         return userDetailConverter.convert(requirePresent(repository.findById(id)));
     }
 
-    public Optional<UserDto> getUserByRealName(String realName) {
-        return repository.findByRealName(realName).map(userConverter::convert);
-    }
-
-
     @Transactional(rollbackOn = Exception.class)
     public UserDetailDto createAccount(CreateAccountCommand command) {
         final User user = registerService.register(
-                command.getUsername(), command.getPhone(), command.getEmail(), command.getRealName());
+                command.getUsername(), command.getPhone(), command.getEmail(), command.getNickname());
 
         assignService.assignRoles(user, command.getRoleIds());
         assignService.assignOrganization(user, command.getOrganizationIds());

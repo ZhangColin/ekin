@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -78,8 +79,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     private boolean validateOnlineUser(String userName){
         if(hashOperations.hasKey("onlineUsers", userName)){
-//            final long timeValue = (long) hashOperations.get("onlineUsers", userName);
-            final long timeValue = Long.parseLong(hashOperations.get("onlineUsers", userName).toString());
+            final long timeValue = Long.parseLong(Objects.requireNonNull(hashOperations.get("onlineUsers", userName)).toString());
             if (Instant.ofEpochMilli(timeValue).plus(120, ChronoUnit.MINUTES).isBefore(Instant.now())) {
                 hashOperations.delete("onlineUsers", userName);
                 return false;

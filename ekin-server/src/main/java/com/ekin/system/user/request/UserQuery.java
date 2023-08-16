@@ -1,7 +1,7 @@
 package com.ekin.system.user.request;
 
+import com.cartisan.dp.OnOffStatus;
 import com.cartisan.repository.Condition;
-import com.ekin.system.user.domain.Gender;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -11,8 +11,8 @@ import org.hibernate.validator.constraints.Length;
  */
 @Data
 public class UserQuery {
-    @ApiModelProperty(value = "账号", required = true)
-    @Length(min = 2, max = 32, message = "账号必须在 2 至 32 之间")
+    @ApiModelProperty(value = "用户名", required = true)
+    @Length(min = 2, max = 32, message = "用户名必须在 2 至 32 之间")
     @Condition(propName = "username", type = Condition.Type.INNER_LIKE)
     private String username;
 
@@ -26,11 +26,7 @@ public class UserQuery {
     @Condition(type = Condition.Type.INNER_LIKE)
     private String email;
 
-    @ApiModelProperty(value = "性别")
-    @Condition(propName = "gender", type = Condition.Type.EQUAL)
-    private Gender gender;
-
     @ApiModelProperty(value = "状态")
     @Condition(propName = "status", type = Condition.Type.EQUAL)
-    private Integer status;
+    private OnOffStatus status;
 }

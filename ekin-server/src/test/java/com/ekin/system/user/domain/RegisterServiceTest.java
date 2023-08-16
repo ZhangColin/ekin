@@ -17,7 +17,7 @@ public class RegisterServiceTest {
     public static final String USERNAME = "colin";
     public static final String PHONE = "13962830605";
     public static final String EMAIL = "stwyhm@126.com";
-    public static final String REALNAME = "colin";
+    public static final String NICKNAME = "colin";
 
     private UserRepository userRepository;
     private SnowflakeIdWorker idWorker;
@@ -49,7 +49,7 @@ public class RegisterServiceTest {
         when(userRepository.existsByEmail(anyString())).thenReturn(false);
 
         // then
-        assertThatThrownBy(() -> registerService.register(USERNAME, PHONE, EMAIL, REALNAME))
+        assertThatThrownBy(() -> registerService.register(USERNAME, PHONE, EMAIL, NICKNAME))
                 .isInstanceOf(CartisanException.class)
                 .hasMessage("账号已被占用。");
     }
@@ -62,7 +62,7 @@ public class RegisterServiceTest {
         when(userRepository.existsByEmail(anyString())).thenReturn(false);
 
         // then
-        assertThatThrownBy(() -> registerService.register(USERNAME, PHONE, EMAIL, REALNAME))
+        assertThatThrownBy(() -> registerService.register(USERNAME, PHONE, EMAIL, NICKNAME))
                 .isInstanceOf(CartisanException.class)
                 .hasMessage("手机号已被占用。");
     }
@@ -75,7 +75,7 @@ public class RegisterServiceTest {
         when(userRepository.existsByEmail(anyString())).thenReturn(true);
 
         // then
-        assertThatThrownBy(() -> registerService.register(USERNAME, PHONE, EMAIL, REALNAME))
+        assertThatThrownBy(() -> registerService.register(USERNAME, PHONE, EMAIL, NICKNAME))
                 .isInstanceOf(CartisanException.class)
                 .hasMessage("邮箱已被占用。");
     }
@@ -86,13 +86,13 @@ public class RegisterServiceTest {
         when(userRepository.existsByUsername(anyString())).thenReturn(false);
 
         // when
-        final User user1 = registerService.register(USERNAME, null, null, REALNAME);
+        final User user1 = registerService.register(USERNAME, null, null, NICKNAME);
 
         // then
         verify(userRepository, never()).existsByPhone(anyString());
         verify(userRepository, never()).existsByEmail(anyString());
 
-        final User user2 = registerService.register(USERNAME, "", "", REALNAME);
+        final User user2 = registerService.register(USERNAME, "", "", NICKNAME);
 
         // then
         verify(userRepository, never()).existsByPhone(anyString());
@@ -110,9 +110,9 @@ public class RegisterServiceTest {
         when(passwordEncoder.encode(anyString())).thenReturn("123456");
 
         // when
-        final User user1 = registerService.register(USERNAME, PHONE, EMAIL, REALNAME);
-        final User user2 = registerService.register(USERNAME, null, null, REALNAME);
-        final User user3 = registerService.register(USERNAME, "", "", REALNAME);
+        final User user1 = registerService.register(USERNAME, PHONE, EMAIL, NICKNAME);
+        final User user2 = registerService.register(USERNAME, null, null, NICKNAME);
+        final User user3 = registerService.register(USERNAME, "", "", NICKNAME);
 
         // then
         assertThat(user1).isNotNull();
@@ -122,7 +122,7 @@ public class RegisterServiceTest {
         assertThat(user1.getPhone()).isEqualTo(PHONE);
         assertThat(user1.getEmail()).isEqualTo(EMAIL);
         assertThat(user1.getPassword()).isEqualTo("123456");
-        assertThat(user1.getRealName()).isEqualTo(REALNAME);
+        assertThat(user1.getNickname()).isEqualTo(NICKNAME);
 
         assertThat(user2).isNotNull();
         assertThat(user2.getPhone()).isEqualTo("");
@@ -141,8 +141,8 @@ public class RegisterServiceTest {
         when(userRepository.existsByEmail(anyString())).thenReturn(false);
 
         // when
-        final User user1 = registerService.register(null, PHONE, EMAIL, REALNAME);
-        final User user2 = registerService.register(null, null, EMAIL, REALNAME);
+        final User user1 = registerService.register(null, PHONE, EMAIL, NICKNAME);
+        final User user2 = registerService.register(null, null, EMAIL, NICKNAME);
 
         // then
         assertThat(user1.getUsername()).isEqualTo(PHONE);

@@ -8,7 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.cartisan.response.ResponseUtil.success;
 
@@ -28,9 +30,26 @@ public class MenuController {
     }
 
     @ApiOperation(value = "获取所有菜单")
-    @GetMapping
+    @GetMapping("/search")
     public GenericResponse<List<MenuDto>> getMenuTreeList() {
         return success(service.getMenuTreeList());
+    }
+
+    @ApiOperation(value = "获取所有菜单")
+    @GetMapping("/options")
+    public GenericResponse<Map<String, Object>> getMenuOptions() {
+        List<MenuDto> menuTreeList = service.getMenuOptions();
+        Map<String, Object> r = new HashMap<>();
+        r.put("options", menuTreeList);
+
+        return success(r);
+    }
+
+    @ApiOperation(value = "获取菜单")
+    @GetMapping("/{id}")
+    public GenericResponse<MenuDto> getMenu(
+            @ApiParam(value = "菜单Id", required = true) @PathVariable Long id) {
+        return success(service.getMenu(id));
     }
 
     @ApiOperation(value = "添加菜单")

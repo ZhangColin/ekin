@@ -1,9 +1,12 @@
 package com.ekin.system.menu;
 
+import com.cartisan.converter.OnOffStatusConverter;
 import com.cartisan.domain.AbstractEntity;
 import com.cartisan.domain.AggregateRoot;
+import com.cartisan.dp.OnOffStatus;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -11,8 +14,9 @@ import javax.persistence.*;
  * @author colin
  */
 @Entity
-@Table(name = "sys_menus")
+@Table(name = "sys_menu_rules")
 @Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 public class Menu extends AbstractEntity implements AggregateRoot {
     @Id
@@ -23,44 +27,43 @@ public class Menu extends AbstractEntity implements AggregateRoot {
     @Column(name = "parent_id")
     private Long parentId;
 
+    @Column(name = "type")
+    private String type;
+
     @Column(name = "title")
     private String title;
 
     @Column(name = "name")
     private String name;
 
+    @Column(name = "path")
+    private String path;
+
+    @Column(name = "component")
+    private String component;
+
     @Column(name = "icon")
     private String icon;
 
-    @Column(name = "hidden")
-    private Boolean hidden;
+    @Column(name = "menu_type")
+    private String menuType;
 
-    @Column(name = "level")
-    private Integer level;
+    @Column(name = "url")
+    private String url;
 
-    @Column(name = "sort")
-    private Integer sort;
+    @Column(name = "keepalive")
+    private OnOffStatus keepalive;
 
-    private Menu() {
-    }
+    @Column(name = "remark")
+    private String remark;
 
-    public Menu(Long parentId, String title, String name, String icon, Boolean hidden, Integer level, Integer sort) {
-        this.parentId = parentId;
-        this.title = title;
-        this.name = name;
-        this.icon = icon;
-        this.hidden = hidden;
-        this.level = level;
-        this.sort = sort;
-    }
+    @Column(name = "sequence")
+    private Integer sequence;
 
-    public void change(Long parentId, String title, String name, String icon, Boolean hidden, Integer level, Integer sort) {
-        this.parentId = parentId;
-        this.title = title;
-        this.name = name;
-        this.icon = icon;
-        this.hidden = hidden;
-        this.level = level;
-        this.sort = sort;
+    @Column(name = "status")
+    @Convert(converter = OnOffStatusConverter.class)
+    private OnOffStatus status;
+
+    protected Menu() {
     }
 }

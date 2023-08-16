@@ -21,7 +21,7 @@ public class UserRole {
     @Column(name = "role_id")
     private Long roleId;
 
-    private UserRole() {
+    protected UserRole() {
 
     }
 

@@ -42,7 +42,7 @@ public class LoginAppService{
         userInfo.put("refresh_token", "");
         userInfo.put("avatar", user.getAvatar());
         userInfo.put("username", user.getUsername());
-        userInfo.put("nickname", user.getRealName());
+        userInfo.put("nickname", user.getNickname());
         userInfo.put("id", user.getId());
         userInfo.put("super", user.getUsername().equals("admin"));
 

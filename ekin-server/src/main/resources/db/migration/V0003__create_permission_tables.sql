@@ -1,14 +1,13 @@
 -- 角色表
 CREATE TABLE `sys_roles` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '角色Id',
+  `parent_id` bigint NOT NULL DEFAULT 0 COMMENT '上级角色',
   `name` varchar(32) NOT NULL COMMENT '角色名称',
-  `status` tinyint NOT NULL DEFAULT 1 COMMENT '状态(0：禁用  1：启用 ）',
-  `sort` int NOT NULL DEFAULT 0 COMMENT '排序',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
+  `rules` text COMMENT '权限规则Ids',
+  `status` tinyint NOT NULL DEFAULT 1 COMMENT '状态[0:禁用, 1:启用]',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `index_role_sort`(`sort`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
 
 -- 用户角色关联表
@@ -20,65 +19,26 @@ CREATE TABLE `sys_user_roles` (
   INDEX `index_user_role_user_id_role_id`(`user_id`, `role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户角色关联表';
 
--- 菜单表
-CREATE TABLE `sys_menus` (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '菜单Id',
-  `parent_id` bigint NOT NULL DEFAULT 0 COMMENT '上级菜单',
-  `title` varchar(64) NOT NULL COMMENT '菜单名称',
-  `name` varchar(32) NOT NULL COMMENT '前端名称',
-  `icon` varchar(64) NOT NULL COMMENT '前端图标',
-  `hidden` bit(1) NOT NULL DEFAULT b'0' COMMENT '隐藏',
-  `level` int NOT NULL DEFAULT 0 COMMENT '菜单级数',
-  `sort` int NOT NULL DEFAULT 0 COMMENT '排序',
+-- 菜单权限规则表
+CREATE TABLE `sys_menu_rules` (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '菜单规则Id',
+  `parent_id` bigint NOT NULL DEFAULT 0 COMMENT '上级菜单规则Id',
+  `type` varchar(8) NOT NULL DEFAULT 'menu' COMMENT '类型[1:目录 menu_dir, 2:菜单项 menu, 3:操作 operate]',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '标题',
+  `name` varchar(32) NOT NULL DEFAULT '' COMMENT '规则名称',
+  `path` varchar(64) NULL COMMENT '路由路径',
+  `component` varchar(64) NULL COMMENT '组件路径',
+  `icon` varchar(64) NULL COMMENT '图标',
+  `menu_type` varchar(8) NULL COMMENT '菜单类型[1:选项卡 tab, 2:链接 link, 3:iframe iframe]',
+  `url` varchar(256) NULL COMMENT 'Url',
+  `keepalive` tinyint NULL COMMENT '缓存[0:关闭, 1:开启]',
+  `remark` nvarchar(256) NULL COMMENT '备注',
+  `sequence` int NOT NULL DEFAULT 0 COMMENT '排序',
+  `status` tinyint NOT NULL DEFAULT 1 COMMENT '状态[0:禁用, 1:启用]',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `index_menu_parent_id`(`parent_id`),
-  INDEX `index_menu_sort`(`sort`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='菜单表';
-
--- 角色菜单关联表
-CREATE TABLE `sys_role_menus` (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `role_id` bigint NULL COMMENT '角色Id',
-  `menu_id` bigint NULL COMMENT '权限Id',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `index_role_menu_role_id_menu_id`(`role_id`, `menu_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色菜单关联表';
-
--- 资源分类表
-CREATE TABLE `sys_resource_categories` (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '资源分类Id',
-  `name` varchar(32) NOT NULL COMMENT '资源分类名称',
-  `sort` int NOT NULL DEFAULT 0 COMMENT '排序',
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `index_menu_sort`(`sort`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='资源分类表';
-
--- 资源表
-CREATE TABLE `sys_resources` (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '资源Id',
-  `category_id` bigint NULL COMMENT '资源分类Id',
-  `name` varchar(32) NOT NULL COMMENT '资源名称',
-  `code` varchar(128) NOT NULL DEFAULT '' COMMENT '权限编码',
-  `url` varchar(128) NOT NULL DEFAULT '' COMMENT '资源Url',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
-  `sort` int NOT NULL DEFAULT 0 COMMENT '排序',
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `index_resource_sort`(`sort`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='资源表';
-
--- 角色资源关联表
-CREATE TABLE `sys_role_resources` (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `role_id` bigint NULL COMMENT '角色Id',
-  `resource_id` bigint NULL COMMENT '权限Id',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `index_role_resource_role_id_resource_id`(`role_id`, `resource_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色资源关联表';
-
+  INDEX `index_menu_rules_parent_id`(`parent_id`),
+  INDEX `index_menu_rules_sequence`(`sequence`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='菜单权限规则表';
 

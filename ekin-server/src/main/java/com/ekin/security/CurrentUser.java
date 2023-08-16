@@ -22,7 +22,7 @@ public class CurrentUser {
         return getCurrentUser().getUsername();
     }
 
-    public String getRealName() {
-        return getCurrentUser().getUser().getRealName();
+    public String getNickname() {
+        return getCurrentUser().getUser().getNickname();
     }
 }

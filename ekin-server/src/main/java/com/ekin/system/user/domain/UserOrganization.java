@@ -21,7 +21,7 @@ public class UserOrganization {
     @Column(name = "organization_id")
     private Long organizationId;
 
-    private UserOrganization() {
+    protected UserOrganization() {
     }
 
     public UserOrganization(Long organizationId) {

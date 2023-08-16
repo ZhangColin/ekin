@@ -1,7 +1,5 @@
 package com.ekin.system.user.domain;
 
-import com.ekin.system.organization.Organization;
-import com.ekin.system.organization.OrganizationRepository;
 import com.ekin.system.role.RoleRepository;
 import com.ekin.system.role.domain.Role;
 import org.springframework.stereotype.Service;
@@ -16,12 +14,10 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class AssignService {
     private final RoleRepository roleRepository;
-    private final OrganizationRepository organizationRepository;
+//    private final OrganizationRepository organizationRepository;
 
-    public AssignService(RoleRepository roleRepository,
-                         OrganizationRepository organizationRepository) {
+    public AssignService(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
-        this.organizationRepository = organizationRepository;
     }
 
     public void assignRoles(User user, List<Long> roleIds) {
@@ -38,8 +34,8 @@ public class AssignService {
         if (organizationIds == null) {
             return;
         }
-        List<Long> ensureOrganizationIds = organizationRepository.findAllById(organizationIds)
-                .stream().map(Organization::getId).collect(toList());
-        user.assignOrganizations(ensureOrganizationIds);
+//        List<Long> ensureOrganizationIds = organizationRepository.findAllById(organizationIds)
+//                .stream().map(Organization::getId).collect(toList());
+//        user.assignOrganizations(ensureOrganizationIds);
     }
 }
