@@ -1,4 +1,4 @@
-package com.ekin.system.menu;
+package com.ekin.system.menurule;
 
 import com.cartisan.converter.OnOffStatusConverter;
 import com.cartisan.domain.AbstractEntity;
@@ -18,7 +18,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class Menu extends AbstractEntity implements AggregateRoot {
+public class MenuRule extends AbstractEntity implements AggregateRoot {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,6 +64,6 @@ public class Menu extends AbstractEntity implements AggregateRoot {
     @Convert(converter = OnOffStatusConverter.class)
     private OnOffStatus status;
 
-    protected Menu() {
+    protected MenuRule() {
     }
 }

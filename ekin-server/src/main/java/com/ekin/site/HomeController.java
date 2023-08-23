@@ -2,7 +2,7 @@ package com.ekin.site;
 
 
 import com.cartisan.response.GenericResponse;
-import com.ekin.system.menu.MenuAppService;
+import com.ekin.system.menurule.MenuRuleAppService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
@@ -21,11 +21,11 @@ import static com.cartisan.response.ResponseUtil.success;
 @Slf4j
 public class HomeController {
 
-    private final MenuAppService menuAppService;
+    private final MenuRuleAppService menuRuleAppService;
     private ObjectMapper objectMapper;
 
-    public HomeController(MenuAppService menuAppService) {
-        this.menuAppService = menuAppService;
+    public HomeController(MenuRuleAppService menuRuleAppService) {
+        this.menuRuleAppService = menuRuleAppService;
     }
 
     @ApiOperation(value = "获取当前用户站点相关配置")
@@ -37,7 +37,7 @@ public class HomeController {
         siteConfig.put("siteName", "Cartisan");
         siteConfig.put("version", "1.0.0");
 
-        data.put("menus", menuAppService.getMenuTreeList());
+        data.put("menus", menuRuleAppService.getMenuRuleTreeList());
         data.put("siteConfig", siteConfig);
 
         return success(data);

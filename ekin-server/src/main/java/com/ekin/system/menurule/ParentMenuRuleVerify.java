@@ -1,4 +1,4 @@
-package com.ekin.system.menu;
+package com.ekin.system.menurule;
 
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;
@@ -14,19 +14,19 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = ParentMenuVerify.Validator.class)
-public @interface ParentMenuVerify {
+@Constraint(validatedBy = ParentMenuRuleVerify.Validator.class)
+public @interface ParentMenuRuleVerify {
     String message() default "指定的上级分类不正确";
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
 
-    class Validator implements ConstraintValidator<ParentMenuVerify, Long> {
+    class Validator implements ConstraintValidator<ParentMenuRuleVerify, Long> {
 
-        private final MenuRepository menuRepository;
+        private final MenuRuleRepository menuRuleRepository;
 
-        public Validator(MenuRepository menuRepository) {
-            this.menuRepository = menuRepository;
+        public Validator(MenuRuleRepository menuRuleRepository) {
+            this.menuRuleRepository = menuRuleRepository;
         }
 
         @Override
@@ -35,7 +35,7 @@ public @interface ParentMenuVerify {
                 return true;
             }
 
-            return menuRepository.existsById(value);
+            return menuRuleRepository.existsById(value);
         }
     }
 }

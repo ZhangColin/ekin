@@ -3,6 +3,7 @@ package com.ekin.security.application;
 import com.cartisan.util.AesUtil;
 import com.ekin.security.CurrentUser;
 import com.ekin.security.LoginService;
+import com.ekin.system.menurule.MenuRuleAppService;
 import com.ekin.system.user.UserRepository;
 import com.ekin.system.user.domain.User;
 import com.ekin.system.user.mapper.UserQueryMapper;
@@ -24,11 +25,14 @@ public class LoginAppService{
     private final UserQueryMapper userQueryMapper;
     private final UserRepository userRepository;
 
-    public LoginAppService(LoginService loginService, CurrentUser currentUser, UserQueryMapper userQueryMapper, UserRepository userRepository) {
+    private final MenuRuleAppService menuRuleAppService;
+
+    public LoginAppService(LoginService loginService, CurrentUser currentUser, UserQueryMapper userQueryMapper, UserRepository userRepository, MenuRuleAppService menuRuleAppService) {
         this.loginService = loginService;
         this.currentUser = currentUser;
         this.userQueryMapper = userQueryMapper;
         this.userRepository = userRepository;
+        this.menuRuleAppService = menuRuleAppService;
     }
 
     public Map<String, Object> login(LoginCommand loginCommand) {
@@ -57,7 +61,8 @@ public class LoginAppService{
         Map<String, Object> info = new HashMap<>();
         info.put("userId", currentUser.getUserId().toString());
         info.put("roles", userQueryMapper.getUserAuthorities(currentUser.getUserId()));
-        info.put("menus", userQueryMapper.getUserMenus(currentUser.getUserId()));
+//        info.put("menus", userQueryMapper.getUserMenus(currentUser.getUserId()));
+        info.put("menus", menuRuleAppService.getMenuRuleTreeList());
         info.put("avatar", requirePresent(userRepository.findById(currentUser.getUserId())).getAvatar());
 
         return info;

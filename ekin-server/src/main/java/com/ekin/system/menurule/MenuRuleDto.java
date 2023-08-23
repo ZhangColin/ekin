@@ -1,4 +1,4 @@
-package com.ekin.system.menu;
+package com.ekin.system.menurule;
 
 import com.cartisan.dp.OnOffStatus;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +10,7 @@ import com.google.common.collect.Multimap;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Setter;
-import org.springframework.context.annotation.Bean;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import static java.util.stream.Collectors.toList;
  * @author colin
  */
 @Data
-public class MenuDto {
+public class MenuRuleDto {
     @ApiModelProperty(value = "菜单Id")
     private String id;
 
@@ -69,48 +69,42 @@ public class MenuDto {
 
     @Setter
     @JsonProperty("children")
-    private List<MenuDto> childMenus;
+    private List<MenuRuleDto> childMenuRules;
 
-    public static List<MenuDto> buildMenuTreeList(List<MenuDto> menus) {
-        Multimap<String, MenuDto> menuMap = ArrayListMultimap.create();
-        menus.forEach(menu -> menuMap.put(menu.getParentId(), menu));
+    public static List<MenuRuleDto> buildMenuRuleTreeList(List<MenuRuleDto> menuRuleDtos) {
+        Multimap<String, MenuRuleDto> menuRuleDtoMultimap = getMenuRuleMap(menuRuleDtos);
 
-        List<String> menuIds = menus.stream().map(MenuDto::getId).collect(toList());
-        List<String> parentMenuIds = menus.stream().map(MenuDto::getParentId).distinct().collect(toList());
+        List<String> parentMenuRuleIds = getParentMenuRuleIds(menuRuleDtos);
 
-        parentMenuIds.removeAll(menuIds);
-
-        return parentMenuIds.stream().map(topMenuId -> buildMenuTreeList(topMenuId, menuMap)).flatMap(List::stream).collect(toList());
+        return parentMenuRuleIds.stream().map(topMenuRuleId ->
+                buildMenuRuleTreeList(topMenuRuleId, menuRuleDtoMultimap)).flatMap(List::stream).collect(toList());
     }
 
-    private static List<MenuDto> buildMenuTreeList(String parentId, Multimap<String, MenuDto> menuMap) {
-        return menuMap.get(parentId).stream()
-                .peek(menu -> {
-                    final List<MenuDto> childMenus = buildMenuTreeList(menu.getId(), menuMap);
-                    if (childMenus.size() > 0) {
-                        menu.setChildMenus(childMenus);
+    private static List<MenuRuleDto> buildMenuRuleTreeList(String parentId, Multimap<String, MenuRuleDto> menuRuleMap) {
+        return menuRuleMap.get(parentId).stream()
+                .peek(menuRuleDto -> {
+                    final List<MenuRuleDto> childMenuRules = buildMenuRuleTreeList(menuRuleDto.getId(), menuRuleMap);
+                    if (!childMenuRules.isEmpty()) {
+                        menuRuleDto.setChildMenuRules(childMenuRules);
                     }
                 })
                 .collect(toList());
     }
 
 
-    public static List<MenuDto> buildMenuOptions(List<MenuDto> menus) {
-        Multimap<String, MenuDto> menuMap = ArrayListMultimap.create();
-        menus.forEach(menu -> menuMap.put(menu.getParentId(), menu));
+    public static List<MenuRuleDto> buildMenuRuleOptions(List<MenuRuleDto> menuRuleDtos) {
+        Multimap<String, MenuRuleDto> menuRuleDtoMultimap = getMenuRuleMap(menuRuleDtos);
 
-        List<String> menuIds = menus.stream().map(MenuDto::getId).collect(toList());
-        List<String> parentMenuIds = menus.stream().map(MenuDto::getParentId).distinct().collect(toList());
+        List<String> parentMenuRuleIds = getParentMenuRuleIds(menuRuleDtos);
 
-        parentMenuIds.removeAll(menuIds);
-
-        return parentMenuIds.stream().map(topMenuId -> buildMenuOptions(topMenuId, 0, menuMap)).flatMap(List::stream).collect(toList());
+        return parentMenuRuleIds.stream().map(topMenuRuleId ->
+                buildMenuRuleOptions(topMenuRuleId, 0, menuRuleDtoMultimap)).flatMap(List::stream).collect(toList());
     }
 
-    private static List<MenuDto> buildMenuOptions(String parentId, int level, Multimap<String, MenuDto> menuMap) {
-        List<MenuDto> results = new ArrayList<>();
+    private static List<MenuRuleDto> buildMenuRuleOptions(String parentId, int level, Multimap<String, MenuRuleDto> menuRuleMap) {
+        List<MenuRuleDto> results = new ArrayList<>();
 
-        Collection<MenuDto> menus = menuMap.get(parentId);
+        Collection<MenuRuleDto> menus = menuRuleMap.get(parentId);
 
         StringBuilder tab = new StringBuilder();
         for (int i = 0; i < level * 2; i++) {
@@ -118,7 +112,7 @@ public class MenuDto {
         }
 
         int index = 0;
-        for (MenuDto menu : menus) {
+        for (MenuRuleDto menu : menus) {
             index++;
             if (level > 0) {
                 if (index < menus.size()) {
@@ -131,10 +125,26 @@ public class MenuDto {
 
             results.add(menu);
 
-            results.addAll(buildMenuOptions(menu.getId(), level+1, menuMap));
+            results.addAll(buildMenuRuleOptions(menu.getId(), level+1, menuRuleMap));
         }
 
         return results;
+    }
+
+    @NotNull
+    private static List<String> getParentMenuRuleIds(List<MenuRuleDto> menuRuleDtos) {
+        List<String> menuRuleIds = menuRuleDtos.stream().map(MenuRuleDto::getId).collect(toList());
+        List<String> parentMenuRuleIds = menuRuleDtos.stream().map(MenuRuleDto::getParentId).distinct().collect(toList());
+
+        parentMenuRuleIds.removeAll(menuRuleIds);
+        return parentMenuRuleIds;
+    }
+
+    @NotNull
+    private static Multimap<String, MenuRuleDto> getMenuRuleMap(List<MenuRuleDto> menuRuleDtos) {
+        Multimap<String, MenuRuleDto> menuRuleMap = ArrayListMultimap.create();
+        menuRuleDtos.forEach(menuRule -> menuRuleMap.put(menuRule.getParentId(), menuRule));
+        return menuRuleMap;
     }
 
     protected static class ParentIdSerializer extends com.fasterxml.jackson.databind.JsonSerializer<String>{

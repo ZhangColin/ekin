@@ -23,7 +23,7 @@ CREATE TABLE `sys_user_roles` (
 CREATE TABLE `sys_menu_rules` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '菜单规则Id',
   `parent_id` bigint NOT NULL DEFAULT 0 COMMENT '上级菜单规则Id',
-  `type` varchar(8) NOT NULL DEFAULT 'menu' COMMENT '类型[1:目录 menu_dir, 2:菜单项 menu, 3:操作 operate]',
+  `type` varchar(8) NOT NULL DEFAULT 'menuRule' COMMENT '类型[1:目录 menu_dir, 2:菜单项 menuRule, 3:操作 operate]',
   `title` varchar(64) NOT NULL DEFAULT '' COMMENT '标题',
   `name` varchar(32) NOT NULL DEFAULT '' COMMENT '规则名称',
   `path` varchar(64) NULL COMMENT '路由路径',

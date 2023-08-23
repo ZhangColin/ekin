@@ -1,4 +1,4 @@
-package com.ekin.system.menu;
+package com.ekin.system.menurule;
 
 import com.cartisan.dp.OnOffStatus;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
  * @author colin
  */
 @Data
-public class MenuParam {
+public class MenuRuleParam {
     @ApiModelProperty(value = "上级菜单规则")
     private Long parentId;
 

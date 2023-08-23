@@ -1,7 +1,7 @@
 package com.ekin.system.user.mapper;
 
 
-import com.ekin.system.menu.MenuDto;
+import com.ekin.system.menurule.MenuRuleDto;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,5 +12,5 @@ import java.util.List;
 public interface UserQueryMapper {
     List<String> getUserAuthorities(@Param(value="userId") Long userId);
 
-    List<MenuDto> getUserMenus(@Param(value="userId") Long userId);
+//    List<MenuRuleDto> getUserMenus(@Param(value="userId") Long userId);
 }

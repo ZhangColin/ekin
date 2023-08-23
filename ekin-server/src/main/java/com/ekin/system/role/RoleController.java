@@ -1,17 +1,12 @@
 package com.ekin.system.role;
 
-import com.cartisan.dto.PageResult;
 import com.cartisan.response.GenericResponse;
-import com.ekin.system.menu.MenuDto;
 import com.ekin.system.role.request.RoleParam;
-import com.ekin.system.role.request.RoleQuery;
 import com.ekin.system.role.response.RoleDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
