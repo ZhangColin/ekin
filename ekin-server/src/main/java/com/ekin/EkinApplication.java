@@ -18,9 +18,9 @@ import javax.annotation.PreDestroy;
 public class EkinApplication {
     public static void main(String[] args) {
         /* 在指定的目录下生成应用pid，执行下面的命令关闭应用 :
-            'cat /Users/colin/app.pid | xargs kill' */
+            'cat /Users/zhangcolin/app.pid | xargs kill' */
 //        SpringApplication application = new SpringApplication(EkinApplication.class);
-//        application.addListeners(new ApplicationPidFileWriter("/Users/colin/ekin.pid"));
+//        application.addListeners(new ApplicationPidFileWriter("/Users/zhangcolin/ekin.pid"));
 //        application.run(args);
 
         SpringApplication.run(EkinApplication.class, args);

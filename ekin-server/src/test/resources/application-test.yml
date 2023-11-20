@@ -35,7 +35,7 @@ spring:
 
 logging:
   file:
-    path: /Users/colin/logs/ekin
+    path: /Users/zhangcolin/logs/ekin
     name: ekin
   level:
     com.ekin: debug

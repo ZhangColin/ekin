@@ -41,5 +41,5 @@ spring:
 logging:
   file:
     #path: /var/log/ekin/
-    path: /Users/colin/logs/ekin
+    path: /Users/zhangcolin/logs/ekin
     name: ekin
